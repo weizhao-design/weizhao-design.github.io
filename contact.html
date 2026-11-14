@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-Hans-CN" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,37 +7,40 @@
 <meta name="description" content="Contact Wei Zhao">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=1794608875">
+<link rel="stylesheet" href="assets/site.css?v=1794615642">
 <script>
 (function(){var d=document.documentElement,l='zh',th='dark';
 try{var q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='zh')localStorage.setItem('wz-lang',q);l=q||localStorage.getItem('wz-lang')||'zh';th=localStorage.getItem('wz-theme')||'dark';}catch(e){}
-if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme',th);})();
+if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme',th);
+try{if(!sessionStorage.getItem('wz-loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('is-loading');}catch(e){}})();
 </script>
 </head>
 <body>
+<div class="loader" aria-hidden="true"><span>0</span></div>
+<div class="cursor" aria-hidden="true"><span class="c-label">SEE MORE&nbsp;&nbsp;→</span></div>
 <header class="site-header g4">
-  <a class="brand" href="index.html"><span class="l-zh" lang="zh-CN">赵薇</span><span class="l-en" lang="en">Wei Zhao</span></a>
-  <a href="index.html#work"><span class="l-zh" lang="zh-CN">作品</span><span class="l-en" lang="en">Work</span></a>
-  <a href="info.html"><span class="l-zh" lang="zh-CN">关于我</span><span class="l-en" lang="en">About</span></a>
+  <a class="brand" href="index.html"><span class="l-zh" lang="zh-Hans-CN">赵薇</span><span class="l-en" lang="en">Wei Zhao</span></a>
+  <a href="index.html#work"><span class="l-zh" lang="zh-Hans-CN">作品</span><span class="l-en" lang="en">Work</span></a>
+  <a href="info.html"><span class="l-zh" lang="zh-Hans-CN">关于我</span><span class="l-en" lang="en">About</span></a>
   <div class="h-last">
-    <a href="contact.html" aria-current="page"><span class="l-zh" lang="zh-CN">联系方式</span><span class="l-en" lang="en">Contact</span></a>
+    <a href="contact.html" aria-current="page"><span class="l-zh" lang="zh-Hans-CN">联系方式</span><span class="l-en" lang="en">Contact</span></a>
     <div class="toggles">
       <button class="lang-toggle" type="button" aria-label="Switch language"><span data-v="zh">中</span><span data-v="en">EN</span></button>
-      <button class="theme-toggle" type="button" aria-label="Switch theme"><span data-v="light"><span class="l-zh" lang="zh-CN">浅</span><span class="l-en" lang="en">Light</span></span><span data-v="dark"><span class="l-zh" lang="zh-CN">深</span><span class="l-en" lang="en">Dark</span></span></button>
+      <button class="theme-toggle" type="button" aria-label="Switch theme"><span data-v="light"><span class="l-zh" lang="zh-Hans-CN">浅</span><span class="l-en" lang="en">Light</span></span><span data-v="dark"><span class="l-zh" lang="zh-Hans-CN">深</span><span class="l-en" lang="en">Dark</span></span></button>
     </div>
   </div>
 </header>
 <main class="contact">
-  <div class="i-row"><div><span class="l-zh" lang="zh-CN">邮箱</span><span class="l-en" lang="en">Email</span></div><div><a class="u" href="mailto:z55669928@163.com">z55669928@163.com</a></div><div></div></div>
-  <div class="i-row"><div><span class="l-zh" lang="zh-CN">求职意向</span><span class="l-en" lang="en">Looking for</span></div><div><span class="l-zh" lang="zh-CN">2027 届 · 交互设计 / 产品设计 / AI 体验设计</span><span class="l-en" lang="en">Interaction / product / AI experience design roles · graduating Nov 2026</span></div><div></div></div>
-  <div class="i-row"><div><span class="l-zh" lang="zh-CN">所在地</span><span class="l-en" lang="en">Based in</span></div><div><span class="l-zh" lang="zh-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div><div></div></div>
+  <div class="i-row"><div><span class="l-zh" lang="zh-Hans-CN">邮箱</span><span class="l-en" lang="en">Email</span></div><div><a class="u" href="mailto:z55669928@163.com">z55669928@163.com</a></div><div></div></div>
+  <div class="i-row"><div><span class="l-zh" lang="zh-Hans-CN">求职意向</span><span class="l-en" lang="en">Looking for</span></div><div><span class="l-zh" lang="zh-Hans-CN">2027 届 · 交互设计 / 产品设计 / AI 体验设计</span><span class="l-en" lang="en">Interaction / product / AI experience design roles · graduating Nov 2026</span></div><div></div></div>
+  <div class="i-row"><div><span class="l-zh" lang="zh-Hans-CN">所在地</span><span class="l-en" lang="en">Based in</span></div><div><span class="l-zh" lang="zh-Hans-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div><div></div></div>
 </main>
 <footer class="site-footer">
   <div class="g4 f-top">
     <div>WEI ZHAO / 赵薇</div>
-    <div><span class="l-zh" lang="zh-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span></div>
+    <div><span class="l-zh" lang="zh-Hans-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span></div>
     <div><a href="mailto:z55669928@163.com">z55669928@163.com</a></div>
-    <div class="r"><span class="l-zh" lang="zh-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div>
+    <div class="r"><span class="l-zh" lang="zh-Hans-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div>
   </div>
   <div class="g4 f-bottom">
     <div class="dim">© 2026 WEI ZHAO</div>
@@ -45,6 +48,6 @@ if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme'
     <div class="dim r">DESIGN &amp; BUILT BY WEI ZHAO</div>
   </div>
 </footer>
-<script src="assets/site.js?v=1794608875"></script>
+<script src="assets/site.js?v=1794615642"></script>
 </body>
 </html>

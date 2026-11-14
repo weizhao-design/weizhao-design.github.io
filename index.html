@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-Hans-CN" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,148 +7,152 @@
 <meta name="description" content="Wei Zhao — interaction designer portfolio">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/cousine-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=1794608875">
+<link rel="stylesheet" href="assets/site.css?v=1794615642">
 <script>
 (function(){var d=document.documentElement,l='zh',th='dark';
 try{var q=new URLSearchParams(location.search).get('lang');if(q==='en'||q==='zh')localStorage.setItem('wz-lang',q);l=q||localStorage.getItem('wz-lang')||'zh';th=localStorage.getItem('wz-theme')||'dark';}catch(e){}
-if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme',th);})();
+if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme',th);
+try{if(!sessionStorage.getItem('wz-loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('is-loading');}catch(e){}})();
 </script>
 </head>
 <body>
+<div class="loader" aria-hidden="true"><span>0</span></div>
+<div class="cursor" aria-hidden="true"><span class="c-label">SEE MORE&nbsp;&nbsp;→</span></div>
 <header class="site-header g4">
-  <a class="brand" href="index.html"><span class="l-zh" lang="zh-CN">赵薇</span><span class="l-en" lang="en">Wei Zhao</span></a>
-  <a href="index.html#work" aria-current="page"><span class="l-zh" lang="zh-CN">作品</span><span class="l-en" lang="en">Work</span></a>
-  <a href="info.html"><span class="l-zh" lang="zh-CN">关于我</span><span class="l-en" lang="en">About</span></a>
+  <a class="brand" href="index.html"><span class="l-zh" lang="zh-Hans-CN">赵薇</span><span class="l-en" lang="en">Wei Zhao</span></a>
+  <a href="index.html#work" aria-current="page"><span class="l-zh" lang="zh-Hans-CN">作品</span><span class="l-en" lang="en">Work</span></a>
+  <a href="info.html"><span class="l-zh" lang="zh-Hans-CN">关于我</span><span class="l-en" lang="en">About</span></a>
   <div class="h-last">
-    <a href="contact.html"><span class="l-zh" lang="zh-CN">联系方式</span><span class="l-en" lang="en">Contact</span></a>
+    <a href="contact.html"><span class="l-zh" lang="zh-Hans-CN">联系方式</span><span class="l-en" lang="en">Contact</span></a>
     <div class="toggles">
       <button class="lang-toggle" type="button" aria-label="Switch language"><span data-v="zh">中</span><span data-v="en">EN</span></button>
-      <button class="theme-toggle" type="button" aria-label="Switch theme"><span data-v="light"><span class="l-zh" lang="zh-CN">浅</span><span class="l-en" lang="en">Light</span></span><span data-v="dark"><span class="l-zh" lang="zh-CN">深</span><span class="l-en" lang="en">Dark</span></span></button>
+      <button class="theme-toggle" type="button" aria-label="Switch theme"><span data-v="light"><span class="l-zh" lang="zh-Hans-CN">浅</span><span class="l-en" lang="en">Light</span></span><span data-v="dark"><span class="l-zh" lang="zh-Hans-CN">深</span><span class="l-en" lang="en">Dark</span></span></button>
     </div>
   </div>
 </header>
 <main id="work" class="home">
-  <p class="tagline"><span class="l-zh" lang="zh-CN">交互设计师 / AI 体验设计</span><span class="l-en" lang="en">Interaction Designer / AI Experience</span></p>
+  <p class="tagline"><span class="l-zh" lang="zh-Hans-CN">交互设计师 / AI 体验设计</span><span class="l-en" lang="en">Interaction Designer / AI Experience</span></p>
   <div class="panel">
     <div class="opts">
-      <button type="button" class="opt is-on" data-view="grid"><span class="l-zh" lang="zh-CN">网格</span><span class="l-en" lang="en">Grid</span></button>
-      <button type="button" class="opt" data-view="list"><span class="l-zh" lang="zh-CN">列表</span><span class="l-en" lang="en">List</span></button>
+      <button type="button" class="opt is-on" data-view="grid"><span class="l-zh" lang="zh-Hans-CN">网格</span><span class="l-en" lang="en">Grid</span></button>
+      <button type="button" class="opt" data-view="list"><span class="l-zh" lang="zh-Hans-CN">列表</span><span class="l-en" lang="en">List</span></button>
     </div>
-    <div class="opts"><button type="button" class="opt is-on" data-filter="all"><span class="l-zh" lang="zh-CN">全部</span><span class="l-en" lang="en">All</span></button><button type="button" class="opt" data-filter="ai"><span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span></button><button type="button" class="opt" data-filter="ixd"><span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span></button><button type="button" class="opt" data-filter="game"><span class="l-zh" lang="zh-CN">游戏 UX</span><span class="l-en" lang="en">Game UX</span></button><button type="button" class="opt" data-filter="service"><span class="l-zh" lang="zh-CN">服务设计</span><span class="l-en" lang="en">Service design</span></button><button type="button" class="opt" data-filter="iot"><span class="l-zh" lang="zh-CN">IOT</span><span class="l-en" lang="en">IoT</span></button><button type="button" class="opt" data-filter="future"><span class="l-zh" lang="zh-CN">未来概念设计</span><span class="l-en" lang="en">Speculative design</span></button></div>
+    <div class="opts"><button type="button" class="opt is-on" data-filter="all"><span class="l-zh" lang="zh-Hans-CN">全部</span><span class="l-en" lang="en">All</span></button><button type="button" class="opt" data-filter="ai"><span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span></button><button type="button" class="opt" data-filter="ixd"><span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span></button><button type="button" class="opt" data-filter="game"><span class="l-zh" lang="zh-Hans-CN">游戏 UX</span><span class="l-en" lang="en">Game UX</span></button><button type="button" class="opt" data-filter="service"><span class="l-zh" lang="zh-Hans-CN">服务设计</span><span class="l-en" lang="en">Service design</span></button><button type="button" class="opt" data-filter="iot"><span class="l-zh" lang="zh-Hans-CN">IOT</span><span class="l-en" lang="en">IoT</span></button><button type="button" class="opt" data-filter="future"><span class="l-zh" lang="zh-Hans-CN">未来概念设计</span><span class="l-en" lang="en">Speculative design</span></button></div>
   </div>
   <div class="grid" data-view="grid">
 <a class="card" href="works/wisehalo.html" data-tags="ai ixd iot">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/wisehalo/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
+  <div class="card-media"><img src="images/wisehalo/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
   <div class="card-meta">
-    <span>1</span>
-    <span><span class="l-zh" lang="zh-CN">WiseHalo｜AI 防诈骗风险提示系统</span><span class="l-en" lang="en">WiseHalo — Making Hidden Scam Systems Visible</span></span>
-    <span><span class="l-zh" lang="zh-CN">AI + IOT 硕士毕业设计项目</span><span class="l-en" lang="en">AI + IoT MA thesis project</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span>] [<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">IOT</span><span class="l-en" lang="en">IoT</span>] [<span class="l-zh" lang="zh-CN">PHYSICAL COMPUTING</span><span class="l-en" lang="en">Physical computing</span>] [<span class="l-zh" lang="zh-CN">适老化</span><span class="l-en" lang="en">Age-inclusive</span>]</span>
+    <span class="idx">1</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">WiseHalo｜AI 防诈骗风险提示系统</span><span class="l-en" lang="en">WiseHalo — Making Hidden Scam Systems Visible</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI + IOT 硕士毕业设计项目</span><span class="l-en" lang="en">AI + IoT MA thesis project</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">IOT</span><span class="l-en" lang="en">IoT</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">适老化</span><span class="l-en" lang="en">Age-inclusive</span>]</span></span>
     <span>11.2026</span>
   </div>
 </a>
 <a class="card" href="works/ai-companion-toy.html" data-tags="ai iot ixd">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/ai-companion-toy/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
+  <div class="card-media"><img src="images/ai-companion-toy/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
   <div class="card-meta">
-    <span>2</span>
-    <span><span class="l-zh" lang="zh-CN">AI 陪伴玩具｜心形实体 AI 角色</span><span class="l-en" lang="en">AI-Powered Companion Toy</span></span>
-    <span><span class="l-zh" lang="zh-CN">AI 硬件陪伴项目</span><span class="l-en" lang="en">AI hardware companion project</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span>] [<span class="l-zh" lang="zh-CN">LLM</span><span class="l-en" lang="en">LLM</span>] [<span class="l-zh" lang="zh-CN">PHYSICAL COMPUTING</span><span class="l-en" lang="en">Physical computing</span>] [<span class="l-zh" lang="zh-CN">IOT</span><span class="l-en" lang="en">IoT</span>]</span>
+    <span class="idx">2</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI 陪伴玩具｜心形实体 AI 角色</span><span class="l-en" lang="en">AI-Powered Companion Toy</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI 硬件陪伴项目</span><span class="l-en" lang="en">AI hardware companion project</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">LLM</span><span class="l-en" lang="en">LLM</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">PHYSICAL COMPUTING</span><span class="l-en" lang="en">Physical computing</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">IOT</span><span class="l-en" lang="en">IoT</span>]</span></span>
     <span>08.2026</span>
   </div>
 </a>
 <a class="card" href="works/soilux.html" data-tags="iot ixd ai">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/soilux/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
+  <div class="card-media"><img src="images/soilux/cover.webp?v=1794607418" width="900" height="1050" alt="" loading="eager"></div>
   <div class="card-meta">
-    <span>3</span>
-    <span><span class="l-zh" lang="zh-CN">SOILUX｜环境感知植物交互系统</span><span class="l-en" lang="en">SOILUX — Ambient Plant Care System</span></span>
-    <span><span class="l-zh" lang="zh-CN">AIOT 交互体验项目</span><span class="l-en" lang="en">AIoT interaction project</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">IOT</span><span class="l-en" lang="en">IoT</span>] [<span class="l-zh" lang="zh-CN">PHYSICAL COMPUTING</span><span class="l-en" lang="en">Physical computing</span>] [<span class="l-zh" lang="zh-CN">未来体验</span><span class="l-en" lang="en">Future experience</span>]</span>
+    <span class="idx">3</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">SOILUX｜环境感知植物交互系统</span><span class="l-en" lang="en">SOILUX — Ambient Plant Care System</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AIOT 交互体验项目</span><span class="l-en" lang="en">AIoT interaction project</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">IOT</span><span class="l-en" lang="en">IoT</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">PHYSICAL COMPUTING</span><span class="l-en" lang="en">Physical computing</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">未来体验</span><span class="l-en" lang="en">Future experience</span>]</span></span>
     <span>05.2026</span>
   </div>
 </a>
 <a class="card" href="works/petsignals.html" data-tags="ai ixd">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/petsignals/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="eager"></div>
+  <div class="card-media"><img src="images/petsignals/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="eager"></div>
   <div class="card-meta">
-    <span>4</span>
-    <span><span class="l-zh" lang="zh-CN">PETSIGNALS｜AI 宠物身体信号分析助手</span><span class="l-en" lang="en">PETSIGNALS — Translating Pet Body Language</span></span>
-    <span><span class="l-zh" lang="zh-CN">AI 产品 MVP 项目</span><span class="l-en" lang="en">AI product MVP</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span>] [<span class="l-zh" lang="zh-CN">LLM</span><span class="l-en" lang="en">LLM</span>] [<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">数据库</span><span class="l-en" lang="en">Database</span>] [<span class="l-zh" lang="zh-CN">MVP</span><span class="l-en" lang="en">MVP</span>]</span>
+    <span class="idx">4</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">PETSIGNALS｜AI 宠物身体信号分析助手</span><span class="l-en" lang="en">PETSIGNALS — Translating Pet Body Language</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI 产品 MVP 项目</span><span class="l-en" lang="en">AI product MVP</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">LLM</span><span class="l-en" lang="en">LLM</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">数据库</span><span class="l-en" lang="en">Database</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">MVP</span><span class="l-en" lang="en">MVP</span>]</span></span>
     <span>03.2026</span>
   </div>
 </a>
 <a class="card" href="works/iply.html" data-tags="ixd game service">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/iply/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
+  <div class="card-media"><img src="images/iply/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>5</span>
-    <span><span class="l-zh" lang="zh-CN">IPLY｜IP 共创与授权平台</span><span class="l-en" lang="en">IPLY — IP Co-creation &amp; Licensing Platform</span></span>
-    <span><span class="l-zh" lang="zh-CN">平台产品策略项目</span><span class="l-en" lang="en">Platform product strategy</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">产品策略</span><span class="l-en" lang="en">Product strategy</span>] [<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">IP 生态</span><span class="l-en" lang="en">IP ecosystem</span>] [<span class="l-zh" lang="zh-CN">粉丝社区</span><span class="l-en" lang="en">Fandom</span>]</span>
+    <span class="idx">5</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">IPLY｜IP 共创与授权平台</span><span class="l-en" lang="en">IPLY — IP Co-creation &amp; Licensing Platform</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">平台产品策略项目</span><span class="l-en" lang="en">Platform product strategy</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">产品策略</span><span class="l-en" lang="en">Product strategy</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">IP 生态</span><span class="l-en" lang="en">IP ecosystem</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">粉丝社区</span><span class="l-en" lang="en">Fandom</span>]</span></span>
     <span>05.2026</span>
   </div>
 </a>
 <a class="card" href="works/bloom-near-you.html" data-tags="ixd service ai">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/bloom-near-you/cover.webp?v=1794607492" width="900" height="1050" alt="" loading="lazy"></div>
+  <div class="card-media"><img src="images/bloom-near-you/cover.webp?v=1794607492" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>6</span>
-    <span><span class="l-zh" lang="zh-CN">BLOOM NEAR YOU｜AI 鲜花识别与本地花店服务平台</span><span class="l-en" lang="en">BLOOM NEAR YOU — AI Flower ID &amp; Local Florist Platform</span></span>
-    <span><span class="l-zh" lang="zh-CN">AI 本地生活服务设计项目</span><span class="l-en" lang="en">AI local-life service design</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span>] [<span class="l-zh" lang="zh-CN">服务设计</span><span class="l-en" lang="en">Service design</span>]</span>
+    <span class="idx">6</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">BLOOM NEAR YOU｜AI 鲜花识别与本地花店服务平台</span><span class="l-en" lang="en">BLOOM NEAR YOU — AI Flower ID &amp; Local Florist Platform</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI 本地生活服务设计项目</span><span class="l-en" lang="en">AI local-life service design</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">服务设计</span><span class="l-en" lang="en">Service design</span>]</span></span>
     <span>03.2026</span>
   </div>
 </a>
 <a class="card" href="works/closetify.html" data-tags="ai ixd">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/closetify/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
+  <div class="card-media"><img src="images/closetify/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>7</span>
-    <span><span class="l-zh" lang="zh-CN">CLOSETIFY｜AI 个性化穿搭助手</span><span class="l-en" lang="en">CLOSETIFY — AI Outfit Assistant</span></span>
-    <span><span class="l-zh" lang="zh-CN">AI 产品 MVP 项目</span><span class="l-en" lang="en">AI product MVP</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">AI</span><span class="l-en" lang="en">AI</span>] [<span class="l-zh" lang="zh-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>] [<span class="l-zh" lang="zh-CN">MVP</span><span class="l-en" lang="en">MVP</span>]</span>
+    <span class="idx">7</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">CLOSETIFY｜AI 个性化穿搭助手</span><span class="l-en" lang="en">CLOSETIFY — AI Outfit Assistant</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">AI 产品 MVP 项目</span><span class="l-en" lang="en">AI product MVP</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI</span><span class="l-en" lang="en">AI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">交互设计</span><span class="l-en" lang="en">Interaction design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">MVP</span><span class="l-en" lang="en">MVP</span>]</span></span>
     <span>11.2025</span>
   </div>
 </a>
 <a class="card" href="works/mood-candy.html" data-tags="future">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/mood-candy/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
+  <div class="card-media"><img src="images/mood-candy/cover.webp?v=1794607419" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>8</span>
-    <span><span class="l-zh" lang="zh-CN">MOOD CANDY｜脑机接口时代的情绪补给系统</span><span class="l-en" lang="en">MOOD CANDY — Emotion Supplement System</span></span>
-    <span><span class="l-zh" lang="zh-CN">未来概念设计项目</span><span class="l-en" lang="en">Speculative design project</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">未来概念设计</span><span class="l-en" lang="en">Speculative design</span>] [<span class="l-zh" lang="zh-CN">BCI</span><span class="l-en" lang="en">BCI</span>] [<span class="l-zh" lang="zh-CN">AI 影像</span><span class="l-en" lang="en">AI film</span>]</span>
+    <span class="idx">8</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">MOOD CANDY｜脑机接口时代的情绪补给系统</span><span class="l-en" lang="en">MOOD CANDY — Emotion Supplement System</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">未来概念设计项目</span><span class="l-en" lang="en">Speculative design project</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">未来概念设计</span><span class="l-en" lang="en">Speculative design</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">BCI</span><span class="l-en" lang="en">BCI</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">AI 影像</span><span class="l-en" lang="en">AI film</span>]</span></span>
     <span>05.2026</span>
   </div>
 </a>
-<a class="card" href="works/2-puzzle.html" data-tags="game">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/2-puzzle/cover.webp?v=1794607420" width="900" height="1050" alt="" loading="lazy"></div>
+<a class="card is-more" href="works/2-puzzle.html" data-tags="game">
+  <div class="card-media"><img src="images/2-puzzle/cover.webp?v=1794607420" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>9</span>
-    <span><span class="l-zh" lang="zh-CN">2 PUZZLE｜动物主题拼图游戏</span><span class="l-en" lang="en">2 PUZZLE — Animal Puzzle Game</span></span>
-    <span><span class="l-zh" lang="zh-CN">叙事拼图交互体验</span><span class="l-en" lang="en">Puzzle game experience</span></span>
-    <span>[<span class="l-zh" lang="zh-CN">游戏 UX</span><span class="l-en" lang="en">Game UX</span>] [<span class="l-zh" lang="zh-CN">UNITY</span><span class="l-en" lang="en">Unity</span>] [<span class="l-zh" lang="zh-CN">C#</span><span class="l-en" lang="en">C#</span>]</span>
+    <span class="idx">9</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">2 PUZZLE｜动物主题拼图游戏</span><span class="l-en" lang="en">2 PUZZLE — Animal Puzzle Game</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">叙事拼图交互体验</span><span class="l-en" lang="en">Puzzle game experience</span></span>
+    <span class="tags"><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">游戏 UX</span><span class="l-en" lang="en">Game UX</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">UNITY</span><span class="l-en" lang="en">Unity</span>]</span><span class="tag">[<span class="l-zh" lang="zh-Hans-CN">C#</span><span class="l-en" lang="en">C#</span>]</span></span>
     <span>11.2025</span>
   </div>
 </a>
-<a class="card" href="works/visual-archive.html" data-tags="">
-  <div class="card-media"><span class="see-more"><span class="l-zh" lang="zh-CN">查看项目 →</span><span class="l-en" lang="en">See more →</span></span><img src="images/visual-archive/cover.webp?v=1794607420" width="900" height="1050" alt="" loading="lazy"></div>
+<a class="card is-more" href="works/visual-archive.html" data-tags="">
+  <div class="card-media"><img src="images/visual-archive/cover.webp?v=1794607420" width="900" height="1050" alt="" loading="lazy"></div>
   <div class="card-meta">
-    <span>10</span>
-    <span><span class="l-zh" lang="zh-CN">VISUAL ARCHIVE｜视觉设计探索合集</span><span class="l-en" lang="en">VISUAL ARCHIVE — Visual Design Work</span></span>
-    <span><span class="l-zh" lang="zh-CN">视觉设计探索项目</span><span class="l-en" lang="en">Visual design exploration</span></span>
-    <span></span>
+    <span class="idx">10</span>
+    <span><span class="l-zh" lang="zh-Hans-CN">VISUAL ARCHIVE｜视觉设计探索合集</span><span class="l-en" lang="en">VISUAL ARCHIVE — Visual Design Work</span></span>
+    <span><span class="l-zh" lang="zh-Hans-CN">视觉设计探索项目</span><span class="l-en" lang="en">Visual design exploration</span></span>
+    <span class="tags"></span>
     <span>2019–2023</span>
   </div>
 </a>
   </div>
+  <button type="button" class="load-more"><span class="l-zh" lang="zh-Hans-CN">加载更多</span><span class="l-en" lang="en">Load more</span></button>
   <section class="g4 about-row">
-    <div><span class="l-zh" lang="zh-CN">关于</span><span class="l-en" lang="en">About</span></div>
-    <div class="span2"><span class="l-zh" lang="zh-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span><br><br><a class="u" href="info.html"><span class="l-zh" lang="zh-CN">了解更多 →</span><span class="l-en" lang="en">Learn more →</span></a></div>
+    <div><span class="l-zh" lang="zh-Hans-CN">关于</span><span class="l-en" lang="en">About</span></div>
+    <div><p><span class="l-zh" lang="zh-Hans-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span></p><a class="u" href="info.html"><span class="l-zh" lang="zh-Hans-CN">了解更多</span><span class="l-en" lang="en">Learn more</span></a></div>
   </section>
 </main>
 <footer class="site-footer">
   <div class="g4 f-top">
     <div>WEI ZHAO / 赵薇</div>
-    <div><span class="l-zh" lang="zh-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span></div>
+    <div><span class="l-zh" lang="zh-Hans-CN">交互设计师，关注 AI 体验、数字产品、PHYSICAL COMPUTING 与未来导向设计，探索技术如何更自然地融入日常生活。</span><span class="l-en" lang="en">Interaction designer focused on AI experiences, digital products, physical computing and future-oriented design — exploring how technology can fit more naturally into everyday life.</span></div>
     <div><a href="mailto:z55669928@163.com">z55669928@163.com</a></div>
-    <div class="r"><span class="l-zh" lang="zh-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div>
+    <div class="r"><span class="l-zh" lang="zh-Hans-CN">萨凡纳 / 中国</span><span class="l-en" lang="en">Savannah / China</span></div>
   </div>
   <div class="g4 f-bottom">
     <div class="dim">© 2026 WEI ZHAO</div>
@@ -156,6 +160,6 @@ if(l==='en'){d.classList.add('lang-en');d.lang='en';}d.setAttribute('data-theme'
     <div class="dim r">DESIGN &amp; BUILT BY WEI ZHAO</div>
   </div>
 </footer>
-<script src="assets/site.js?v=1794608875"></script>
+<script src="assets/site.js?v=1794615642"></script>
 </body>
 </html>
