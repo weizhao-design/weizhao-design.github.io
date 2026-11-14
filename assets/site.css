@@ -360,6 +360,35 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
   .f-bottom { row-gap: 4px; margin-top: 30px; }
 }
 
+/* ---------- WiseHalo stage (stage.art = "halo") ----------
+   Same structure as the companion stage (label + callouts), in WiseHalo's own colours:
+   navy + the icon's blue → cyan halo, with the three reminder-light colours on the ring.
+   Follows the site's light / dark switch. */
+.fig.embed.stage.st-halo { --st-a: #f6f8fd; --st-b: #dce5f4; --st-glow: rgba(28, 91, 255, .16); --st-line: rgba(28, 91, 255, .32); --st-echo: rgba(28, 91, 255, .18);
+  align-items: center; padding: 64px 0 18px; }
+:root[data-theme="dark"] .fig.embed.stage.st-halo, :root:not([data-theme]) .fig.embed.stage.st-halo {
+  --st-a: #12275a; --st-b: #060c1f; --st-glow: rgba(18, 220, 246, .16); --st-line: rgba(79, 139, 255, .5); --st-echo: rgba(130, 165, 255, .2); }
+.fig.embed.stage.st-halo { background:   /* restated here: .fig.embed.phone (later in the file) sets transparent */
+  radial-gradient(40% 44% at 50% 46%, var(--st-glow), transparent 70%),
+  radial-gradient(120% 90% at 50% 30%, var(--st-a), var(--st-b)); }
+.st-halo .stage-bg { height: auto; bottom: 40px; }
+.stage-halo { position: absolute; left: 50%; top: 50%; width: min(1000px, 96%); height: 100%; transform: translate(-50%, -50%); overflow: visible; }
+.stage-halo path { fill: none; stroke-linecap: round; }
+.stage-halo .ring { stroke: url(#st-halo-g); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.stage-halo .echo { stroke: var(--st-echo); stroke-width: 1px; vector-effect: non-scaling-stroke; stroke-dasharray: 2 7; }
+.stage-halo .echo.e2 { stroke-dasharray: none; opacity: .65; }
+.stage-halo .glow { stroke: url(#st-halo-g); stroke-width: 26; opacity: .22; filter: url(#st-halo-blur); }
+.stage-halo .led.low { fill: #e2a008; animation: st-breathe 2.4s ease-in-out infinite; }
+.stage-halo .led.mid { fill: #e8661c; animation: st-breathe .9s ease-in-out infinite; }
+.stage-halo .led.high { fill: #d42a1e; animation: st-flash .5s steps(1) infinite; }
+@keyframes st-breathe { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
+@keyframes st-flash { 0% { opacity: 1; } 50% { opacity: .2; } }
+@media (prefers-reduced-motion: reduce) { .stage-halo .led { animation: none; } }
+.fig.embed.stage.st-halo iframe { filter: drop-shadow(0 28px 44px rgba(0, 0, 0, .38)); }
+:root[data-theme="light"] .fig.embed.stage.st-halo iframe { filter: drop-shadow(0 26px 40px rgba(15, 28, 63, .2)); }
+.fig.embed.stage.st-halo iframe { width: min(calc(100% - 40px), 430px); }   /* leave the backdrop visible on phones */
+@media (max-width: 809px) { .fig.embed.stage.st-halo { padding-top: 48px; } }
+
 /* ================================================================ AI Companion Toy page
    Its own type for the case-study content only (section heads, boards, demo labels):
    Fraunces + Noto Serif SC for headlines, Noto Sans SC for reading text, loaded only on

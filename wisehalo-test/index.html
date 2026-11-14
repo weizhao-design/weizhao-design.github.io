@@ -21,7 +21,7 @@
   --outer:#DDE2EA; --ring-glow:.35;
 }
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not(.t-light){
     --primary:#2A63FF; --accent:#4F8BFF; --accent-soft:rgba(79,139,255,.16);
     --bg:#060C1F; --surface:#0F1830; --ink:#EEF2FA; --ink-2:#A9B4C8; --line:#1F2A44;
     --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px rgba(0,0,0,.35);
@@ -33,6 +33,19 @@
     --dot:#FFFFFF; --off:#2C3752; --off-dot:#3E4A66; --tabbar:rgba(10,17,36,.95); --tab-ink:#7E8AA3;
     --outer:#02060F; --ring-glow:.7;
   }
+}
+/* ?theme=dark|light (portfolio embed) overrides the system setting */
+html.t-dark{
+    --primary:#2A63FF; --accent:#4F8BFF; --accent-soft:rgba(79,139,255,.16);
+    --bg:#060C1F; --surface:#0F1830; --ink:#EEF2FA; --ink-2:#A9B4C8; --line:#1F2A44;
+    --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px rgba(0,0,0,.35);
+    --home-bg:radial-gradient(120% 420px at 50% 0%,rgba(18,220,246,.16) 0%,rgba(20,80,255,.10) 40%,rgba(6,12,31,0) 75%),#060C1F;
+    --low-ink:#FFD36B; --low-soft:rgba(226,160,8,.16);
+    --mid-ink:#FFA36B; --mid-soft:rgba(232,102,28,.18);
+    --high-soft:rgba(212,42,30,.20);
+    --ok:#3DD598; --ok-soft:rgba(61,213,152,.14);
+    --dot:#FFFFFF; --off:#2C3752; --off-dot:#3E4A66; --tabbar:rgba(10,17,36,.95); --tab-ink:#7E8AA3;
+    --outer:#02060F; --ring-glow:.7;
 }
 html{font-size:17px;-webkit-text-size-adjust:100%}
 html.sz1{font-size:19px} html.sz2{font-size:21.5px}
@@ -98,7 +111,8 @@ svg.i{width:1.4rem;height:1.4rem;fill:none;stroke:currentColor;stroke-width:2;st
 .dotc{position:absolute;left:50%;top:50%;width:2.3rem;height:2.3rem;margin:-1.15rem 0 0 -1.15rem;border-radius:50%;background:var(--dot);transition:background .35s,box-shadow .35s}
 .guard.on .arc{stroke:url(#gh)} .guard.on .glow{stroke:url(#gh);opacity:var(--ring-glow)}
 .guard:not(.on) .arc{stroke:var(--off)} .guard:not(.on) .dotc{background:var(--off-dot)}
-@media (prefers-color-scheme: dark){.guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40px 14px rgba(20,80,255,.35)}}
+@media (prefers-color-scheme: dark){html:not(.t-light) .guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40px 14px rgba(20,80,255,.35)}}
+html.t-dark .guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40px 14px rgba(20,80,255,.35)}
 .gst{font-size:1.65rem;font-weight:800;margin-top:.9rem}
 .ghint{font-size:.95rem;color:var(--ink-2);margin-top:.15rem}
 .gdesc{text-align:center;font-size:.97rem;line-height:1.5;color:var(--ink-2);margin:.6rem .8rem 0}
@@ -188,7 +202,8 @@ details p{white-space:pre-wrap;color:var(--ink-2);margin:.6rem 0 0;line-height:1
 .tabs{position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:0 auto;z-index:6;display:flex;padding:.4rem .3rem calc(.4rem + env(safe-area-inset-bottom));background:var(--tabbar);border-top:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:.15rem;font-size:.72rem;font-weight:700;color:var(--tab-ink);padding:.2rem 0;text-align:center}
 .tabs button.on{color:var(--primary)}
-@media (prefers-color-scheme: dark){.tabs button.on{color:#7FA6FF}}
+@media (prefers-color-scheme: dark){html:not(.t-light) .tabs button.on{color:#7FA6FF}}
+html.t-dark .tabs button.on{color:#7FA6FF}
 
 /* sheet + toast */
 .scrim{position:fixed;inset:0;background:rgba(5,10,25,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}
@@ -258,6 +273,7 @@ html.frame #toast{bottom:6.4rem}
    ?frame=1 draws the app inside a rounded phone-shaped frame (for the portfolio iframe) */
 var params = new URLSearchParams(location.search);
 var DEMO = params.get("demo") === "1", FRAME = params.get("frame") === "1";
+var THEME = /^(dark|light)$/.test(params.get("theme") || "") ? params.get("theme") : "";
 var PFX = DEMO ? "whd." : "wh.";
 var LS = {
   get: function(k, d){ try{ var v = localStorage.getItem(PFX + k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
@@ -745,7 +761,7 @@ var STATUS = '<div class="sb"><span>9:41</span><span class="r">' +
   "</span></div>";
 var VIEWS = { pause:vPause, verify:vVerify, quick:vQuick, quickres:vQuickResult, rec:vRecord, log:vLog };
 function render(){
-  document.documentElement.className = (S.size === 1 ? "sz1" : S.size === 2 ? "sz2" : "") + (FRAME ? " frame" : "");
+  document.documentElement.className = (S.size === 1 ? "sz1" : S.size === 2 ? "sz2" : "") + (FRAME ? " frame" : "") + (THEME ? " t-" + THEME : "");
   document.documentElement.lang = S.lang === "en" ? "en" : "zh-Hans";
   document.title = T("安心护 · 测试版","WiseHalo · test");
   var root = document.getElementById("root");
@@ -853,6 +869,7 @@ window.addEventListener("message", function(e){
   if(e.origin !== location.origin) return;
   var d = e.data || {};
   if(d.type === "wh-lang" && (d.lang === "zh" || d.lang === "en") && d.lang !== S.lang){ S.lang = d.lang; LS.set("lang", S.lang); render(); }
+  if(d.type === "wz-prefs" && (d.theme === "dark" || d.theme === "light") && d.theme !== THEME){ THEME = d.theme; render(); }
 });
 render();
 })();

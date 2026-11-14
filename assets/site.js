@@ -32,9 +32,13 @@
   var embeds = document.querySelectorAll('iframe[data-lang-src]');
   function pageLang() { return root.classList.contains('lang-en') ? 'en' : 'zh'; }
   function pageTheme() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
-  embeds.forEach(function (f) { f.src = f.getAttribute('data-lang-src').replace('{lang}', pageLang()).replace('{theme}', pageTheme()); });
-  function tellEmbeds() {
-    embeds.forEach(function (f) {
+  embeds.forEach(function (f) {
+    f.src = f.getAttribute('data-lang-src').replace('{lang}', pageLang()).replace('{theme}', pageTheme());
+    // lazy iframes may finish loading after the visitor switched language / theme: resend on every load
+    f.addEventListener('load', function () { tellEmbeds([f]); });
+  });
+  function tellEmbeds(list) {
+    (list || embeds).forEach(function (f) {
       try {
         f.contentWindow.postMessage({ type: 'wh-lang', lang: pageLang() }, location.origin);
         // the companion app also follows the page theme
