@@ -31,10 +31,15 @@
   // Embedded demos follow the page language: set it on load, then tell them when it changes.
   var embeds = document.querySelectorAll('iframe[data-lang-src]');
   function pageLang() { return root.classList.contains('lang-en') ? 'en' : 'zh'; }
-  embeds.forEach(function (f) { f.src = f.getAttribute('data-lang-src').replace('{lang}', pageLang()); });
+  function pageTheme() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+  embeds.forEach(function (f) { f.src = f.getAttribute('data-lang-src').replace('{lang}', pageLang()).replace('{theme}', pageTheme()); });
   function tellEmbeds() {
     embeds.forEach(function (f) {
-      try { f.contentWindow.postMessage({ type: 'wh-lang', lang: pageLang() }, location.origin); } catch (e) {}
+      try {
+        f.contentWindow.postMessage({ type: 'wh-lang', lang: pageLang() }, location.origin);
+        // the companion app also follows the page theme
+        f.contentWindow.postMessage({ type: 'wz-prefs', lang: pageLang(), theme: pageTheme() }, location.origin);
+      } catch (e) {}
     });
   }
 
@@ -52,6 +57,7 @@
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     store('wz-theme', next);
+    tellEmbeds();
   });
 
   var grid = document.querySelector('.grid');

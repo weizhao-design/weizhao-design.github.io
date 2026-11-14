@@ -185,6 +185,93 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .stage-co1, .stage-co3 { top: 34%; } .stage-co2, .stage-co4 { top: 60%; }
 .stage-co1 i, .stage-co2 i { left: calc(100% + 10px); } .stage-co3 i, .stage-co4 i { right: calc(100% + 10px); }
 @container (max-width: 820px) { .stage-co { display: none; } }
+
+/* ---------- AI Companion Toy boards (tools/companion_boards.py) ----------
+   Monochrome line drawings in the site's own colours, so they follow 中/EN and light/dark. */
+.cb { margin: 0; padding: 28px 24px; background: var(--ph); color: var(--text); display: flex; flex-direction: column; gap: 22px; container-type: inline-size; }
+.cb p { margin: 0; color: var(--dim); line-height: 1.55; }
+.cb b { font-weight: 400; }
+.cb ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.cb li { color: var(--dim); }
+.cb li::before { content: "— "; }
+.cb-sub, .cb-d { color: var(--dim); text-transform: uppercase; letter-spacing: .04em; }
+.cb-note { border-top: 1px dashed color-mix(in srgb, var(--text) 30%, transparent); padding-top: 12px; }
+.cb-mono { font-family: var(--font); letter-spacing: .06em; }
+.cb-two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.cb-two.cb-mid { align-items: center; }
+.cb-gap { margin-top: 10px; }
+.cb-svg { width: 100%; height: auto; font-family: var(--font); }
+.cb-animation .cb-two > div:first-child .cb-svg { max-width: 300px; display: block; margin: 0 auto 10px; }
+.cb-enclosure .cb-svg { max-width: 420px; }
+.cb-svg text { fill: var(--text); font-size: 13px; }
+.cb-svg text.sm { fill: var(--dim); font-size: 11px; }
+.cb-svg .ln { fill: none; stroke: var(--text); stroke-width: 1; }
+.cb-svg .dash { stroke-dasharray: 4 4; }
+.cb-arrow { color: var(--dim); align-self: center; }
+/* process */
+.cb-tl { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; border-top: 1px solid var(--text); padding-top: 14px; }
+.cb-step { display: flex; flex-direction: column; gap: 6px; position: relative; }
+.cb-step::before { content: ""; position: absolute; top: -19px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--ph); border: 1px solid var(--text); }
+.cb-step:last-child::before { border-style: dashed; }
+.cb-roles { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; }
+.cb-role { display: flex; flex-direction: column; gap: 10px; }
+/* states */
+.cb-journey { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cb-chip { border: 1px solid var(--text); border-radius: 99px; padding: 5px 12px; }
+.cb-faces { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.cb-face { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+.cb-face img { width: min(150px, 100%); aspect-ratio: 1; border-radius: 50%; object-fit: cover; margin-bottom: 4px; }
+/* animation */
+.cb-seq { display: flex; gap: 4px; }
+.cb-cell { border: 1px solid var(--text); padding: 10px 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cb-cell span { color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cb-bars { display: flex; flex-direction: column; gap: 18px; padding-top: 10px; }
+.cb-bl { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.cb-bl span { color: var(--dim); white-space: nowrap; }
+.cb-track { height: 8px; border: 1px solid var(--text); }
+.cb-track i { display: block; height: 100%; background: var(--text); }
+/* enclosure */
+.cb-notes, .cb-n { display: flex; flex-direction: column; gap: 6px; }
+.cb-notes { gap: 18px; }
+/* hardware */
+.cb-evs { display: flex; gap: 10px; align-items: stretch; }
+.cb-ev { flex: 1; border: 1px solid var(--text); padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.cb-ev b { font-size: 22px; }
+/* IA */
+.cb-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.cb-cols2 { grid-template-columns: 1fr 1fr; }
+.cb-col { border: 1px solid var(--text); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.cb-col.dashed { border-style: dashed; }
+/* spec */
+.cb-sw { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px dashed color-mix(in srgb, var(--text) 25%, transparent); }
+.cb-sw i { width: 34px; height: 22px; border-radius: 4px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 30%, transparent); }
+.cb-sw code { font-family: var(--font); color: var(--dim); }
+.cb-icons { display: flex; gap: 22px; flex-wrap: wrap; margin: 6px 0 14px; }
+.cb-icw { display: grid; grid-template-columns: 30px 30px; gap: 6px; justify-items: center; }
+.cb-icw span { grid-column: 1 / -1; color: var(--dim); }
+.cb-ic { width: 30px; height: 30px; color: var(--text); }
+.cb-ic .o { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.cb-ic .d { fill: currentColor; }
+.cb-ic .dl { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.cb-ic .gap { fill: var(--ph); stroke: none; }
+.cb-ic.on .o { fill: currentColor; }
+.cb-ic.on .d { fill: var(--ph); }
+.cb-ic.on .dl { stroke: var(--ph); }
+.cb-kv { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px dashed color-mix(in srgb, var(--text) 25%, transparent); }
+.cb-kv span { color: var(--dim); }
+/* app icon */
+.cb-appics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.cb-appic { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.cb-appic img { width: min(160px, 100%); aspect-ratio: 1; border-radius: 22.37%; }
+.cb-appic span { color: var(--dim); }
+@container (max-width: 720px) {
+  .cb-two, .cb-roles, .cb-cols, .cb-cols2 { grid-template-columns: 1fr; }
+  .cb-tl { grid-template-columns: 1fr 1fr; border-top: 0; padding-top: 0; }
+  .cb-step::before { display: none; }
+  .cb-faces, .cb-appics { grid-template-columns: 1fr 1fr; }
+  .cb-evs { flex-direction: column; } .cb-evs .cb-arrow { transform: rotate(90deg); }
+  .cb-seq { flex-wrap: wrap; } .cb-cell { flex: 1 1 30% !important; }
+}
 /* phone embeds (WiseHalo prototype): the page draws its own iPhone; keep true phone proportions and
    a transparent background so nothing shows outside the rounded corners */
 .fig.embed.phone { background: transparent; align-items: center; padding: 20px 0 10px; }

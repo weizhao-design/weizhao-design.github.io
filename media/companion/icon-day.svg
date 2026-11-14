@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1024" height="1024"><defs>
+  <linearGradient id="ds_bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7EE"/><stop offset="1" stop-color="#F7B9CB"/></linearGradient>
+  <filter id="ds_rough" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="ds_roughS" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="ds_grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="2.6" numOctaves="1" seed="11" stitchTiles="stitch"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 .3  0 0 0 0 .12  0 0 0 0 .16  .36 0 0 0 -.14"/></filter>
+  <filter id="ds_sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2"/></filter>
+</defs><rect width="100" height="100" fill="url(#ds_bg)"/><g transform="translate(5 -4) rotate(6 70 28)"><path d="M82 18C74 14 60 15 56 22C52 29 57 37 66 38L70 38L74 43L74 37C82 35 88 24 82 18Z" fill="#F4A3B8" filter="url(#ds_roughS)"/><g fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" opacity=".95" filter="url(#ds_roughS)"><path d="M61 24.5q2.5-1.7 5 0t5 0t5 0"/><path d="M63 30q2.5-1.5 5 0t4.5 0"/></g></g><g transform="translate(-4 8) rotate(-8 50 50) scale(.92)"><path d="M29 29C43 22 70 22 79 34C87 46 79 62 62 64C54 65 47 64 41 63L29 75L32 61C21 56 17 37 29 29Z" fill="#B8385F" opacity=".22" filter="url(#ds_sh)" transform="translate(1.5 3)"/><path d="M29 29C43 22 70 22 79 34C87 46 79 62 62 64C54 65 47 64 41 63L29 75L32 61C21 56 17 37 29 29Z" fill="#FFFFFF" filter="url(#ds_rough)"/><circle cx="38" cy="45" r="3.4" fill="#C2416A" fill-opacity=".42"/><circle cx="49" cy="45" r="3.4" fill="#C2416A" fill-opacity=".7"/><path d="M0 5C-7 0-7.5-6-3.5-7C-1.5-7.4 0-6 0-4.5C0-6 1.5-7.4 3.5-7C7.5-6 7 0 0 5Z" transform="translate(62 44.5) scale(.82)" fill="#C2416A"/></g><rect width="100" height="100" filter="url(#ds_grain)" opacity=".6"/></svg>
