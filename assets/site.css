@@ -367,7 +367,8 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .fig.embed.stage.st-halo { --st-a: #f6f8fd; --st-b: #dce5f4; --st-glow: rgba(28, 91, 255, .16); --st-line: rgba(28, 91, 255, .32); --st-echo: rgba(28, 91, 255, .18);
   align-items: center; padding: 64px 0 18px; }
 :root[data-theme="dark"] .fig.embed.stage.st-halo, :root:not([data-theme]) .fig.embed.stage.st-halo {
-  --st-a: #12275a; --st-b: #060c1f; --st-glow: rgba(18, 220, 246, .16); --st-line: rgba(79, 139, 255, .5); --st-echo: rgba(130, 165, 255, .2); }
+  /* lighter, low-saturation slate that blends into the site's own #141414 instead of a heavy navy block */
+  --st-a: #222b3b; --st-b: #16181d; --st-glow: rgba(18, 220, 246, .09); --st-line: rgba(110, 160, 255, .42); --st-echo: rgba(150, 175, 220, .16); }
 .fig.embed.stage.st-halo { background:   /* restated here: .fig.embed.phone (later in the file) sets transparent */
   radial-gradient(40% 44% at 50% 46%, var(--st-glow), transparent 70%),
   radial-gradient(120% 90% at 50% 30%, var(--st-a), var(--st-b)); }
