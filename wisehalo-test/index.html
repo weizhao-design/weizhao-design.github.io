@@ -445,7 +445,7 @@ function quickResult(ans){
     ? [T("先挂断，自己查官方电话再打回去核实。","Hang up and call the organisation back on its official number."), T("不要按对方说的下载 App 或打开屏幕共享。","Don't install apps or share your screen because they asked."), T("和家人商量后再做决定。","Talk to family before deciding.")]
     : ACTIONS.low.map(function(a){ return T(a[0], a[1]); });
   var lbl = { yes:T("是","Yes"), no:T("不是","No"), unsure:T("不确定","Not sure") };
-  return { id:"r" + Date.now(), time:Date.now(), quick:true, risk:risk, summary:summary, evidence:[], actions:acts, contacts:[],
+  return { id:"r" + Date.now(), time:Date.now(), quick:true, answers:ans, risk:risk, summary:summary, evidence:[], actions:acts, contacts:[],
     input: QUESTIONS.map(function(q, i){ return T(q.zh, q.en) + " — " + lbl[ans[i]]; }).join("\n") };
 }
 
@@ -455,13 +455,21 @@ function alertFor(rec){
   if(S.phoneAlert && r.vib && navigator.vibrate){ try{ navigator.vibrate(r.vib); }catch(e){} }
   if(S.guard && rec.risk !== "uncertain"){ S.lit = rec.risk; LS.set("lit", S.lit); log(T("提醒器应亮灯（主持人触发）","Reminder should light (moderator)"), RISK[rec.risk].zh); }
 }
+/* Records keep only the raw input (or answers). All wording is rebuilt in the current
+   language every time a record is shown, so the interface never mixes languages. */
+function full(stored){
+  if(stored.quick && !stored.answers) return stored;
+  var v = stored.quick ? quickResult(stored.answers) : analyze(stored.input);
+  v.id = stored.id; v.time = stored.time;
+  return v;
+}
 function addRecord(rec){
-  S.records.unshift(rec); S.records = S.records.slice(0, 30); S.latestId = rec.id;
+  S.records.unshift({ id:rec.id, time:rec.time, quick:rec.quick, input:rec.quick ? "" : rec.input, answers:rec.answers }); S.records = S.records.slice(0, 30); S.latestId = rec.id;
   LS.set("records", S.records);
   log(rec.quick ? T("快速自查结果","Self-check result") : T("检查结果","Check result"), RISK[rec.risk].zh);
   alertFor(rec);
 }
-function findRec(id){ for(var i = 0; i < S.records.length; i++) if(S.records[i].id === id) return S.records[i]; return null; }
+function findRec(id){ for(var i = 0; i < S.records.length; i++) if(S.records[i].id === id) return full(S.records[i]); return null; }
 
 /* ---------------- speech ---------------- */
 var speakingId = null;
@@ -497,7 +505,7 @@ function vHome(){
   var on = S.guard;
   var desc = on ? T("查出风险时，桌上的提醒器会一直亮着，直到您停下来核实。","If a risk is found, the reminder on your table stays lit until you stop and check.")
                : T("现在只有手机提醒：振动一下，切到别的 App 就不再提醒。","Only your phone will alert you: it vibrates once, and stops when you switch apps.");
-  var latest = S.records[0];
+  var latest = S.records[0] ? full(S.records[0]) : null;
   var devSub = !on ? T("未开启 · 点光环开启","Off · tap the halo to turn on")
     : S.lit ? '<span style="display:inline-flex;align-items:center;gap:.4rem"><i class="led ' + (S.lit === "high" ? "high" : S.lit) + '" style="background:var(--' + (S.lit === "medium" ? "mid" : S.lit) + ')"></i>' + T("正在亮" + RISK[S.lit].color + "灯，完成暂停或核实后熄灭","Lit now – turns off after you pause or verify") + "</span>"
     : T("一直亮灯，直到您暂停或核实","Stays lit until you pause or verify");
@@ -639,7 +647,8 @@ function vRecord(top){
 function vHistory(){
   var h = '<div class="large">' + T("记录","History") + "</div>";
   if(!S.records.length) h += '<p class="sub">' + T("还没有检查记录。","No checks yet.") + "</p>";
-  else h += '<div class="card tight">' + S.records.map(function(r){
+  else h += '<div class="card tight">' + S.records.map(function(r0){
+    var r = full(r0);
     var d = new Date(r.time), tm = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
     return row(RISK[r.risk].icon, r.risk === "high" ? "high" : r.risk === "medium" ? "mid" : "", T(RISK[r.risk].zh, RISK[r.risk].en) + (r.quick ? T(" · 快速自查"," · self-check") : ""), tm + " · " + esc(r.input.slice(0, 24)) + "…", I("chev", "chev"), "openrec", ' data-v="' + r.id + '"');
   }).join("") + "</div>";
