@@ -28,12 +28,23 @@
     document.addEventListener('mouseleave', function () { cur.classList.remove('is-on'); });
   }
 
+  // Embedded demos follow the page language: set it on load, then tell them when it changes.
+  var embeds = document.querySelectorAll('iframe[data-lang-src]');
+  function pageLang() { return root.classList.contains('lang-en') ? 'en' : 'zh'; }
+  embeds.forEach(function (f) { f.src = f.getAttribute('data-lang-src').replace('{lang}', pageLang()); });
+  function tellEmbeds() {
+    embeds.forEach(function (f) {
+      try { f.contentWindow.postMessage({ type: 'wh-lang', lang: pageLang() }, location.origin); } catch (e) {}
+    });
+  }
+
   var langBtn = document.querySelector('.lang-toggle');
   if (langBtn) langBtn.addEventListener('click', function () {
     var en = !root.classList.contains('lang-en');
     root.classList.toggle('lang-en', en);
     root.lang = en ? 'en' : 'zh-Hans-CN';
     store('wz-lang', en ? 'en' : 'zh');
+    tellEmbeds();
   });
 
   var themeBtn = document.querySelector('.theme-toggle');

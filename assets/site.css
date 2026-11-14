@@ -154,6 +154,20 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .fig { margin: 0; background: var(--ph); }
 .fig img, .fig video { width: 100%; }
 .figs { display: grid; gap: 10px; }
+/* live app demo: the app draws its own flat phone mock-up, centred on a panel
+   that is as wide as every other image on the page */
+.fig.embed { background: transparent; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 0 10px; }
+.fig.embed iframe { display: block; width: min(100%, 470px); aspect-ratio: 453 / 912; border: 0; background: transparent; color-scheme: normal; }
+.fig.embed:not(.wide) { background: var(--ph); align-items: stretch; padding: 0 0 18px; }
+.fig.embed:not(.wide) iframe { width: 100%; aspect-ratio: auto; height: clamp(620px, 88vh, 960px); }
+/* phone embeds (WiseHalo prototype): the page draws its own iPhone; keep true phone proportions and
+   a transparent background so nothing shows outside the rounded corners */
+.fig.embed.phone { background: transparent; align-items: center; padding: 20px 0 10px; }
+.fig.embed.phone iframe { width: min(100%, 430px); height: auto; aspect-ratio: 430 / 884; }
+.fig.embed figcaption { text-align: center; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.fig.embed .embed-cap { opacity: .7; }
+/* wide embeds (hi-fi screens, IA diagram): a scrollable window onto the full page */
+.fig.embed.wide iframe { width: 100%; aspect-ratio: auto; height: min(78vh, 760px); border: 1px solid rgba(127,127,127,.28); border-radius: 10px; background: #F2F4F8; }
 .figs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 .figs-tall .fig { max-height: 1000px; overflow-y: auto; scrollbar-width: thin; }
 
