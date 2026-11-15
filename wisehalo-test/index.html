@@ -330,7 +330,7 @@ var S = {
   input: LS.get("input", ""),
   tab: "home", stack: [], checking: false, latestId: null,
   verify: [false, false, false], pause: null, quick: [], sheet: null,
-  ob: DEMO && !LS.get("obdone", false) ? "1" : ""
+  ob: DEMO ? "1" : ""   // the portfolio demo always opens on the onboarding; replay any time from Settings
 };
 function save(){ KEYS.forEach(function(k){ LS.set(k, S[k]); }); }
 function T(zh, en){ return S.lang === "en" ? en : zh; }
