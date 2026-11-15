@@ -521,6 +521,9 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
 .ft-ar { align-self: center; color: var(--dim); }
 .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .ft-col { display: flex; flex-direction: column; gap: 12px; }
+.ft-col li { padding-left: 1.25em; text-indent: -1.25em; text-wrap: pretty; }
+.ft-step b .l-en { text-wrap: balance; }
+.cb-features .sec-text, .cb-features li { hanging-punctuation: none; }
 @container (max-width: 640px) {
   .ft-flow { grid-template-columns: 1fr; }
   .ft-ar { transform: rotate(90deg); justify-self: start; padding-left: 16px; }
