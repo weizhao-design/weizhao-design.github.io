@@ -61,6 +61,8 @@
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     store('wz-theme', next);
+    var fv = document.getElementById('wz-fav');
+    if (fv) fv.href = fv.href.replace(/favicon-(dark|light)/, 'favicon-' + next);
     tellEmbeds();
   });
 
