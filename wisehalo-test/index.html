@@ -256,6 +256,7 @@ html.frame #toast{bottom:6.4rem}
 .langlink{display:block;margin:1rem auto 0;color:var(--accent);font-weight:600;text-align:center}
 
 /* onboarding (portfolio demo): content scrolls, footer stays put so every button sits in the same place */
+.app.ob{width:100%;max-width:none;margin:0;align-self:stretch}
 .ob .main{display:flex;flex-direction:column}
 .obpg{margin-left:auto;font-size:.8rem;font-weight:700;color:var(--ink-2);background:var(--surface);border-radius:999px;padding:.3rem .65rem;box-shadow:var(--shadow)}
 .obhd{min-height:7rem;margin-top:.2rem}
@@ -281,12 +282,14 @@ html.frame #toast{bottom:6.4rem}
 .pcard .ico{width:3.4rem;height:3.4rem;border-radius:50%}
 .pcard .ico svg{width:2rem;height:2rem}
 .pcard .h{margin-top:.5rem;font-size:1.1rem}
-.beacon{width:9rem;height:9rem}
-.obpill{display:inline-flex;align-items:center;gap:.45rem;margin-top:-.2rem;padding:.35rem .8rem;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font-size:.85rem;font-weight:700}
+.obvis.sm .ringwrap{width:9.5rem;height:9.5rem}
+.obvis.sm .arc{stroke-width:34}
+.obvis.sm .dotc{width:1.8rem;height:1.8rem;margin:-.9rem 0 0 -.9rem}
+.obvis.conn .arc{animation:pulse 1.1s infinite}
+.obpill{display:inline-flex;align-items:center;gap:.45rem;margin-top:.5rem;padding:.35rem .8rem;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font-size:.85rem;font-weight:700}
 .obpill i{width:.55rem;height:.55rem;border-radius:50%;background:var(--off-dot)}
 .obpill.ok i{background:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
 .obpill .spin{width:.8rem;height:.8rem;border-width:2px;border-color:var(--line);border-top-color:var(--accent)}
-.beacon.conn .bring{animation:pulse 1.1s infinite}
 </style>
 </head>
 <body>
@@ -779,7 +782,7 @@ function vOnboard(){
              : conn ? '<span class="obpill"><i class="spin"></i>' + T("正在连接…","Connecting…") + "</span>"
              : '<span class="obpill"><i></i>' + T("等待连接","Ready to connect") + "</span>";
     h = head(T("连接安心护提醒器","Connect your WiseHalo reminder"), T("手机只提醒您一次；提醒器会一直提醒，直到您停下来。","Your phone alerts you once. The reminder keeps alerting until you stop.")) +
-        '<div class="obvis"><svg class="beacon' + (conn ? " conn" : "") + '" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="96" r="84" fill="var(--surface)" style="filter:drop-shadow(0 10px 18px rgba(15,28,63,.14))"/><circle class="bring" cx="100" cy="96" r="64" fill="none" stroke="url(#gh)" stroke-width="16"/><circle cx="100" cy="96" r="12" fill="' + (done ? "var(--ok)" : "var(--dot)") + '"/></svg>' + pill + "</div>" +
+        '<div class="obvis sm guard on' + (conn ? " conn" : "") + '" style="pointer-events:none">' + halo + pill + "</div>" +
         '<div class="card tight">' + row("bulb", "", T("一直亮着，直到您完成暂停","Stays lit until you’ve paused")) +
           row("iphone", "", T("在手机之外，骗子关不掉","Outside the phone — scammers can’t dismiss it")) +
           row("users", "", T("家里人路过也能看见红灯","Family nearby can see the red light")) + "</div>";
