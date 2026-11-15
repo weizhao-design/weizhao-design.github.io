@@ -24,6 +24,7 @@
       cur.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
       cur.classList.add('is-on');
       cur.classList.toggle('is-label', !!(e.target.closest && e.target.closest('.card-media')));
+      cur.classList.toggle('is-zoom', !!(e.target.closest && e.target.closest('.fig.zoom img, .zoom-view')));
     });
     document.addEventListener('mouseleave', function () { cur.classList.remove('is-on'); });
   }
@@ -45,6 +46,43 @@
         f.contentWindow.postMessage({ type: 'wz-prefs', lang: pageLang(), theme: pageTheme() }, location.origin);
       } catch (e) {}
     });
+  }
+
+  // click-to-zoom: dense slides open full screen; click the image for actual size, anywhere else (or Esc) to close
+  var zoomFigs = document.querySelectorAll('.fig.zoom');
+  if (zoomFigs.length) {
+    var view = null, lastFocus = null;
+    var closeZoom = function () {
+      if (!view) return;
+      view.remove(); view = null; document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+    var openZoom = function (img) {
+      lastFocus = img;
+      view = document.createElement('div');
+      view.className = 'zoom-view';
+      view.setAttribute('role', 'dialog'); view.setAttribute('aria-modal', 'true');
+      var big = document.createElement('img');
+      big.src = img.currentSrc || img.src; big.alt = img.alt || '';
+      var x = document.createElement('button');
+      x.type = 'button'; x.className = 'zoom-close';
+      x.innerHTML = '<span class="l-zh" lang="zh-Hans-CN">关闭 ×</span><span class="l-en" lang="en">Close ×</span>';
+      view.appendChild(big); view.appendChild(x);
+      view.addEventListener('click', function (e) {
+        if (e.target === big) { view.classList.toggle('is-full'); return; }
+        closeZoom();
+      });
+      document.body.appendChild(view); document.body.style.overflow = 'hidden';
+      x.focus({ preventScroll: true });
+    };
+    zoomFigs.forEach(function (f) {
+      f.querySelectorAll('img').forEach(function (img) {
+        img.setAttribute('tabindex', '0');
+        img.addEventListener('click', function () { openZoom(img); });
+        img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(img); } });
+      });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
   }
 
   var langBtn = document.querySelector('.lang-toggle');
