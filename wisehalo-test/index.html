@@ -151,6 +151,8 @@ html.t-dark .guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40p
 .risk.low .dev,.risk.uncertain .dev{background:var(--low-soft);color:var(--low-ink)}
 .dev.offline{background:rgba(127,127,127,.12)!important;color:inherit!important;opacity:.9}
 .led{width:.75rem;height:.75rem;border-radius:50%;flex:none}
+.led.titled{display:inline-block;width:.6rem;height:.6rem;margin-left:.45rem;vertical-align:.08em}
+.led.titled.high{background:var(--high)!important}
 .led.high{background:#fff;animation:flash .5s infinite} .led.medium{background:var(--mid);animation:pulse .9s infinite} .led.low{background:var(--low);animation:breathe 2.4s infinite} .led.off{background:var(--off-dot)}
 @keyframes breathe{0%,100%{opacity:.35}50%{opacity:1}}
 @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
@@ -400,12 +402,12 @@ var SAMPLES = [
 /* Local rules stand in for the AI (Wizard-of-Oz style): the test is about whether the
    interface is understood, not about AI accuracy. Quotes are exact clauses from the text. */
 var RULES = [
-  { re:/安全账户|safe account/i, lv:3, zh:"正规机构不会让您把钱转到“安全账户”", en:'No real bank or agency asks you to move money to a "safe account"' },
+  { re:/安全账户|safe account/i, lv:3, zh:"正规机构不会让您把钱转到“安全账户”", en:'No real bank asks you to move money to a "safe account"' },
   { re:/验证码|verification code/i, lv:3, zh:"银行和公安从来不会要您的验证码", en:"Banks and police never ask for your codes" },
   { re:/洗钱|涉嫌.{0,6}案|案件|money laundering|arrest/i, lv:3, zh:"用“涉嫌犯罪”吓人，是冒充公检法的常见说法", en:"Threatening you with a crime is a classic police-impersonation line" },
   { re:/保密|不要告诉|别告诉|do not tell|don't tell|keep (it|this) secret/i, lv:3, zh:"让您保密，是为了不让您找人商量", en:"Secrecy stops you from asking others" },
   { re:/屏幕共享|共享屏幕|视频会议|下载.{0,4}(App|软件|app)|share your screen|screen shar|install/i, lv:3, zh:"屏幕共享能让对方看到您的密码和验证码", en:"Screen sharing lets them see your codes" },
-  { re:/冻结|frozen|freeze/i, lv:2, zh:"“账户冻结”是为了让您紧张，来不及多想", en:'"Account frozen" creates panic so you act fast' },
+  { re:/冻结|frozen|freeze/i, lv:2, zh:"“账户冻结”是为了让您紧张，来不及多想", en:'"Account frozen" is meant to rush you' },
   { re:/转账|汇款|转入|转到|transfer|wire|move (your|the) (money|savings)/i, lv:2, zh:"涉及转钱，先停下来核实", en:"Money is involved – verify first" },
   { re:/理赔|退款|补贴|领取|refund|compensation|redelivery/i, lv:2, zh:"主动给您钱的“理赔”“退款”，常要您先填银行卡信息", en:"Unexpected refunds or deliveries usually ask for card details first" },
   { re:/银行卡信息|银行卡号|密码|card details|password|update your details/i, lv:2, zh:"正规客服不会让您在链接里填银行卡信息", en:"Real customer service never asks for card details through a link" },
@@ -419,7 +421,7 @@ var RISK = {
   uncertain:{ zh:"暂时无法判断", en:"NOT SURE YET", icon:"question", head:["信息不足，暂时无法判断。","Not enough to judge yet."], sig:["不发送新的设备提醒","No new device alert"], vib:null, color:"" }
 };
 var ACTIONS = {
-  high:[["不要转账，不要把验证码告诉任何人。","Don't transfer money or tell anyone your codes."],["挂断或不回复，自己拨打银行卡背面的电话核实。","Hang up or don't reply. Call the number on the back of your card yourself."],["拿不准就问问家人，或拨打 96110 反诈专线。","If unsure, ask your family first."]],
+  high:[["不要转账，不要把验证码告诉任何人。","Don't send money or share codes."],["挂断或不回复，自己拨打银行卡背面的电话核实。","Hang up. Call the number on your card yourself."],["拿不准就问问家人，或拨打 96110 反诈专线。","If unsure, ask your family first."]],
   medium:[["不要点开消息里的链接，也不要回拨里面的号码。","Don't open links or call numbers from the message."],["自己打开官方 App 或拨打官方电话核实。","Check through the official app or official phone number."],["和家人商量后再决定。","Talk to family before deciding."]],
   low:[["如果对方之后要钱或要验证码，马上停下。","If they later ask for money or a code, stop right away."],["有疑问可以随时再查一次。","You can check again at any time."]],
   uncertain:[["把完整的消息或对话粘贴进来，再查一次。","Paste the full message or conversation and check again."]]
@@ -443,11 +445,11 @@ function scanContacts(text){
     var hints = [], end = host.split(".").pop(), labels = host.split(/[.-]/);
     if(/^\d+\.\d+\.\d+\.\d+$/.test(host)) hints.push(T("网址是一串数字（IP 地址），正规机构不会这样。","The address is just numbers – real organisations don't do this."));
     if(SHORT.indexOf(host) >= 0) hints.push(T("短链接，看不到它真正会打开哪个网站。","Short link – you can't see where it really goes."));
-    if(CHEAP.indexOf(end) >= 0) hints.push(T("网址结尾是“." + end + "”，这种域名很便宜，诈骗网站常用。","Ends in “." + end + "” – a cheap ending often used by scam sites."));
+    if(CHEAP.indexOf(end) >= 0) hints.push(T("网址结尾是“." + end + "”，这种域名很便宜，诈骗网站常用。","“." + end + "” is a cheap ending scam sites use."));
     Object.keys(BRANDS).forEach(function(w){
       var hit = labels.some(function(l){ return l === w || l.indexOf(w) === 0 || l.slice(-w.length) === w; });
       var official = BRANDS[w].some(function(d){ return host === d || host.slice(-(d.length + 1)) === "." + d; });
-      if(hit && !official) hints.push(T("网址里有“" + w + "”，但不是官方网址，可能是仿冒。","Mentions “" + w + "” but isn't the official site – may be fake."));
+      if(hit && !official) hints.push(T("网址里有“" + w + "”，但不是官方网址，可能是仿冒。","Says “" + w + "” but isn't the official site."));
     });
     var sus = hints.length > 0;
     if(!sus) hints.push(T("没发现明显问题，但不要在消息里的链接中输入密码或验证码。","No obvious problem, but never type passwords or codes into a link from a message."));
@@ -463,7 +465,7 @@ function scanContacts(text){
     if(digits.charAt(0) === "+" && digits.indexOf("+86") !== 0 && S.lang === "zh"){ s2 = true; h.push("境外号码。银行、公安、客服不会用境外号码联系您。"); }
     if(n.length === 11 && ["170","171","162","165","167"].indexOf(n.slice(0,3)) >= 0){ s2 = true; h.push(T("虚拟运营商号段（" + n.slice(0,3) + "开头），诈骗中常见。","Virtual-carrier number, common in scams.")); }
     if(/^(400|95|96)/.test(n)) h.push(T("看起来像官方客服号码，但号码可以伪造。请自己在官网或银行卡背面查号码。","Looks like an official hotline, but numbers can be faked."));
-    h.push(T("不要直接回拨消息里的号码，自己查官方电话再打。","Don't call back numbers from the message. Find the official number yourself."));
+    h.push(T("不要直接回拨消息里的号码，自己查官方电话再打。","Don't call back. Look up the official number yourself."));
     out.push({ kind:"phone", value:m[0].trim(), sus:s2, hints:h });
   }
   return out;
@@ -489,7 +491,7 @@ function analyze(text){
   var top = hits[0] ? hits[0].reason : "";
   if(S.lang === "en" && top) top = top.charAt(0).toLowerCase() + top.slice(1);
   var summary = {
-    high: T("这条内容有典型的诈骗特征：" + top + "。", "This has classic scam signs: " + top + "."),
+    high: T("这条内容有典型的诈骗特征：" + top + "。", "Classic scam: " + top + "."),
     medium: T("有可疑的地方：" + (top || "消息里的链接或号码不可信") + "。先核实，再行动。", "Something is off: " + (top || "the link or number looks untrustworthy") + ". Verify before you act."),
     low: T("暂未发现明显的诈骗特征，但不能保证安全。", "No clear scam signs, but safety can't be guaranteed."),
     uncertain: T("内容太少，暂时无法判断。可以多粘贴一些上下文。", "Too little to judge. Try pasting more of the conversation.")
@@ -504,11 +506,11 @@ function analyze(text){
 
 /* quick self-check (same rules as the app) */
 var QUESTIONS = [
-  { zh:"对方要您转账、汇款，或者把钱转到“安全账户”吗？", en:'Are they asking you to transfer money, or move it to a "safe account"?', strong:true, r:["要您转钱，是诈骗最典型的信号","asking you to move money is the clearest scam sign"] },
-  { zh:"对方要您的验证码、密码或银行卡号吗？", en:"Are they asking for a verification code, password or card number?", strong:true, r:["银行和公安从来不会要您的验证码","no bank or agency ever asks for your codes"] },
-  { zh:"对方要您下载 App、打开屏幕共享，或者加入视频会议吗？", en:"Are they asking you to install an app, share your screen or join a video meeting?", strong:true, r:["屏幕共享能让对方看到您的验证码、操作您的钱","screen sharing lets them see your codes and control your money"] },
-  { zh:"对方自称是公安、法院、银行、客服或者领导吗？", en:"Do they say they are police, a court, a bank, customer service or your boss?", strong:false, r:["冒充公检法、客服、领导是常见的诈骗开头","pretending to be an authority is a common scam opening"] },
-  { zh:"对方让您保密、别告诉家人，或者催您马上办吗？", en:"Are they telling you to keep it secret, not tell family, or act right now?", strong:false, r:["催您、让您保密，是为了不让您找人商量","pressure and secrecy stop you from checking with others"] }
+  { zh:"对方要您转账、汇款，或者把钱转到“安全账户”吗？", en:'Do they want you to move money to a "safe account"?', strong:true, r:["要您转钱，是诈骗最典型的信号","moving money is the clearest scam sign"] },
+  { zh:"对方要您的验证码、密码或银行卡号吗？", en:"Do they want a code, password or card number?", strong:true, r:["银行和公安从来不会要您的验证码","no bank or agency ever asks for your codes"] },
+  { zh:"对方要您下载 App、打开屏幕共享，或者加入视频会议吗？", en:"Do they want you to install an app or share your screen?", strong:true, r:["屏幕共享能让对方看到您的验证码、操作您的钱","screen sharing lets them see your codes and control your money"] },
+  { zh:"对方自称是公安、法院、银行、客服或者领导吗？", en:"Do they claim to be police, a bank or your boss?", strong:false, r:["冒充公检法、客服、领导是常见的诈骗开头","pretending to be an authority is a common scam opening"] },
+  { zh:"对方让您保密、别告诉家人，或者催您马上办吗？", en:"Are they rushing you or asking for secrecy?", strong:false, r:["催您、让您保密，是为了不让您找人商量","pressure and secrecy stop you from checking with others"] }
 ];
 function quickResult(ans){
   var sy = 0, wy = 0, un = 0, yes = [];
@@ -516,11 +518,11 @@ function quickResult(ans){
   var risk = (sy > 0 || wy >= 2) ? "high" : (wy === 1 || un > 0) ? "medium" : "low";
   var topQ = yes.filter(function(q){ return q.strong; })[0] || yes[0];
   var top = topQ ? T(topQ.r[0], topQ.r[1]) : null;
-  var summary = risk === "high" ? T("根据您的回答，这很像诈骗：" + (top || "有多个可疑信号") + "。", "From your answers, this looks like a scam: " + (top || "several warning signs") + ".")
+  var summary = risk === "high" ? T("根据您的回答，这很像诈骗：" + (top || "有多个可疑信号") + "。", "This looks like a scam: " + (top || "several warning signs") + ".")
     : risk === "medium" ? (top ? T("有可疑的地方：" + top + "。先核实，再行动。", "Something is off: " + top + ". Verify before you act.") : T("有的问题您不确定。没弄清楚之前，先不要转账、不要给验证码。", "You weren't sure about some questions. Until it's clear, don't pay or share codes."))
     : T("您的回答里没有常见的诈骗信号，但仍要小心。", "No common scam signs in your answers, but stay careful.");
   var acts = risk === "high"
-    ? [T("现在就挂断电话，不要转账，不要说验证码。","Hang up now. Don't transfer money or read out any code."), T("打 96110 反诈专线，或者给家人打个电话说说刚才的情况。","Call someone you trust, or your bank on the number on your card."), T("如果已经转了钱，马上打 110，并联系银行。","If you already paid, call the police and your bank right away.")]
+    ? [T("现在就挂断电话，不要转账，不要说验证码。","Hang up. Don't send money or read out codes."), T("打 96110 反诈专线，或者给家人打个电话说说刚才的情况。","Call someone you trust, or your bank."), T("如果已经转了钱，马上打 110，并联系银行。","Already paid? Call the police and your bank now.")]
     : risk === "medium"
     ? [T("先挂断，自己查官方电话再打回去核实。","Hang up and call the organisation back on its official number."), T("不要按对方说的下载 App 或打开屏幕共享。","Don't install apps or share your screen because they asked."), T("和家人商量后再做决定。","Talk to family before deciding.")]
     : ACTIONS.low.map(function(a){ return T(a[0], a[1]); });
@@ -583,11 +585,11 @@ function row(icon, icls, title, sub, right, act, extra){
 
 function vHome(){
   var on = S.guard;
-  var desc = on ? T("查出风险时，桌上的提醒器会一直亮着，直到您停下来核实。","If a risk is found, the reminder on your table stays lit until you stop and check.")
-               : T("现在只有手机提醒：振动一下，切到别的 App 就不再提醒。","Only your phone will alert you: it vibrates once, and stops when you switch apps.");
+  var desc = on ? T("查出风险时，桌上的提醒器会一直亮着，直到您停下来核实。","If there's a risk, the reminder stays lit until you stop and check.")
+               : T("现在只有手机提醒：振动一下，切到别的 App 就不再提醒。","Phone only: one vibration, gone when you switch apps.");
   var latest = S.records[0] ? full(S.records[0]) : null;
   var devSub = !on ? T("未开启 · 点光环开启","Off · tap the halo to turn on")
-    : S.lit ? '<span style="display:inline-flex;align-items:center;gap:.4rem"><i class="led ' + (S.lit === "high" ? "high" : S.lit) + '" style="background:var(--' + (S.lit === "medium" ? "mid" : S.lit) + ')"></i>' + T("正在亮" + RISK[S.lit].color + "灯，完成暂停或核实后熄灭","Lit now – turns off after you pause or verify") + "</span>"
+    : S.lit ? T("正在亮" + RISK[S.lit].color + "灯，完成暂停或核实后熄灭","Lit – off once you pause or verify")
     : T("一直亮灯，直到您暂停或核实","Stays lit until you pause or verify");
   var h = '<button class="guard ' + (on ? "on" : "") + '" data-act="guard" aria-pressed="' + on + '">' +
     '<div class="ringwrap"><svg viewBox="0 0 236 236"><path class="glow" d="M56.3 191.5A96 96 0 1 1 179.7 191.5"/><path class="arc" d="M56.3 191.5A96 96 0 1 1 179.7 191.5"/></svg><div class="dotc"></div></div>' +
@@ -596,11 +598,11 @@ function vHome(){
     '<p class="gdesc">' + desc + "</p>" +
     '<div class="card tight"><p class="cap" style="margin-top:.7rem">' + T("提醒方式","How you'll be alerted") + "</p>" +
       row("iphone", S.phoneAlert ? "ok" : "grey", T("手机 · 提醒您一次","Phone · alerts you once"), S.phoneAlert ? T("查出风险时振动一下","Vibrates when a risk is found") : T("已在设置中关闭","Turned off in Settings"), I(S.phoneAlert ? "checkc" : "minus", S.phoneAlert ? "tick" : "chev")) +
-      row("bulb", on ? "ok" : "grey", T("提醒器 · 一直提醒","Reminder · keeps alerting"), devSub, "") +
+      row("bulb", on ? "ok" : "grey", T("提醒器 · 一直提醒","Reminder · keeps alerting") + (on && S.lit ? '<i class="led ' + S.lit + ' titled" style="background:var(--' + (S.lit === "medium" ? "mid" : S.lit) + ')"></i>' : ""), devSub, "") +
       (latest ? row(RISK[latest.risk].icon, latest.risk === "high" ? "high" : "", T("上次检查 · ","Last check · ") + T(RISK[latest.risk].zh, RISK[latest.risk].en), esc(latest.summary.slice(0, 22)) + "…", I("chev", "chev"), "openrec", ' data-v="' + latest.id + '"') : "") +
     "</div>" +
     '<div class="card tight">' + row("phone", "", T("正在接可疑电话？","On a suspicious call?"), T("不用打字，回答 5 个问题","No typing – answer 5 questions"), I("chev", "chev"), "quick") + "</div>" +
-    '<p class="note">' + I("lock") + "<span>" + (DEMO ? T("由您决定检查什么。安心护不会读取其他 App 或通话。","You choose what to check. WiseHalo doesn't read other apps or calls.") : T("由您决定检查什么。安心护不会读取其他 App 或通话。这是测试版，内容只留在您的手机上。","You choose what to check. WiseHalo doesn't read other apps or calls. This test version keeps everything on your phone.")) + "</span></p>";
+    '<p class="note">' + I("lock") + "<span>" + (DEMO ? T("由您决定检查什么。安心护不会读取其他 App 或通话。","You choose what to check. Calls and other apps are never read.") : T("由您决定检查什么。安心护不会读取其他 App 或通话。这是测试版，内容只留在您的手机上。","You choose what to check. Calls and other apps are never read. This test version keeps everything on your phone.")) + "</span></p>";
   return { home:true, bar:bar(), body:h };
 }
 
@@ -613,10 +615,10 @@ function vCheck(){
     '<div id="samples" class="mt ' + (S.input ? "hide" : "") + '"><p class="h" style="margin-bottom:.5rem">' + T("手边没有可疑信息？用示例试一试","No message at hand? Try an example") + "</p>" +
       SAMPLES.map(function(s){ return '<button class="sample" data-act="sample" data-v="' + s.id + '">' + I("bubble") + '<span class="grow">' + T(s.zh[0], s.en[0]) + "</span>" + I("plus", "chev") + "</button>"; }).join("") + "</div>" +
     '<div class="card tight">' + row("phone", "", T("正在接可疑电话？","On a suspicious call?"), T("不用打字，回答 5 个问题","No typing – answer 5 questions"), I("chev", "chev"), "quick") + "</div>" +
-    '<p class="note">' + I("lock") + "<span>" + T("只检查您提交的内容。请不要输入真实的密码和验证码。","Only what you submit is checked. Never enter real passwords or codes.") + "</span></p>" +
+    '<p class="note">' + I("lock") + "<span>" + T("只检查您提交的内容。请不要输入真实的密码和验证码。","Only what you submit is checked. Never enter real codes.") + "</span></p>" +
     '<button class="btn pri mt" id="go" data-act="go"' + (S.checking || !S.input.trim() ? " disabled" : "") + ">" + (S.checking ? '<i class="spin"></i>' + T("正在检查…","Checking…") : T("开始检查","Check for risks")) + "</button>" +
     (rec ? '<div id="result">' + resultCard(rec, true) + "</div>" : "") +
-    '<p class="foot">' + T("AI 可能出错。低风险结果不能核实身份，也不保证安全。","AI can make mistakes. A low-risk result doesn't verify identity or guarantee safety.") + "</p>";
+    '<p class="foot">' + T("AI 可能出错。低风险结果不能核实身份，也不保证安全。","AI can be wrong. Low risk doesn't mean safe.") + "</p>";
   return { bar:bar(), body:h };
 }
 
@@ -638,18 +640,18 @@ function resultCard(rec, current){
   }
   if(rec.contacts && rec.contacts.length){
     var anyS = rec.contacts.some(function(c){ return c.sus; });
-    h += '<div class="card"><p class="t2">' + (anyS ? T("发现可疑的链接和电话","Suspicious links & numbers") : T("内容里的链接和电话","Links & numbers found")) + '</p><p class="s">' + T("在手机上按规则检查，不联网。先不要点开，也不要回拨。","Checked on this phone by simple rules. Don't open them or call back.") + "</p>" +
+    h += '<div class="card"><p class="t2">' + (anyS ? T("发现可疑的链接和电话","Suspicious links & numbers") : T("内容里的链接和电话","Links & numbers found")) + '</p><p class="s">' + T("在手机上按规则检查，不联网。先不要点开，也不要回拨。","Checked on this phone. Don't open or call.") + "</p>" +
       rec.contacts.map(function(c){ return '<div class="li" style="align-items:flex-start"><div class="ico ' + (c.sus ? "mid" : "grey") + '">' + I(c.kind === "link" ? "link" : "phone") + '</div><div class="grow"><div style="display:flex;gap:.5rem;align-items:baseline"><span class="mono grow">' + esc(c.value) + '</span><span class="tag ' + (c.sus ? "" : "n") + '">' + (c.sus ? T("可疑","Suspicious") : T("留意","Be careful")) + "</span></div>" + c.hints.map(function(x){ return '<div class="s" style="margin-top:.2rem">' + esc(x) + "</div>"; }).join("") + "</div></div>"; }).join("") + "</div>";
   }
   h += '<div class="card"><p class="t2">' + T("接下来可以怎么做","What you can do next") + "</p>" + rec.actions.map(function(a, i){ return '<div class="num"><b>' + (i + 1) + "</b><span>" + esc(a) + "</span></div>"; }).join("") + "</div>";
   h += '<div class="card tight">' +
     row("users", "", T("问问信任的人","Ask someone you trust"), T("把结果发给家人看看","Send this result to family"), I("chev", "chev"), "share", ' data-v="' + rec.id + '"') +
-    row("msg", "", T("发短信给家人","Text a family member"), S.trusted ? T("已写好，发给 ","Written for ") + esc(S.trusted) : T("内容已写好，选好人点发送","Message is written – pick who and send"), I("chev", "chev"), "sms", ' data-v="' + rec.id + '"') +
+    row("msg", "", T("发短信给家人","Text a family member"), S.trusted ? T("已写好，发给 ","Written for ") + esc(S.trusted) : T("内容已写好，选好人点发送","Written for you – pick who and send"), I("chev", "chev"), "sms", ' data-v="' + rec.id + '"') +
     row("shield", "", T("通过官方渠道核实","Verify through official channels"), T("拨打银行卡背面的电话","Use the number on your card"), I("chev", "chev"), "push", ' data-v="verify"') +
     (S.lang === "zh" ? row("phone", "", "拨打 96110 反诈专线", "全国反诈预警劝阻专线", I("chev", "chev"), "call") : "") +
     "</div>";
   h += '<div class="card"><details><summary>' + (rec.quick ? T("您的回答","Your answers") : T("您提交的内容","What you submitted")) + I("chev", "chev") + "</summary><p>" + esc(rec.input) + "</p></details></div>";
-  if(rec.quick) h += '<p class="foot">' + T("这个结果是按规则判断的，不是 AI。拿不准时，先挂断，问问信任的人。","This result comes from simple rules, not AI. When in doubt, hang up and ask someone you trust.") + "</p>";
+  if(rec.quick) h += '<p class="foot">' + T("这个结果是按规则判断的，不是 AI。拿不准时，先挂断，问问信任的人。","Simple rules, not AI. When in doubt, hang up and ask someone.") + "</p>";
   return h;
 }
 
@@ -663,13 +665,13 @@ function vPause(){
   var p = S.pause || { left: FAST ? 10 : 60, total: FAST ? 10 : 60, state: "idle" };
   S.pause = p;
   var C = 2 * Math.PI * 92, frac = p.left / p.total;
-  var h = '<div class="large">' + T("先停一下","Pause for a moment") + '</div><p class="sub">' + T("这一分钟里，什么都不用做。骗子最怕您停下来。","For one minute, do nothing. Scammers hate it when you stop.") + "</p>" +
+  var h = '<div class="large">' + T("先停一下","Pause for a moment") + '</div><p class="sub">' + T("这一分钟里，什么都不用做。骗子最怕您停下来。","Do nothing for one minute. Scammers hate a pause.") + "</p>" +
     '<div class="ring"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="none" stroke="var(--line)" stroke-width="14"/><circle id="arc" cx="100" cy="100" r="92" fill="none" stroke="url(#gh)" stroke-width="14" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + (C * (1 - frac)).toFixed(1) + '"/></svg><div class="n"><div><span id="sec">' + p.left + "</span><small>" + T("秒","sec") + "</small></div></div></div>" +
     '<div class="breath" id="breath">' + (p.state === "run" ? T("吸气……","Breathe in…") : "") + "</div>";
   if(p.state === "idle") h += '<button class="btn danger mt" data-act="pausego">' + I("pause") + T("开始暂停","Start the pause") + "</button>";
   if(p.state === "run") h += '<button class="btn ghost mt" data-act="pausestop">' + T("提前结束","End early") + "</button>";
   if(p.state === "done"){
-    h += '<div class="card"><p class="t2">' + T("做得好，您停下来了。","Well done – you paused.") + '</p><p class="b">' + T("现在想一想：对方是不是在催您？是不是让您保密？如果是，就不要继续了。","Now think: were they rushing you? Asking you to keep it secret? If so, don't go on.") + "</p></div>" +
+    h += '<div class="card"><p class="t2">' + T("做得好，您停下来了。","Well done – you paused.") + '</p><p class="b">' + T("现在想一想：对方是不是在催您？是不是让您保密？如果是，就不要继续了。","Were they rushing you or asking for secrecy? Then stop here.") + "</p></div>" +
       gateButton(T("我已暂停，关闭提醒器","I've paused – turn off the reminder")) +
       '<button class="btn out mt" data-act="share" data-v="' + (S.latestId || "") + '">' + I("users") + T("问问信任的人","Ask someone you trust") + "</button>";
   }
@@ -694,20 +696,20 @@ function startPause(){
 
 function vVerify(){
   var steps = [
-    [T("先挂断电话，或者先不回复这条消息","Hang up, or don't reply yet"), T("对方再催也不要紧，真的事情不会急在这一分钟。","Even if they push, a real matter can wait a minute.")],
-    [T("自己找官方电话","Find the official number yourself"), T("看银行卡背面、官方 App 或官网。不要用消息里的号码和链接。","Use the back of your card, the official app or website – not the number or link in the message.")],
+    [T("先挂断电话，或者先不回复这条消息","Hang up, or don't reply yet"), T("对方再催也不要紧，真的事情不会急在这一分钟。","A real matter can wait a minute.")],
+    [T("自己找官方电话","Find the official number yourself"), T("看银行卡背面、官方 App 或官网。不要用消息里的号码和链接。","Use your card, the official app or site – never the message's link or number.")],
     [T("拨打官方电话，问清楚是不是真的","Call the official number and ask"), T("把对方说的话原样告诉客服。","Tell them exactly what you were told.")]
   ];
   var all = S.verify.every(Boolean);
   var h = '<div class="large">' + T("三步核实","Verify in 3 steps") + '</div><p class="sub">' + T("一步一步来，做好一步点一下。","One step at a time. Tap when each is done.") + '</p><div class="card">' +
     steps.map(function(s, i){ var d = S.verify[i]; return '<div class="step ' + (d ? "done" : "") + '"><div class="n2">' + (d ? I("check") : i + 1) + '</div><div class="grow"><div class="h">' + s[0] + '</div><div class="s">' + s[1] + "</div>" + '<button class="mini" data-act="vstep" data-v="' + i + '">' + T("做好了","Done") + "</button></div></div>"; }).join("") + "</div>";
-  if(all) h += '<div class="card"><p class="t2">' + T("核实完成","Verification done") + '</p><p class="b">' + T("如果官方说没有这回事，那就是诈骗。不要再理会对方。","If the official channel knows nothing about it, it's a scam. Ignore them.") + "</p></div>" + gateButton(T("核实完成，关闭提醒器","Done – turn off the reminder"));
+  if(all) h += '<div class="card"><p class="t2">' + T("核实完成","Verification done") + '</p><p class="b">' + T("如果官方说没有这回事，那就是诈骗。不要再理会对方。","If they know nothing about it, it's a scam.") + "</p></div>" + gateButton(T("核实完成，关闭提醒器","Done – turn off the reminder"));
   return { bar:bar(T("官方核实","Official check"), true), body:h };
 }
 
 function vQuick(){
   var n = QUESTIONS.length, i = Math.min(S.quick.length, n - 1), q = QUESTIONS[i];
-  var h = '<p class="sub" style="margin-top:.4rem">' + T("正在接可疑电话？不用打字，回答 5 个问题。不联网，不上传。","On a suspicious call? No typing – answer 5 questions. Nothing is sent online.") + "</p>" +
+  var h = '<p class="sub" style="margin-top:.4rem">' + T("正在接可疑电话？不用打字，回答 5 个问题。不联网，不上传。","On a suspicious call? No typing – answer 5 questions. Nothing goes online.") + "</p>" +
     '<div class="s" style="font-weight:700">' + T("第 " + (i + 1) + " 题，共 " + n + " 题","Question " + (i + 1) + " of " + n) + '</div><div class="prog"><i style="width:' + (i / n * 100) + '%"></i></div>' +
     '<div class="qcard">' + T(q.zh, q.en) + "</div>" +
     '<button class="btn pri" data-act="qa" data-v="yes">' + T("是","Yes") + '</button><button class="btn out" data-act="qa" data-v="no">' + T("不是","No") + '</button><button class="btn ghost" data-act="qa" data-v="unsure">' + T("不确定","Not sure") + "</button>" +
@@ -741,11 +743,11 @@ function vSettings(){
   var h = '<div class="large">' + T("设置","Settings") + "</div>" +
     '<div class="card"><p class="h">' + T("文字大小","Text size") + '</p><div class="seg">' + sz.map(function(l, i){ return '<button data-act="size" data-v="' + i + '" class="' + (S.size === i ? "on" : "") + '">' + l + "</button>"; }).join("") + '</div><p class="b" style="font-weight:800;margin-top:.8rem">' + T("先停下，不要转账或给验证码。","Stop. Don't send money or codes.") + "</p></div>" +
     '<div class="card"><p class="h">' + T("语言","Language") + '</p><div class="seg"><button data-act="lang" data-v="zh" class="' + (S.lang === "zh" ? "on" : "") + '">中文</button><button data-act="lang" data-v="en" class="' + (S.lang === "en" ? "on" : "") + '">English</button></div></div>' +
-    '<div class="card"><div class="sw"><div class="grow"><div class="h">' + T("手机提醒","Phone alert") + '</div></div><button class="toggle ' + (S.phoneAlert ? "on" : "") + '" data-act="phonealert" role="switch" aria-checked="' + S.phoneAlert + '" aria-label="' + T("手机提醒","Phone alert") + '"></button></div><p class="s">' + T("手机负责提醒您一次：查出风险时振动。一直提醒、直到您停下来的，是桌上的提醒器。","The phone alerts you once by vibrating. The reminder on your table keeps alerting until you stop.") + "</p></div>" +
-    '<div class="card"><p class="h">' + T("信任的人","Someone you trust") + '</p><input id="trusted" class="field" type="tel" inputmode="tel" placeholder="' + T("家人的手机号（可不填）","Their mobile number (optional)") + '" value="' + esc(S.trusted) + '"><p class="s" style="margin-top:.4rem">' + T("填了以后，“发短信给家人”会自动填好这个号码。测试时可以随便填一个。","Pre-fills “Text a family member”. Any number is fine for the test.") + "</p></div>" +
+    '<div class="card"><div class="sw"><div class="grow"><div class="h">' + T("手机提醒","Phone alert") + '</div></div><button class="toggle ' + (S.phoneAlert ? "on" : "") + '" data-act="phonealert" role="switch" aria-checked="' + S.phoneAlert + '" aria-label="' + T("手机提醒","Phone alert") + '"></button></div><p class="s">' + T("手机负责提醒您一次：查出风险时振动。一直提醒、直到您停下来的，是桌上的提醒器。","Your phone vibrates once. The reminder keeps alerting until you stop.") + "</p></div>" +
+    '<div class="card"><p class="h">' + T("信任的人","Someone you trust") + '</p><input id="trusted" class="field" type="tel" inputmode="tel" placeholder="' + T("家人的手机号（可不填）","Their mobile number (optional)") + '" value="' + esc(S.trusted) + '"><p class="s" style="margin-top:.4rem">' + T("填了以后，“发短信给家人”会自动填好这个号码。测试时可以随便填一个。","Used for “Text a family member”.") + "</p></div>" +
     (DEMO
       ? '<div class="card tight">' + row("redo", "grey", T("重新看引导页","See onboarding again"), T("欢迎、语言、隐私、连接提醒器","Welcome, language, privacy, reminder"), I("chev", "chev"), "obagain") + row("redo", "grey", T("重新开始演示","Restart the demo"), T("清除这次演示的记录","Clears this demo's history"), I("chev", "chev"), "reset") + "</div>" +
-        '<p class="foot">' + T("安心护 WiseHalo · 作品集演示版。分析用固定规则判断、不调用 AI，提醒器为模拟状态；内容不会上传。","WiseHalo · portfolio demo. Analysis uses fixed rules instead of AI and the reminder is simulated; nothing is uploaded.") + "</p>"
+        '<p class="foot">' + T("安心护 WiseHalo · 作品集演示版。分析用固定规则判断、不调用 AI，提醒器为模拟状态；内容不会上传。","Portfolio demo · fixed rules, not AI · reminder simulated · nothing uploaded.") + "</p>"
       : '<div class="card tight">' + row("list", "", T("测试记录","Test log"), T("给研究者看的操作记录","Steps recorded for the researcher"), I("chev", "chev"), "push", ' data-v="log"') + row("redo", "grey", T("重新开始测试","Restart the test"), T("清除这台手机上的测试数据","Clears test data on this phone"), I("chev", "chev"), "reset") + "</div>" +
         '<p class="foot">' + T("安心护 WiseHalo · 测试原型。所有内容都是虚构的，不会上传。","WiseHalo · test prototype. Everything is fictional and nothing is uploaded.") + (S.pid ? " · " + esc(S.pid) : "") + "</p>");
   return { bar:bar(), body:h };
@@ -760,28 +762,28 @@ function vOnboard(){
   var head = function(t, sub){ return '<div class="obhd"><div class="large">' + t + '</div><p class="sub">' + sub + "</p></div>"; };
   var halo = '<div class="ringwrap"><svg viewBox="0 0 236 236"><path class="glow" d="M56.3 191.5A96 96 0 1 1 179.7 191.5"/><path class="arc" d="M56.3 191.5A96 96 0 1 1 179.7 191.5"/></svg><div class="dotc"></div></div>';
   if(st === "1"){
-    h = head(T("停一下，看清楚，<br>再做决定。","Pause. Notice.<br>Decide clearly."), T("在回复、分享信息或转账之前，先检查可疑内容，获得清楚、平静的提醒。","Check suspicious content and receive calm, clear guidance before you respond or act.")) +
+    h = head(T("停一下，看清楚，<br>再做决定。","Pause. Notice.<br>Decide clearly."), T("在回复、分享信息或转账之前，先检查可疑内容，获得清楚、平静的提醒。","Check anything suspicious and get calm, clear guidance before you act.")) +
         '<div class="obvis guard on" style="pointer-events:none">' + halo + "</div>";
     btn = '<button class="btn pri" data-act="obnext">' + T("开始使用","Get started") + "</button>";
   } else if(st === "2"){
     var opt = function(v, code, name){ var on = S.lang === v; return '<div class="card' + (on ? " sel" : "") + '"><button class="li optc" data-act="oblang" data-v="' + v + '"><div class="ico">' + code + '</div><div class="grow"><div class="h">' + name + '</div><div class="s">' + T("界面与新分析结果","App and new results") + '</div></div><span class="rad">' + (on ? I("check") : "") + "</span></button></div>"; };
     h = head(T("选择语言","Choose your language"), T("之后可以随时在设置中更改。","You can change this anytime in Settings.")) +
         opt("en", "EN", "English") + opt("zh", "中", "简体中文") +
-        '<p class="note">' + I("bubble") + "<span>" + T("支持检查中文和英文内容。证据引文会保留原文。","Chinese and English content are both supported. Evidence quotes stay in their original language.") + "</span></p>";
+        '<p class="note">' + I("bubble") + "<span>" + T("支持检查中文和英文内容。证据引文会保留原文。","Checks Chinese and English. Quotes stay in the original language.") + "</span></p>";
     btn = '<button class="btn pri" data-act="obnext">' + T("继续","Continue") + "</button>";
   } else if(st === "3"){
-    h = head(T("由你掌控","You stay in control"), T("安心护只检查你主动提交的内容。","WiseHalo only checks content that you choose to submit.")) +
-        '<div class="card pcard"><div class="ico">' + I("lockshield") + '</div><div class="h">' + T("你的隐私由你掌控","Your privacy is protected") + '</div><p class="s">' + T("只检查你主动选择并提交的内容。","Only the content you choose to submit is checked.") + "</p></div>" +
+    h = head(T("由你掌控","You stay in control"), T("安心护只检查你主动提交的内容。","WiseHalo only checks what you choose to submit.")) +
+        '<div class="card pcard"><div class="ico">' + I("lockshield") + '</div><div class="h">' + T("你的隐私由你掌控","Your privacy is protected") + '</div><p class="s">' + T("只检查你主动选择并提交的内容。","Only what you submit is checked.") + "</p></div>" +
         '<div class="card tight">' + row("shield", "", T("只处理你提交的内容","Only submitted content"), T("仅输入文字时不会发送内容。","Nothing is sent just by typing.")) +
           row("eyeoff", "", T("不进行后台读取","No background reading"), T("不读取通话或其他 App。","No access to calls or other apps.")) +
-          row("archive", "", T("本地记录由你选择","Local history is optional"), T("只有开启后才会保存记录。","Saving stays off until you enable it.")) + "</div>";
+          row("archive", "", T("本地记录由你选择","Local history is optional"), T("只有开启后才会保存记录。","Off until you turn it on.")) + "</div>";
     btn = '<button class="btn pri" data-act="obnext">' + T("继续","Continue") + "</button>";
   } else {
     var conn = st === "4c", done = st === "4d";
     var pill = done ? '<span class="obpill ok"><i></i>' + T("已连接 · 守护中","Connected · guard on") + "</span>"
              : conn ? '<span class="obpill"><i class="spin"></i>' + T("正在连接…","Connecting…") + "</span>"
              : '<span class="obpill"><i></i>' + T("等待连接","Ready to connect") + "</span>";
-    h = head(T("连接安心护提醒器","Connect your WiseHalo reminder"), T("手机只提醒您一次；提醒器会一直提醒，直到您停下来。","Your phone alerts you once. The reminder keeps alerting until you stop.")) +
+    h = head(T("连接安心护提醒器","Connect your WiseHalo reminder"), T("手机只提醒您一次；提醒器会一直提醒，直到您停下来。","Your phone alerts once. The reminder keeps going until you stop.")) +
         '<div class="obvis sm guard on' + (conn ? " conn" : "") + '" style="pointer-events:none">' + halo + pill + "</div>" +
         '<div class="card tight">' + row("bulb", "", T("一直亮着，直到您完成暂停","Stays lit until you’ve paused")) +
           row("iphone", "", T("在手机之外，骗子关不掉","Outside the phone — scammers can’t dismiss it")) +
@@ -810,7 +812,7 @@ function shareText(rec){
   if(!rec) return "";
   var r = RISK[rec.risk];
   return T("安心护检查结果：\n" + r.zh + " — " + r.head[0] + "\n\n" + rec.summary + "\n\n我先不操作，你能帮我一起看看吗？",
-           "WiseHalo check result:\n" + r.en + " — " + r.head[1] + "\n\n" + rec.summary + "\n\nI haven't done anything yet. Can you help me check this first?");
+           "WiseHalo check result:\n" + r.en + " — " + r.head[1] + "\n\n" + rec.summary + "\n\nI haven't acted yet. Can you check this with me?");
 }
 function renderSheet(){
   var el = document.getElementById("sheet"), s = S.sheet;
