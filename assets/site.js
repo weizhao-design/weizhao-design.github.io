@@ -158,3 +158,28 @@
     });
   });
 })();
+
+// Section nav: built from the page's own section heads, so both languages come for free.
+(function () {
+  var nav = document.querySelector('[data-toc]');
+  if (!nav) return;
+  var heads = [].slice.call(document.querySelectorAll('.p-main .sec-head'));
+  var links = heads.map(function (h) {
+    var num = h.children[0].textContent.trim();
+    if (!h.id) h.id = 'sec-' + num;
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.innerHTML = '<span class="n">' + num + '</span><span>' + h.children[1].innerHTML + '</span>';
+    nav.appendChild(a);
+    return a;
+  });
+  var raf = 0;
+  function mark() {
+    raf = 0;
+    var cur = 0, line = window.innerHeight * 0.35;
+    heads.forEach(function (h, i) { if (h.getBoundingClientRect().top < line) cur = i; });
+    links.forEach(function (a, i) { a.classList.toggle('is-on', i === cur); });
+  }
+  window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(mark); }, { passive: true });
+  mark();
+})();

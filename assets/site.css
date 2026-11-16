@@ -545,3 +545,11 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
   .cursor.is-zoom { width: 24px; height: 24px; margin: -12px 0 0 -12px; background: transparent; box-shadow: inset 0 0 0 1px var(--text); }
   .zoom-view ~ .cursor, .cursor.is-zoom { z-index: 90; }
 }
+
+/* section nav (project pages that opt in with [data-toc]) */
+.toc { display: flex; flex-direction: column; padding-top: 14px; border-top: 1px solid currentColor; }
+.toc a { display: grid; grid-template-columns: 30px 1fr; padding: 3px 0; color: var(--dim); }
+.toc a:hover, .toc a.is-on { color: inherit; }
+.toc a.is-on .n::after { content: " ●"; font-size: 8px; vertical-align: 2px; }
+.p-main .sec-head[id] { scroll-margin-top: 60px; }
+@media (max-width: 809.98px) { .toc { display: none; } }
