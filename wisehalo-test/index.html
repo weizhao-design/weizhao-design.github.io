@@ -928,13 +928,13 @@ var A = {
     else selectLog();
   },
   pid: function(d){ S.pid = d.v; LS.set("pid", S.pid); render(); },
-  obnext: function(){ S.ob = String(+S.ob + 1); render(); },
-  oblang: function(d){ S.lang = d.v; LS.set("lang", S.lang); render(); },
-  obconnect: function(){ S.ob = "4c"; render(); setTimeout(function(){ if(S.ob === "4c"){ S.guard = true; LS.set("guard", true); S.ob = "4d"; render(); } }, 1600); },
-  oblater: function(){ S.guard = false; LS.set("guard", false); A.obdone(); },
+  obnext: function(){ S.ob = String(+S.ob + 1); log(T("引导页 ","Onboarding ") + S.ob + "/4"); render(); },
+  oblang: function(d){ S.lang = d.v; LS.set("lang", S.lang); log(T("引导页选择语言","Onboarding language"), d.v); render(); },
+  obconnect: function(){ S.ob = "4c"; log(T("点了连接提醒器","Tapped connect reminder")); render(); setTimeout(function(){ if(S.ob === "4c"){ S.guard = true; LS.set("guard", true); S.ob = "4d"; render(); } }, 1600); },
+  oblater: function(){ log(T("选择稍后设置","Chose set up later")); S.guard = false; LS.set("guard", false); A.obdone(); },
   obdone: function(){ S.ob = ""; LS.set("obdone", true); S.tab = "home"; S.stack = []; log(T("完成引导","Onboarding done")); render(); },
   obagain: function(){ S.ob = "1"; S.stack = []; render(); },
-  start: function(){ if(!S.pid) return; S.started = true; S.t0 = Date.now(); S.log = []; log(T("开始测试","Test started"), S.pid); save(); render(); }
+  start: function(){ if(!S.pid) return; S.started = true; S.t0 = Date.now(); S.log = []; log(T("开始测试","Test started"), S.pid); save(); S.ob = "1"; log(T("引导页 1/4","Onboarding 1/4")); render(); }
 };
 function selectLog(){ var el = document.getElementById("logtxt"); var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast(T("已选中，请长按复制","Selected – long-press to copy")); }
 
