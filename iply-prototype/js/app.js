@@ -221,14 +221,15 @@
     const trust = [['Flexible production partnerships', 'Partner with approved manufacturers or existing supply chains.', 'lo-trust-handshake'], ['Moderated creator submissions', 'Concepts are reviewed before entering licensing consideration.', 'lo-trust-board'], ['Structured approval workflow', 'IP owners maintain final review authority on all products.', 'lo-trust-laptop'], ['Verified ownership system', 'Only verified IP owners can approve licensed production opportunities.', 'lo-trust-cert']];
     return `
     <section class="bg-peach lo-hero" style="margin-top:-136px;padding-top:185px"><div class="wrap">
-      <div>
+      <div class="lo-top"><div>
         <span class="pill">Welcome To iPly</span>
         <h1 class="h-xl">Discover<br>what your<br>fans <span class="o">really<br>want</span></h1>
         <p class="lead">Discover fan-backed ideas before production. Use real demand signals to choose what to license.</p>
+      </div><img src="img/lo-hero.webp" alt="IP owner reviewing a fan-demand dashboard"></div>
+      <div class="lo-bot"><div>
         <div class="osteps">${[['Sign up', 'to create your IP owner profile.'], ['Submit IP & proof', 'Share IP details and ownership documents.'], ['Get approved', 'by our team in 5 business days.']].map(([b, s], i) => `<div class="${i ? '' : 'f'}"><div class="c">${i + 1}</div><b>${b}</b><small>${s}</small></div>`).join('')}</div>
         <div class="cta-row" style="margin-top:0"><button class="btn btn-o" data-act="owner-join">Join as an IP Owner</button><button class="btn btn-k" data-act="owner-req">View Requirements</button></div>
-      </div>
-      <div class="lo-imgs"><img src="img/lo-hero.webp" alt="IP owner reviewing a fan-demand dashboard"><img src="img/land-hero2.webp" alt="" loading="lazy"></div>
+      </div><img src="img/lo-hero.webp" alt="" loading="lazy" style="object-position:72% 55%"></div>
     </div></section>
     <section class="sec-w"><div class="wrap benef">${[['Validate demand before production', 'See what fans actually want before spending time and budget on manufacturing.'], ['Discover high-potential product ideas', 'Access creator-submitted concepts that match your IP, audience, and fandom culture.'], ['Reduce merchandise risk', 'Use saves, votes, and preorder interest to avoid low-performing product launches.'], ['Save internal development time', 'Skip months of trend research and early ideation by reviewing fan-backed concepts directly.']].map(([h, p]) => `<div class="rv"><h3>${h}</h3><p>${p}</p></div>`).join('')}</div></section>
     <section class="sec-w how-sec"><div class="wrap" style="padding-top:126px">
@@ -244,7 +245,7 @@
       ${rail('rail-trust', trust.map(([h, p, img]) => `<div class="tcd"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h4>${h}</h4><p>${p}</p><button data-act="trust" data-h="${esc(h)}">View more details +</button></div></div>`).join(''), '', true)}
       <div class="copy"><span class="pill">Trust &amp; Control</span><h2 class="h-l up" style="margin-top:18px">Built for licensing collaboration</h2><p>Designed to protect IP quality, approval control, and brand integrity.</p><a class="btn btn-k" href="#/open-ip">Explore all Open IPs</a></div>
     </div>
-    <div class="wrap badges">${[['shield', 'Ownership verification'], ['file', 'Brand guideline checks'], ['box', 'Product safety testing with accredited labs'], ['link', 'Contracts & royalty tracking']].map(([i, t]) => `<div>${I(i)}${t}</div>`).join('')}</div></section>
+    <div class="wrap badges">${[['shield', 'Ownership verification'], ['file', 'Brand guideline checks'], ['box', 'Accredited safety testing'], ['link', 'Contract & royalty tracking']].map(([i, t]) => `<div>${I(i)}${t}</div>`).join('')}</div></section>
     <section class="sec-o cta-sec"><div class="wrap">
       <span class="pill w">Become an IPLY Partner</span>
       <h2 class="h-l">Ready to discover what your fans want next?</h2>
@@ -526,7 +527,7 @@
 
   /* ------------------------------------------------------------------ MY PROPOSALS (Figma: My Proposal Page) */
   const PSTAT = [['all', 'All', 'grid', '#F5F5F5', '#484848'], ['draft', 'Drafts', 'edit', '#F5F5F5', '#484848'], ['precheck', 'Pre Check', 'file', '#FFF8D6', '#E0A800'], ['validating', 'Validating', 'users', '#FFF8D6', '#E0A800'], ['review', 'Under Review', 'clock', '#FFF2EC', '#E95B3A'], ['rejected', 'Rejected', 'broken', '#FFF2EC', '#E95B3A'], ['authorized', 'Authorized', 'shield', '#EAF5E9', '#35943C'], ['launched', 'Launched', 'box', '#EAF5E9', '#35943C']];
-  const sq = (p) => `<div class="sq ${{ validating: 'y', precheck: 'b', review: 'o', authorized: 'g', launched: 'g', rejected: 'r', draft: 'k' }[p.status]}" role="img" aria-label="Stage ${p.stage + 1} of 8">${Array.from({ length: 8 }, (_, i) => `<i class="${i <= p.stage ? 'f' : ''}"></i>`).join('')}</div>`;
+  const sq = (p) => `<div class="sq sq-${{ validating: 'y', precheck: 'b', review: 'o', authorized: 'g', launched: 'g', rejected: 'r', draft: 'k' }[p.status]}" role="img" aria-label="Stage ${p.stage + 1} of 8">${Array.from({ length: 8 }, (_, i) => `<i class="${i <= p.stage ? 'f' : ''}"></i>`).join('')}</div>`;
   const actionFor = (p) => ({ validating: ['Share', 'share'], precheck: ['View Pre-check', 'open'], review: ['View Feedback', 'feedback'], rejected: ['View Feedback', 'feedback'], authorized: ['View License', 'license'], launched: ['View Product', 'product'], draft: ['Continue Editing', 'continue'] })[p.status];
   function pProposals(q) {
     const f = q.get('status') || 'all';
@@ -578,7 +579,7 @@
     return `<div class="bg-peach" style="margin-top:-136px;padding-top:136px"><div class="wrap">
       <div class="ph1"><div><span class="pill">Open IP Programs</span><h1>IPs looking for creators ideas</h1><p>These IP owners are currently accepting proposals. Each program lists what’s open, the royalty, and the demand goal.</p></div>
         <div class="chips" style="gap:14px">${['', 'Games', 'Indie Games', 'Animation', 'TV Series'].map((v) => `<a class="fchip sm ${t === v ? 'on' : ''}" href="#/open-ip${v ? '?type=' + encodeURIComponent(v) : ''}">${v || 'All'}</a>`).join('')}</div></div>
-      <div class="ipcg">${list.map((ip) => `<a class="ipc" href="#/open-ip/${ip.id}"><img src="${ip.cover}" alt="" loading="lazy"><div class="b"><h4>${ip.name}</h4><span class="ttag">${ip.type}</span><div class="meta"><span>${ip.open === 'Closed' ? 'Not accepting proposals' : 'Open until ' + ip.open}</span><span>${ip.royalty}% royalty</span></div><span class="vm">View more details +</span></div></a>`).join('')}</div>
+      <div class="ipcg">${list.map((ip) => `<a class="ipc" href="#/open-ip/${ip.id}"><img src="${ip.cover}" alt="" loading="lazy"><div class="b"><h4>${ip.name}</h4><span class="ttag">${ip.type}</span><div class="meta"><span>${ip.open === 'Closed' ? 'Not accepting proposals' : 'Open until ' + ip.open}</span><span><b>${ip.royalty}%</b> creator royalty</span></div><span class="vm">View more details +</span></div></a>`).join('')}</div>
     </div></div>`;
   }
   function pIP(id) {
@@ -631,7 +632,7 @@
   /* ------------------------------------------------------------------ SAVED / REWARDS / SETTINGS / CONTACT / GUIDELINES */
   function pSaved() {
     const list = allIdeas().filter((x) => S.votes[x.id]);
-    return `<div class="wrap" style="padding-bottom:120px"><div class="mph"><div><h1>Picked ideas</h1><p>Ideas you picked. Every pick counts as a vote for the creator.</p></div><a class="pbtn pbtn-s" style="width:auto;min-width:260px" href="#/ideas">Browse Ideas</a></div>
+    return `<div class="wrap" style="padding-bottom:120px"><div class="mph"><div><h1>Picked ideas</h1><p>Ideas you picked. Every pick counts as a vote for the creator.</p></div>${list.length ? '<a class="pbtn pbtn-s" style="width:auto;min-width:260px" href="#/ideas">Browse Ideas</a>' : ''}</div>
       ${list.length ? `<div class="grid4" style="margin-top:56px">${list.map((x) => card(x)).join('')}</div>` : `<div class="empty">${I('like')}<h3>No picks yet</h3><p>Tap the thumbs-up on any idea to support it.</p><a class="pbtn pbtn-p" href="#/ideas">Browse Ideas</a></div>`}</div>`;
   }
   function pRewards() {
