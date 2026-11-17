@@ -57,6 +57,8 @@
   const unread = () => allNotifs().filter((n) => n.unread && !S.read[n.id]).length;
   const isApparel = (cat) => /hoodie|t-shirt|tee|cap|socks/i.test(cat || '');
   const firstName = () => S.user.name.split(' ')[0];
+  // "Home" depends on who you are: visitors → landing, creators → Ideas, IP owners → review queue
+  const homeHref = () => (!S.logged ? '#/' : S.role === 'owner' ? '#/authorize?tab=queue' : '#/ideas');
   function notify(type, t, link) { S.notifs.unshift({ id: 'u' + Date.now(), type, t, d: 'Just now', link, unread: true }); }
   const chev = (n = 'next', a = '') => I(n, a);
 
@@ -108,7 +110,7 @@
 
   /* ------------------------------------------------------------------ chrome */
   function header(kind, a, bg) {
-    const logo = `<a class="logo" href="${S.logged && kind === 'app' ? '#/ideas' : '#/'}" aria-label="IPLY home"><img src="img/logo.svg" alt="IPLY — Make fan ideas official"></a>`;
+    const logo = `<a class="logo" href="${homeHref()}" aria-label="IPLY home"><img src="img/logo.svg" alt="IPLY — Make fan ideas official"></a>`;
     if (kind !== 'app' && !S.logged) {
       const owner = kind === 'owner';
       return `<header class="hdr ${bg}"><div class="wrap">${logo}
@@ -133,7 +135,7 @@
   function footer() {
     const col = (h, items) => `<div><h5>${h}</h5>${items.map(([l, href]) => `<a class="fl" href="${href}">${l}</a>`).join('')}</div>`;
     return `<footer class="ftr"><div class="wrap">
-      <div><a class="logo" href="#/" aria-label="IPLY home"><img src="img/logo-white.svg" alt="IPLY"></a><p class="d">A creator-first platform for turning fan merch concepts into licensing-ready proposals.</p>
+      <div><a class="logo" href="${homeHref()}" aria-label="IPLY home"><img src="img/logo-white.svg" alt="IPLY"></a><p class="d">A creator-first platform for turning fan merch concepts into licensing-ready proposals.</p>
         <div class="social">${[['fb', 'Facebook'], ['tw', 'Twitter'], ['yt', 'YouTube'], ['ig', 'Instagram'], ['pin', 'Pinterest'], ['wa', 'WhatsApp']].map(([k, n]) => `<a href="#/contact" aria-label="${n}">${I(k)}</a>`).join('')}</div></div>
       ${col('Platform', [['About iPly', '#/'], ['Open IPs', '#/open-ip'], ['Idea Pool', '#/ideas'], ['How It Works', '#/?s=how'], ['Marketplace', '#/ideas?status=launched&f=1'], ['Start Proposal', '#/create/1']])}
       ${col('For Creators', [['Submission Guidelines', '#/guidelines?s=submission'], ['Proposal Tips', '#/guidelines?s=tips'], ['Copyright Risk Guide', '#/guidelines?s=copyright'], ['Product Categories', '#/guidelines?s=categories'], ['Creator Dashboard', '#/proposals']])}
@@ -709,7 +711,7 @@
     } else if (kind === 'me') {
       const it = (href, l, act) => act ? `<button class="mi" data-act="${act}">${l}${I('next')}</button>` : `<a class="mi" href="${href}">${l}${I('next')}</a>`;
       el.innerHTML = `<div class="menu-h"><img src="img/av-user.webp" alt=""><div><b>${esc(firstName())}</b><small>${S.role === 'owner' ? 'IP owner view' : 'Creator'}</small></div></div><hr>
-        ${it('#/ideas', 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}${it('#/', 'About iPly')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
+        ${it(homeHref(), 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}${it('#/', 'About iPly')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
     }
     $('.hdr .wrap').appendChild(el);
   }
