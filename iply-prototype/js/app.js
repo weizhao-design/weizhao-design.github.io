@@ -766,7 +766,8 @@
       <li><b>IP owner review queue</b> — approve / request revision / decline flows back to the creator.</li>
       <li><b>Open IP, Activity, My Rewards, Settings</b>, bag &amp; pre-orders, notifications, messages, login, guidelines.</li>
       <li><b>Proposal detail</b> with an 8-step timeline, feedback, license terms; rejected state with “Revise &amp; resubmit”.</li>
-      <li><b>Data fixes</b>: overview counts match the list (Figma: 17 vs 7 rows); hoodie labelled Stranger Things; identical 96/312/312 stats; socks priced like a hoodie; duplicate “Genshin Impact”; menu name “Evelyn” vs “Luna Nash”.</li>
+      <li><b>Data fixes</b>: overview counts match the list (Figma: 17 vs 7 rows); hoodie labelled Stranger Things; identical 96/312/312 stats; socks priced like a hoodie; duplicate “Genshin Impact”; menu name “Evelyn” vs “Luna Nash” (now also fixed in the Figma file).</li>
+      <li><b>Contrast</b>: primary orange darkened from #E95B3A to #C8411F and grey body text to #6F6F6F so all text meets WCAG AA (4.5:1); the brand orange stays in the logo and illustrations.</li>
       <li><b>Copy fixes</b>: Lorem ipsum and “164+ Members” ×3 on the creator landing page; certification logos replaced with neutral trust badges.</li>
       <li>Types not open for the chosen IP are disabled; closed programs can’t be picked; under-18 path in onboarding.</li></ul>`, 'wide'); },
     logout: () => { S.logged = false; S.role = 'creator'; save(); go('/'); toast('Logged out'); },
