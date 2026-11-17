@@ -1,0 +1,106 @@
+/* IPLY prototype — seed data. Concept project: IP names are illustrative only. */
+window.IPLY_DATA = (function () {
+  const IPS = [
+    { id: 'hollow-knight', name: 'Hollow Knight', type: 'Indie Games', logo: 'img/ip-hollow-knight.webp', cover: 'img/ipc-hollow-knight.webp', open: 'May 30, 2026', owner: 'Team Cherry (illustrative)', royalty: 8, minGoal: 300, cats: ['T-Shirt', 'Hoodie', 'Plush Toy', 'Poster', 'Bottle', 'Blind Box', 'Enamel Pin'], proposals: 412, tone: 'Melancholic, hand-drawn, quiet heroism. Keep the Knight silent and small against big spaces.', dont: ['Official logo as the main graphic', 'Gore or horror beyond the game', 'Spoilers for the final bosses on packaging'] },
+    { id: 'arcane', name: 'Arcane', type: 'Animation', logo: 'img/ip-arcane.webp', cover: 'img/ip-arcane.webp', open: 'Jun 15, 2026', owner: 'Riot Games (illustrative)', royalty: 7, minGoal: 500, cats: ['Hoodie', 'Phone Case', 'Poster', 'Blind Box', 'Collectible Figure'], proposals: 288, tone: 'Painterly, industrial, Piltover gold vs. Zaun neon.', dont: ['Real-world weapons replicas', 'Romantic pairings not in canon'] },
+    { id: 'omori', name: 'Omori', type: 'Indie Games', logo: 'img/ip-omori.webp', cover: 'img/ip-omori.webp', open: 'May 30, 2026', owner: 'OMOCAT (illustrative)', royalty: 10, minGoal: 200, cats: ['Tote Bag', 'Plush Toy', 'Poster', 'Fridge Magnet', 'Sticker'], proposals: 96, tone: 'Soft pastel on the surface, unsettling underneath. Handle themes with care.', dont: ['Self-harm imagery', 'Sharp-object accessories'] },
+    { id: 'squid-game', name: 'Squid Game', type: 'TV Series', logo: 'img/ip-squid-game.webp', cover: 'img/ipc-squid-game.webp', open: 'May 30, 2026', owner: 'Netflix (illustrative)', royalty: 6, minGoal: 500, cats: ['T-Shirt', 'Hoodie', 'Phone Case', 'Fridge Magnet', 'Sticker'], proposals: 341, tone: 'Bold geometry: circle, triangle, square. Pink guards, green tracksuits.', dont: ['Depicting violence on kids’ products', 'Real money props'] },
+    { id: 'genshin', name: 'Genshin Impact', type: 'Games', logo: 'img/ip-genshin.webp', cover: 'img/ipc-genshin.webp', open: 'May 30, 2026', owner: 'HoYoverse (illustrative)', royalty: 7, minGoal: 300, cats: ['Tote Bag', 'Plush Toy', 'Mug', 'Phone Case', 'Blind Box', 'Acrylic Stand'], proposals: 655, tone: 'Bright, adventurous, region-specific motifs (Mondstadt, Liyue, Inazuma…).', dont: ['Leaked or unreleased characters', 'Suggestive poses'] },
+    { id: 'spy-family', name: 'SPY×FAMILY', type: 'Animation', logo: 'img/ip-spy-family.webp', cover: 'img/ipc-spy-family.webp', open: 'May 30, 2026', owner: 'Shueisha (illustrative)', royalty: 7, minGoal: 300, cats: ['T-Shirt', 'Plush Toy', 'Mug', 'Fridge Magnet', 'Sticker'], proposals: 219, tone: 'Warm family comedy with a spy-thriller wink.', dont: ['Real firearms branding'] },
+    { id: 'animal-crossing', name: 'Animal Crossing', type: 'Games', logo: 'img/ip-animal-crossing.webp', cover: 'img/ip-animal-crossing.webp', open: 'Closed', owner: 'Nintendo (illustrative)', royalty: 6, minGoal: 500, cats: ['Tote Bag', 'Mug'], proposals: 503, tone: 'Cozy, seasonal, island life.', dont: ['Using in-game screenshots as artwork'] },
+    { id: 'stranger-things', name: 'Stranger Things', type: 'TV Series', logo: 'img/ip-stranger-things.webp', cover: 'img/ipc-stranger-things.webp', open: 'May 30, 2026', owner: 'Netflix (illustrative)', royalty: 6, minGoal: 400, cats: ['T-Shirt', 'Hoodie', 'Poster', 'Fridge Magnet', 'Keychain'], proposals: 377, tone: '80s retro, Upside Down red, Hawkins small-town nostalgia.', dont: ['Real actor likenesses'] },
+    { id: 'whisperwood', name: 'Whisperwood', type: 'Indie Games', logo: null, cover: 'img/p-collector-box.webp', open: 'Jul 01, 2026', owner: 'Pixel Grove (fictional demo IP)', royalty: 12, minGoal: 150, cats: ['T-Shirt', 'Tote Bag', 'Plush Toy', 'Mug', 'Poster', 'Blind Box', 'Socks'], proposals: 64, tone: 'Cozy pixel forest, lantern light, a small hero with a black cat.', dont: ['Mixing with other IPs’ characters'] }
+  ];
+
+  const CREATORS = {
+    'nova-land': { name: 'Nova Land', avatar: 'img/av-nova.webp', bio: 'Digital artist and storyteller. I love creating calm, nature-inspired worlds that feel like home.', inProduction: 8, validating: 24, published: 126 },
+    'luna-nash': { name: 'Luna Nash', avatar: 'img/av-user.webp', bio: 'Freelance illustrator. Fan of quiet games and loud colours.', inProduction: 1, validating: 3, published: 9 },
+    'pixel-grove': { name: 'Pixel Grove', avatar: 'img/av-c1.webp', bio: 'Pixel artist building the Whisperwood world.', inProduction: 3, validating: 11, published: 48 },
+    'mosscloak': { name: 'Mosscloak', avatar: 'img/av-c0.webp', bio: 'Hallownest wanderer. Enamel pins and tiny things.', inProduction: 2, validating: 6, published: 31 }
+  };
+
+  // status: validating | review | launched
+  const IDEAS = [
+    { id: 'tee', title: 'Moonlit Kingdom Tee', short: 'Tee', ip: 'hollow-knight', cat: 'T-Shirt', creator: 'nova-land', price: [28], img: 'img/p-tee.webp', comments: 41, votes: 268, pre: 190, goal: 300, status: 'validating', daysLeft: 14, desc: 'Ink-wash kingdom silhouette on an off-white heavyweight tee, sun disc in muted orange.' },
+    { id: 'pin', title: 'Wanderer Enamel Pin', short: 'Pin', ip: 'hollow-knight', cat: 'Enamel Pin', creator: 'mosscloak', price: [8], img: 'img/p-pin.webp', comments: 64, votes: 512, pre: 344, goal: 300, status: 'review', daysLeft: 0, desc: 'Hard-enamel pin with gold plating and a tiny nail, 38 mm.' },
+    { id: 'bottle', title: 'Vessel Steel Bottle', short: 'Bottle', ip: 'hollow-knight', cat: 'Bottle', creator: 'nova-land', price: [18], img: 'img/p-bottle.webp', comments: 18, votes: 143, pre: 77, goal: 300, status: 'validating', daysLeft: 21, desc: 'Matte black double-wall bottle, 500 ml, minimal mask print.' },
+    { id: 'extra-thick-hoodie', title: 'Extra-Thick Hoodie', short: 'Hoodie', ip: 'hollow-knight', cat: 'Hoodie', creator: 'nova-land', price: [48, 58], img: 'img/hoodie-black.webp', thumb: 'img/p-hoodie.webp',
+      variants: [{ c: 'Black', hex: '#141414', img: 'img/hoodie-black.webp' }, { c: 'Ash Grey', hex: '#8E8E8E', img: 'img/hoodie-grey.webp' }, { c: 'Navy', hex: '#1F2A44', img: 'img/hoodie-navy.webp' }, { c: 'Maroon', hex: '#6B1F2A', img: 'img/hoodie-maroon.webp' }, { c: 'Cream', hex: '#EDE6D6', img: 'img/hoodie-cream.webp' }],
+      gallery: ['img/hoodie-black.webp', 'img/hoodie-grey.webp', 'img/hoodie-black-back.webp', 'img/hoodie-model-black.webp'],
+      comments: 96, votes: 312, pre: 212, goal: 300, status: 'validating', daysLeft: 9,
+      desc: 'A cozy fandom-inspired hoodie concept featuring a moonlit mountain trail design. Perfect for cool adventures, studio sessions, and everyday comfort.',
+      detail: { Material: 'This hoodie is imagined as a soft midweight fleece piece with a cotton-blend exterior and a brushed interior for comfort and warmth. The fabric should feel structured enough to hold its shape.', Dimensions: 'The hoodie uses a relaxed unisex silhouette with enough room for layering, making it suitable for different body types and styling preferences. The fit is not too slim and not overly oversized.', 'IP fits': 'This hoodie concept works best for IPs with emotional atmosphere, quiet adventure themes, nature-based worldbuilding, or cozy storytelling. It is especially suitable for Hollow Knight.', 'Creator notes': 'This concept was inspired by late-night walks, quiet mountain air, and the feeling of finding your own path. I wanted the hoodie to feel like something a fan could wear while studying late.' } },
+    { id: 'socks', title: 'Trail Companion Socks', short: 'Socks', ip: 'whisperwood', cat: 'Socks', creator: 'pixel-grove', price: [12], img: 'img/p-socks.webp', comments: 22, votes: 189, pre: 120, goal: 150, status: 'validating', daysLeft: 6, desc: 'Cotton crew socks with pixel mushrooms, stars and the black cat.' },
+    { id: 'figurine', title: 'Whisperwood Hero Figurine', short: 'Figurine', ip: 'whisperwood', cat: 'Figurine', creator: 'pixel-grove', price: [26], img: 'img/p-figurine.webp', comments: 133, votes: 904, pre: 610, goal: 150, status: 'launched', daysLeft: 0, desc: 'Resin figurine on a mossy base with the forest spirit and cat companion.' },
+    { id: 'mug', title: 'Starry Camp Ceramic Mug', short: 'Ceramic Mug', ip: 'whisperwood', cat: 'Mug', creator: 'pixel-grove', price: [16], img: 'img/p-mug.webp', comments: 37, votes: 260, pre: 150, goal: 150, status: 'review', daysLeft: 0, desc: 'Wraparound night-sky print, 350 ml stoneware.' },
+    { id: 'cap', title: 'Forest Patrol Cap', short: 'Baseball Cap', ip: 'whisperwood', cat: 'Cap', creator: 'nova-land', price: [26], img: 'img/p-cap.webp', comments: 12, votes: 98, pre: 41, goal: 150, status: 'validating', daysLeft: 18, desc: 'Washed forest-green cap with embroidered hero and cat patch.' },
+    { id: 'washi', title: 'Mushroom Path Washi Tape', short: 'Washi Tape', ip: 'whisperwood', cat: 'Washi Tape', creator: 'pixel-grove', price: [4], img: 'img/p-washi.webp', comments: 9, votes: 77, pre: 58, goal: 150, status: 'validating', daysLeft: 11, desc: 'Set of two washi rolls, night and day palettes.' },
+    { id: 'stickers', title: 'Pixel Grove Sticker Sheet', short: 'Sticker Sheet', ip: 'whisperwood', cat: 'Sticker', creator: 'pixel-grove', price: [6], img: 'img/p-stickers.webp', comments: 28, votes: 301, pre: 182, goal: 150, status: 'launched', daysLeft: 0, desc: 'Holographic vinyl sheet, 16 die-cut stickers.' },
+    { id: 'keychains', title: 'Star & Moon Keychains', short: 'Keychains', ip: 'whisperwood', cat: 'Keychain', creator: 'nova-land', price: [8], img: 'img/p-keychains.webp', comments: 31, votes: 222, pre: 133, goal: 150, status: 'validating', daysLeft: 4, desc: 'Double-sided acrylic charms with gold star and moon toppers.' },
+    { id: 'collector-box', title: 'Collector’s Edition Box', short: 'Collector Box', ip: 'whisperwood', cat: 'Blind Box', creator: 'pixel-grove', price: [18], img: 'img/p-collector-box.webp', comments: 54, votes: 377, pre: 140, goal: 150, status: 'validating', daysLeft: 2, desc: 'Foil-stamped box holding a mystery mini figure and art card.' },
+    { id: 'art-print', title: 'Campfire Night Art Print', short: 'Art Print', ip: 'whisperwood', cat: 'Poster', creator: 'nova-land', price: [14], img: 'img/p-art-print.webp', comments: 19, votes: 156, pre: 64, goal: 150, status: 'validating', daysLeft: 15, desc: 'Giclée print on textured art paper, A3.' },
+    { id: 'plush', title: 'Forest Spirit Plush', short: 'Plush Toy', ip: 'whisperwood', cat: 'Plush Toy', creator: 'pixel-grove', price: [18], img: 'img/p-plush.webp', comments: 88, votes: 640, pre: 402, goal: 150, status: 'launched', daysLeft: 0, desc: 'Minky plush with antlers and a tiny flower, 25 cm.' },
+    { id: 'plush-pouch', title: 'Black Cat Plush Pouch', short: 'Plush Pouch', ip: 'whisperwood', cat: 'Plush Toy', creator: 'nova-land', price: [28], img: 'img/p-plush-pouch.webp', comments: 44, votes: 290, pre: 101, goal: 150, status: 'validating', daysLeft: 7, desc: 'Zip coin pouch with mushroom charm.' },
+    { id: 'notebook', title: 'Adventurer’s Journal', short: 'Notebook', ip: 'whisperwood', cat: 'Notebook', creator: 'pixel-grove', price: [18], img: 'img/p-notebook.webp', comments: 15, votes: 119, pre: 39, goal: 150, status: 'validating', daysLeft: 20, desc: 'Spiral journal, 160 dotted pages, foil cover.' },
+    // Luna's public proposals (also appear in My Proposals)
+    { id: 'paimon-tote', title: 'Paimon Picnic Tote', short: 'Tote', ip: 'genshin', cat: 'Tote Bag', creator: 'luna-nash', price: [22], img: 'img/pr-paimon-tote.webp', comments: 8, votes: 32, pre: 12, goal: 300, status: 'validating', daysLeft: 23, desc: 'Canvas picnic tote with a floating companion and Mondstadt flowers.' },
+    { id: 'wanderer-pin', title: 'Hollow Knight Wanderer Pin', short: 'Pin', ip: 'hollow-knight', cat: 'Enamel Pin', creator: 'luna-nash', price: [9], img: 'img/pr-hk-pin.webp', comments: 6, votes: 45, pre: 55, goal: 300, status: 'validating', daysLeft: 19, desc: 'Soft-enamel pin with a black-nickel outline.' },
+    { id: 'squid-stickers', title: 'Squid Game Symbol Sticker Pack', short: 'Stickers', ip: 'squid-game', cat: 'Sticker', creator: 'luna-nash', price: [7], img: 'img/pr-squid-stickers.webp', comments: 5, votes: 73, pre: 32, goal: 500, status: 'validating', daysLeft: 12, desc: 'Nine die-cut symbol stickers on a matte card.' },
+    { id: 'moon-hoodie', title: 'Hallownest Moon Hoodie', short: 'Hoodie', ip: 'hollow-knight', cat: 'Hoodie', creator: 'luna-nash', price: [52], img: 'img/pr-upside-hoodie.webp', comments: 11, votes: 58, pre: 321, goal: 300, status: 'review', daysLeft: 0, desc: 'Cream heavyweight hoodie, moonlit kingdom print.' },
+    { id: 'arcane-figure', title: 'Arcane Chibi Figure', short: 'Figure', ip: 'arcane', cat: 'Collectible Figure', creator: 'luna-nash', price: [34], img: 'img/pr-arcane-figure.webp', comments: 14, votes: 64, pre: 523, goal: 500, status: 'launched', daysLeft: 0, desc: 'PVC chibi figure on a Zaun pipe base, 12 cm.' }
+  ];
+
+  // Luna's proposals. stage index on an 8-step track:
+  // 0 Draft · 1 Pre-check · 2 Validating · 3 Goal reached · 4 Under review · 5 Authorized · 6 In production · 7 Launched
+  const PROPOSALS = [
+    { id: 'paimon-tote', title: 'Paimon Picnic Tote', ip: 'genshin', cat: 'Tote Bag', img: 'img/pr-paimon-tote.webp', status: 'validating', stage: 2, c: 8, v: 32, p: 12, goal: 300, updated: 'May 10, 2026' },
+    { id: 'wanderer-pin', title: 'Hollow Knight Wanderer Pin', ip: 'hollow-knight', cat: 'Enamel Pin', img: 'img/pr-hk-pin.webp', status: 'validating', stage: 2, c: 6, v: 45, p: 55, goal: 300, updated: 'May 8, 2026' },
+    { id: 'moon-hoodie', title: 'Hallownest Moon Hoodie', ip: 'hollow-knight', cat: 'Hoodie', img: 'img/pr-upside-hoodie.webp', status: 'review', stage: 4, c: 11, v: 58, p: 321, goal: 300, updated: 'May 6, 2026',
+      feedback: [{ from: 'IP review team', date: 'May 6, 2026', text: 'Demand looks strong (107% of goal). Brand check in progress — we may ask to move the kingdom silhouette 2 cm lower so it clears the hood seam.' }] },
+    { id: 'squid-stickers', title: 'Squid Game Symbol Sticker Pack', ip: 'squid-game', cat: 'Sticker', img: 'img/pr-squid-stickers.webp', status: 'validating', stage: 2, c: 5, v: 73, p: 32, goal: 500, updated: 'May 2, 2026' },
+    { id: 'trail-socks', title: 'Whisperwood Trail Socks', ip: 'whisperwood', cat: 'Socks', img: 'img/p-socks.webp', status: 'precheck', stage: 1, c: 0, v: 0, p: 0, goal: 150, updated: 'May 12, 2026',
+      precheck: [{ k: 'Copyright risk', r: 'pass', n: 'No official logos detected.' }, { k: 'Image quality', r: 'pass', n: '2 images, 1254 px.' }, { k: 'Production feasibility', r: 'running', n: 'Checking knit colour limit (max 5 colours)…' }, { k: 'IP guideline match', r: 'pass', n: 'Category “Socks” is open for Whisperwood.' }] },
+    { id: 'void-bottle', title: 'Void Heart Steel Bottle', ip: 'hollow-knight', cat: 'Bottle', img: 'img/p-bottle.webp', status: 'rejected', stage: 4, c: 3, v: 21, p: 9, goal: 300, updated: 'Apr 2, 2026',
+      feedback: [{ from: 'IP review team', date: 'Apr 2, 2026', text: 'Too close to an existing official bottle (same mask placement and colourway). You’re welcome to resubmit with an original composition — for example, a scene rather than a single mask.' }] },
+    { id: 'forest-mug', title: 'Forest Spirit Ceramic Mug', ip: 'animal-crossing', cat: 'Ceramic Mug', img: 'img/pr-forest-mug.webp', status: 'authorized', stage: 5, c: 4, v: 29, p: 9, goal: 500, updated: 'Feb 28, 2026', license: { term: '24 months', royalty: '6% of net sales', territory: 'North America', run: 'Pilot run of 300 units' } },
+    { id: 'arcane-figure', title: 'Arcane Chibi Figure', ip: 'arcane', cat: 'Collectible Figure', img: 'img/pr-arcane-figure.webp', status: 'launched', stage: 7, c: 14, v: 64, p: 523, goal: 500, updated: 'Feb 11, 2026', license: { term: '18 months', royalty: '7% of net sales', territory: 'Global', run: '1,200 units sold in week 1' } },
+    { id: 'rlgl-hoodie', title: 'Red Light Green Light Hoodie', ip: 'squid-game', cat: 'Hoodie', img: 'img/pr-rlgl-hoodie.webp', status: 'draft', stage: 0, c: 0, v: 0, p: 0, goal: 500, updated: 'Jan 17, 2026',
+      draft: { ip: 'squid-game', type: 'Hoodie', format: 'Product Concept', dirs: ['Streetwear', 'Iconic Moment'], images: ['img/pr-rlgl-hoodie.webp'], step: 3 } }
+  ];
+
+  const COMMENTS = {
+    'extra-thick-hoodie': [
+      { u: '@mosscloak_21', a: 'img/av-c0.webp', t: 'I love that this hoodie feels subtle but still very Hollow Knight. It’s not just a big logo slapped on the front — the cave scene actually feels like the game world.' },
+      { u: '@littleknightclub', a: 'img/av-c1.webp', t: 'The illustration is beautiful, but I’m not sure about putting “Hollow Knight” as text on the hoodie. I would prefer a cleaner design with only the character and background.' },
+      { u: '@dirtmouthwanderer', a: 'img/av-c2.webp', t: 'I would buy this if it became official. The black hoodie works really well with the mood of the game, and the character placement feels wearable.' },
+      { u: '@greenpath.gal', a: 'img/av-c3.webp', t: 'Please make a cream version too! Also hoping the print isn’t too big on size S.' }
+    ]
+  };
+
+  const NOTIFS = [
+    { id: 'n1', type: 'review', t: 'Hallownest Moon Hoodie moved to IP owner review', d: '2h ago', link: '#/proposal/moon-hoodie', unread: true },
+    { id: 'n2', type: 'milestone', t: 'Hollow Knight Wanderer Pin passed 50 pre-order intents', d: '5h ago', link: '#/proposal/wanderer-pin', unread: true },
+    { id: 'n3', type: 'comment', t: '@greenpath.gal commented on Paimon Picnic Tote: “Would love a bigger size!”', d: 'Yesterday', link: '#/idea/paimon-tote', unread: true },
+    { id: 'n4', type: 'precheck', t: 'Pre-check running for Whisperwood Trail Socks — 3 of 4 checks passed', d: 'May 12', link: '#/proposal/trail-socks' },
+    { id: 'n5', type: 'license', t: 'License signed for Forest Spirit Ceramic Mug · 6% royalty', d: 'Feb 28', link: '#/proposal/forest-mug' },
+    { id: 'n6', type: 'rejected', t: 'Void Heart Steel Bottle was not approved — see feedback', d: 'Apr 2', link: '#/proposal/void-bottle' },
+    { id: 'n7', type: 'sale', t: 'Arcane Chibi Figure sold 1,200 units in launch week', d: 'Feb 18', link: '#/proposal/arcane-figure' }
+  ];
+
+  // IP owner review queue (Authorize → IP owner view)
+  const QUEUE = [
+    { id: 'moon-hoodie', creator: 'luna-nash', fit: 92, risk: 'Low', note: 'Strong repeat-buyer overlap with Hoodie category.' },
+    { id: 'pin', creator: 'mosscloak', fit: 88, risk: 'Low', note: '344 intents · 61% from existing customers.' },
+    { id: 'mug', creator: 'pixel-grove', fit: 74, risk: 'Medium', note: 'Wraparound print adds 18% unit cost.' }
+  ];
+
+  const PRODUCT_TYPES = [
+    { n: 'T-Shirt', i: 'img/pt-tshirt.webp' }, { n: 'Hoodie', i: 'img/pt-hoodie.webp' }, { n: 'Tote Bag', i: 'img/pt-tote.webp' }, { n: 'Plush Toy', i: 'img/pt-plush.webp' }, { n: 'Mug', i: 'img/pt-mug.webp' },
+    { n: 'Phone Case', i: null }, { n: 'Bottle', i: 'img/pt-bottle.webp' }, { n: 'Fridge Magnet', i: 'img/pt-magnet.webp' }, { n: 'Blind Box', i: 'img/pt-blindbox.webp' }, { n: 'Poster', i: null }
+  ];
+  const FORMATS = ['Product Concept', 'Visual Mockup', 'Packaging Concept', 'Character-based Design', 'Merch Collection', 'Limited Edition Campaign', 'Pattern Design'];
+  const DIRECTIONS = ['Cute', 'Minimal', 'Dark', 'Retro', 'Futuristic', 'Cozy', 'Streetwear', 'Premium', 'Playful', 'Character-focused', 'Lore-inspired', 'Nostalgic', 'Meme-inspired', 'Emotional', 'Iconic Moment', 'Collectible', 'Limited Edition', 'Giftable', 'Everyday Use', 'Display-worthy', 'Convention-ready'];
+  const FANDOMS = ['Genshin Impact', 'SPY×FAMILY', 'Hollow Knight', 'Arcane', 'Stranger Things', 'Animal Crossing', 'Studio Ghibli', 'Omori', 'Stardew Valley', 'Pokémon'];
+
+  return { IPS, CREATORS, IDEAS, PROPOSALS, COMMENTS, NOTIFS, QUEUE, PRODUCT_TYPES, FORMATS, DIRECTIONS, FANDOMS };
+})();
