@@ -282,6 +282,7 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .fig.embed.wide iframe { width: 100%; aspect-ratio: auto; height: min(78vh, 760px); border: 1px solid rgba(127,127,127,.28); border-radius: 10px; background: #F2F4F8; }
 .figs-tall { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 .figs-tall .fig { max-height: 1000px; overflow-y: auto; scrollbar-width: thin; }
+.figs-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
 
 .sec-head { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tg); padding: 40px 0 0; }
 .sec-head > :first-child { grid-column: 1; grid-row: 1; }
@@ -347,6 +348,7 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
   .sec-head { grid-template-columns: 1fr; row-gap: 6px; }
   .sec-head .sec-text { grid-column: 1; grid-row: 2; }
   .figs-tall { grid-template-columns: 1fr; }
+  .figs-3 { grid-template-columns: 1fr; }
   .p-foot { padding-top: 20px; }
 
   .info { display: block; padding-top: 28px; }
