@@ -338,7 +338,7 @@ var BUILD = "v3";   // v3 = the six changes from round-1 testing (shown in the t
 var KEYS = ["lang","size","guard","phoneAlert","trusted","pid","started","records","log","t0","lit","input","src"];
 var S = {
   lang: params.get("lang") || LS.get("lang", "zh"),
-  size: LS.get("size", 1),   // v3: "Large" is the default (3/4 testers ended on Large)
+  size: LS.get("size", 0),   // Standard by default; text size is chosen during onboarding (v3)
   src: LS.get("src", ""),    // where the current input came from: paste | sample | mic | typed
   guard: LS.get("guard", true),
   phoneAlert: LS.get("phoneAlert", true),
