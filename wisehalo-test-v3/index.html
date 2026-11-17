@@ -92,7 +92,7 @@ details summary svg.chev{transition:transform .2s} details[open] summary svg.che
 #result{scroll-margin-top:4rem}   /* the sticky top bar no longer covers the result when it scrolls into view */
 
 /* buttons */
-.btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;min-height:3.4rem;border-radius:16px;font-size:1.12rem;font-weight:700;text-align:center;padding:.4rem 1rem}
+.btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;min-height:3.4rem;border-radius:16px;font-size:1.12rem;font-weight:700;text-align:center;padding:.4rem 1rem;line-height:1.15}   /* a two-line label still fits in one button height */
 .btn+.btn{margin-top:.6rem}
 .btn.pri{background:var(--primary);color:#fff;box-shadow:0 6px 16px rgba(15,28,63,.18)}
 .btn.danger{background:linear-gradient(180deg,var(--high),var(--high-2));color:#fff;box-shadow:0 8px 20px rgba(212,42,30,.28)}
@@ -133,7 +133,7 @@ html.t-dark .guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40p
 .ta::placeholder{color:#7B8494}
 .meta{display:flex;justify-content:space-between;align-items:center;margin-top:.4rem;font-size:.85rem;color:var(--ink-2)}
 .meta button{color:var(--accent);font-weight:600;padding:.3rem 0}
-.sample{display:flex;align-items:center;gap:.7rem;width:100%;padding:.8rem .9rem;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:1rem}
+.sample{display:flex;align-items:center;gap:.7rem;width:100%;min-height:3.4rem;padding:.4rem .9rem;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:1rem;line-height:1.2}   /* same height as the buttons above */
 .sample+.sample{margin-top:.5rem}
 .sample .grow{flex:1}
 .hide{display:none!important}
