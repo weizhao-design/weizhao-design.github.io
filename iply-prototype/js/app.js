@@ -193,12 +193,12 @@
       <div class="how">${[['Choose an IP', 'Browse available IP campaigns and select the fandom you want to design for.'], ['Submit a merch proposal', 'Upload your product mockup, artwork file, and basic production details.'], ['Validate fan demand', 'Fans vote, save, comment, and show purchase interest before production.'], ['Get IP owner approval', 'High-performing designs are reviewed for licensing, brand fit, and feasibility.'], ['Launch licensed merch', 'Approved designs move toward pilot production as official licensed merchandise.']].map(([h, p], i) => `<div class="st rv"><div class="n">0${i + 1}</div><h4>${h}</h4><p>${p}</p></div>`).join('')}</div>
     </div></section>
     <section class="sec-w tsec"><div class="wrap split">
-      <div class="copy"><span class="pill">Submission Types</span><h2 class="h-l up">What can<br>you submit</h2><p>From figures to apparel, posters to lifestyle goods — submit your best ideas in the categories below.</p><a class="btn btn-k" href="${start}">Start upload your ideas</a>${railNav('rail-types')}</div>
+      <div class="copy"><span class="pill">Submission Types</span><h2 class="h-l up">What can<br>you submit</h2><p>From figures to apparel, posters to lifestyle goods — submit your best ideas in the categories below.</p><a class="btn btn-k" href="${start}">Start upload your ideas</a></div>
       ${rail('rail-types', cats.map(([h, p, img]) => `<a class="tcard" href="#/guidelines?s=categories"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h4>${h}</h4><p>${p}</p></div></a>`).join(''))}
     </div></section>
     <section class="bg-peach tsec"><div class="wrap split rev">
       ${rail('rail-ips', ips.map((ip) => `<a class="ipc" href="#/open-ip/${ip.id}"><img src="${ip.cover}" alt="" loading="lazy"><div class="b"><h4>${ip.name}</h4><span class="ttag">${ip.type}</span><p class="until">${ip.open === 'Closed' ? 'Not accepting proposals' : 'Open until ' + ip.open}</p><span class="vm">View more details +</span></div></a>`).join(''), '', true)}
-      <div class="copy"><span class="pill">Open IP Programs</span><h2 class="h-l up">IPs looking for creators ideas</h2><p>These IP owners are currently accepting proposals. Click to view details and start your submission.</p><a class="btn btn-k" href="#/open-ip">Explore all Open IPs</a>${railNav('rail-ips')}</div>
+      <div class="copy"><span class="pill">Open IP Programs</span><h2 class="h-l up">IPs looking for creators ideas</h2><p>These IP owners are currently accepting proposals. Click to view details and start your submission.</p><a class="btn btn-k" href="#/open-ip">Explore all Open IPs</a></div>
     </div>
     <div class="wrap strip" aria-label="Open IP programs">${['hollow-knight', 'arcane', 'omori', 'genshin', 'spy-family', 'stranger-things'].map((k) => `<a href="#/open-ip/${k}"><img src="img/ip-${k}.webp" alt="${ipById(k).name}" loading="lazy"></a>`).join('')}</div></section>
     <section class="sec-k"><div class="wrap camp">
@@ -242,7 +242,7 @@
     </div></section>
     <section class="sec-w"><div class="wrap trust">
       ${rail('rail-trust', trust.map(([h, p, img]) => `<div class="tcd"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h4>${h}</h4><p>${p}</p><button data-act="trust" data-h="${esc(h)}">View more details +</button></div></div>`).join(''), '', true)}
-      <div class="copy"><span class="pill">Trust &amp; Control</span><h2 class="h-l up" style="margin-top:18px">Built for licensing collaboration</h2><p>Designed to protect IP quality, approval control, and brand integrity.</p><a class="btn btn-k" href="#/open-ip">Explore all Open IPs</a>${railNav('rail-trust')}</div>
+      <div class="copy"><span class="pill">Trust &amp; Control</span><h2 class="h-l up" style="margin-top:18px">Built for licensing collaboration</h2><p>Designed to protect IP quality, approval control, and brand integrity.</p><a class="btn btn-k" href="#/open-ip">Explore all Open IPs</a></div>
     </div>
     <div class="wrap badges">${[['shield', 'Ownership verification'], ['file', 'Brand guideline checks'], ['box', 'Product safety testing with accredited labs'], ['link', 'Contracts & royalty tracking']].map(([i, t]) => `<div>${I(i)}${t}</div>`).join('')}</div></section>
     <section class="sec-o cta-sec"><div class="wrap">
@@ -404,7 +404,7 @@
           </div>
         </div>
       </section>
-      ${more.length ? `<div class="rowh"><h2>You May also like</h2><div class="rh">${railNav('rail-more')}<a class="more" href="#/ideas?ip=${x.ip}&f=1">View all${chev()}</a></div></div>${rail('rail-more', more.map((o) => card(o, true)).join(''))}` : ''}
+      ${more.length ? `<div class="rowh"><h2>You May also like</h2><div class="rh"><a class="more" href="#/ideas?ip=${x.ip}&f=1">View all${chev()}</a></div></div>${rail('rail-more', more.map((o) => card(o, true)).join(''))}` : ''}
       <div class="rowh" id="comments" style="scroll-margin-top:160px"><h2>Comments<small>${ncom(x)}</small></h2>${comments.length > 4 ? `<button class="more" data-act="all-comments">${st.allC ? 'Show less' : 'View all'}${chev()}</button>` : ''}</div>
       <form class="cbox" data-form="comment" data-id="${id}" novalidate><img src="img/av-user.webp" alt=""><div class="f"><label class="sr" for="c-in">Your comment</label><textarea id="c-in" name="t" placeholder="What are your thoughts on this idea?" maxlength="400" data-count="1"></textarea>
         <div class="acts"><div class="ctags" role="radiogroup" aria-label="Comment type">${['Love it', 'Suggestion', 'Would buy'].map((t) => `<button type="button" class="ctag ${st.tag === t ? 'on' : ''}" role="radio" aria-checked="${st.tag === t}" data-act="ctag" data-id="${id}" data-v="${t}">${t}</button>`).join('')}<span class="ctag" style="pointer-events:none">${esc(ip.name)}</span></div><div class="send"><span class="ccount" id="ccount">0/400</span><button class="pbtn pbtn-p sm">Post comment</button></div></div></div></form>
@@ -938,6 +938,42 @@
   document.addEventListener('dragover', (ev) => { const d = ev.target.closest('#drop'); if (d) { ev.preventDefault(); d.classList.add('over'); } });
   document.addEventListener('dragleave', (ev) => { const d = ev.target.closest('#drop'); if (d) d.classList.remove('over'); });
   document.addEventListener('drop', (ev) => { const d = ev.target.closest('#drop'); if (d) { ev.preventDefault(); d.classList.remove('over'); readFiles(ev.dataTransfer.files); } });
+  /* carousels: drag with the mouse to scroll (touch / trackpad scroll natively) */
+  let drag = null;
+  document.addEventListener('pointerdown', (e) => {
+    const r = e.target.closest('.rail');
+    if (!r || e.button !== 0 || e.pointerType === 'touch') return;
+    drag = { r, x: e.clientX, sl: r.scrollLeft, moved: false, id: e.pointerId };
+  });
+  document.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 6) { drag.moved = true; drag.r.classList.add('drag'); try { drag.r.setPointerCapture(drag.id); } catch (er) {} }
+    if (drag.moved) { e.preventDefault(); drag.r.scrollLeft = drag.sl - dx / railScale(); }
+  });
+  const endDrag = () => {
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (d.moved) {
+      d.r.classList.remove('drag');
+      const stop = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+      document.addEventListener('click', stop, { capture: true, once: true });
+      setTimeout(() => document.removeEventListener('click', stop, { capture: true }), 60);
+    }
+  };
+  document.addEventListener('pointerup', endDrag);
+  document.addEventListener('pointercancel', endDrag);
+  document.addEventListener('dragstart', (e) => { if (e.target.closest('.rail')) e.preventDefault(); });
+  // scrollLeft units vs screen pixels under CSS zoom (measured once per zoom level)
+  let rsCache = { z: 0, k: 1 };
+  function railScale() {
+    const z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1;
+    if (rsCache.z === z) return rsCache.k;
+    const r = $('.rail'); let k = 1;
+    if (r && r.firstElementChild) { const before = r.firstElementChild.getBoundingClientRect().left, sl = r.scrollLeft; r.scrollLeft = sl + 100; const moved = before - r.firstElementChild.getBoundingClientRect().left, used = r.scrollLeft - sl; r.scrollLeft = sl; if (used > 0 && moved > 0) k = moved / used; }
+    rsCache = { z, k }; return k;
+  }
+
   function readFiles(files) {
     const d = Dr(); const list = Array.from(files || []).filter((f) => /image\/(png|jpe?g|webp)/.test(f.type));
     if (!list.length) return toast('Use JPG, PNG or WEBP images');
