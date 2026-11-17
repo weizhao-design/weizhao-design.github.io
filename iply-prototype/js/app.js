@@ -166,7 +166,7 @@
     const ips = ['spy-family', 'hollow-knight', 'stranger-things', 'genshin', 'squid-game'].map(ipById);
     const start = S.logged ? '#/create/1' : '#/signup?next=create';
     return `
-    <section class="lc-hero bg-peach" style="margin-top:-136px;padding-top:185px"><div class="wrap">
+    <section class="lc-hero bg-peach" style="margin-top:-136px;padding-top:185px"><div class="wrap hero-g">
       <div>
         <span class="pill">Welcome To iPly</span>
         <h1 class="h-xl">Turn<br>fan ideas into<br><span class="o">official<br>merch.</span></h1>
@@ -177,7 +177,7 @@
       </div>
       <img class="art" src="img/lc-hero.webp" alt="Hollow Knight collector box concept with figure and art card">
     </div>
-    <div class="wrap steps4" style="margin-top:20px">
+    <div class="wrap steps4" style="margin-top:201px">
       ${[['Turn Ideas into Proposals', 'Transform your fan merch idea into a clear product concept that IP owners can actually review.'], ['Test Fan Demand', 'Use votes, saves, comments, and purchase interest to see whether fans really want your product.'], ['Reach IP Owners', 'Bring promising concepts into a structured review path instead of trying to contact rights holders on your own.'], ['Get Permission', 'Move beyond unofficial fan art by working toward approved, legal fan merchandise.']].map(([h, p], i) => `<div class="ibox rv"><div class="n">0${i + 1}</div><h3>${h}</h3><p>${p}</p></div>`).join('')}
     </div></section>
     <section class="sec-o prob"><div class="wrap">
@@ -231,7 +231,7 @@
       <div class="lo-imgs"><img src="img/lo-hero.webp" alt="IP owner reviewing a fan-demand dashboard"><img src="img/land-hero2.webp" alt="" loading="lazy"></div>
     </div></section>
     <section class="sec-w"><div class="wrap benef">${[['Validate demand before production', 'See what fans actually want before spending time and budget on manufacturing.'], ['Discover high-potential product ideas', 'Access creator-submitted concepts that match your IP, audience, and fandom culture.'], ['Reduce merchandise risk', 'Use saves, votes, and preorder interest to avoid low-performing product launches.'], ['Save internal development time', 'Skip months of trend research and early ideation by reviewing fan-backed concepts directly.']].map(([h, p]) => `<div class="rv"><h3>${h}</h3><p>${p}</p></div>`).join('')}</div></section>
-    <section class="sec-w how-sec" style="padding-top:0"><div class="wrap" style="padding-top:20px">
+    <section class="sec-w how-sec"><div class="wrap" style="padding-top:126px">
       <h2 class="h-l" style="text-align:center;text-transform:uppercase;color:#000">How it works</h2>
       <div class="how four light">${[['Verify Your IP Ownership', 'Submit ownership or authorization documents and complete our verification process.'], ['Receive Creator Submissions', 'Verified creators submit original product concepts inspired by your IP.'], ['Review Fan Demand Signals', 'Track votes, saves, preorder intent, and community engagement in real time.'], ['Approve Products for Licensing', 'Select validated concepts for official collaboration, licensing, and production.']].map(([h, p], i) => `<div class="st rv"><div class="n">0${i + 1}</div><h4>${h}</h4><p>${p}</p></div>`).join('')}</div>
     </div></section>
@@ -276,8 +276,8 @@
         <form data-form="signup" novalidate>
           <div class="fld"><label for="f-name">Full name*</label><input class="inp" id="f-name" name="name" value="${esc(S.user.name)}" autocomplete="name"></div>
           <div class="fld"><label for="f-email">Email address*</label><input class="inp" id="f-email" name="email" type="email" value="${esc(q.get('email') || S.user.email || '')}" placeholder="Enter email address" autocomplete="email"></div>
-          <div class="fld"><label for="f-pw">Create password*</label><div class="pw"><input class="inp" id="f-pw" name="pw" type="password" placeholder="Enter password" autocomplete="new-password" aria-describedby="pw-h"><button type="button" data-act="pw">Show</button></div><div class="hint" id="pw-h">At least 8 characters.</div></div>
-          <label class="ck" style="margin:8px 0 42px"><input type="checkbox" name="terms" checked> <span>I agree to the <a href="#/guidelines?s=legal" target="_blank">Terms &amp; Conditions</a></span></label>
+          <div class="fld"><label for="f-pw">Create password*</label><div class="pw"><input class="inp" id="f-pw" name="pw" type="password" placeholder="Enter password (8+ characters)" autocomplete="new-password" minlength="8"><button type="button" data-act="pw">Show</button></div></div>
+          <label class="ck" style="margin:0 0 38px"><input type="checkbox" name="terms" checked> <span>I agree to the <a href="#/guidelines?s=legal" target="_blank">Terms &amp; Conditions</a></span></label>
           <button class="abtn p">Create Account</button>
           <div class="or">Or</div>
           <button type="button" class="abtn w" data-act="google">${I.google}Continue with Google</button>
@@ -370,33 +370,32 @@
     const comments = (S.comments[id] || []).concat(D.COMMENTS[id] || seedComments(x, ip));
     const more = allIdeas().filter((o) => o.id !== id && (o.ip === x.ip || o.creator === x.creator)).slice(0, 6);
     return `<div class="wrap" style="padding-bottom:120px">
-      ${searchRow('', false, '#/ideas?f=1')}
+      ${searchRow('', false, '#/ideas?f=1').replace('search-row', 'search-row tight')}
       <button class="back" data-act="back">${I('back')}Back</button>
       <section class="dcard">
         <div class="dtop">
           <div>
-            <div class="gmain"><img src="${main}" alt="${esc(x.title)}${x.variants ? ', ' + x.variants[st.v].c : ''}"><button class="zoom" data-act="lightbox" data-src="${esc(main)}" aria-label="Enlarge image">${I('search')}</button></div>
-            <div class="gth" role="group" aria-label="Product images">${gal.map((g, i) => `<button class="th ${st.img === i ? 'on' : ''}" data-act="gal" data-id="${id}" data-i="${i}" aria-label="Image ${i + 1}" aria-pressed="${st.img === i}"><img src="${src(g)}" alt=""></button>`).join('')}${Array.from({ length: Math.max(0, 5 - gal.length) }, () => '<span></span>').join('')}</div>
+            <div class="gmain">${stag(x.status)}<img src="${main}" alt="${esc(x.title)}${x.variants ? ', ' + x.variants[st.v].c : ''}"><button class="zoom" data-act="lightbox" data-src="${esc(main)}" aria-label="Enlarge image">${I('search')}</button></div>
+            <div class="gth" role="group" aria-label="Product images">${gal.map((g, i) => `<button class="th ${st.img === i ? 'on' : ''}" data-act="gal" data-id="${id}" data-i="${i}" aria-label="Image ${i + 1}" aria-pressed="${st.img === i}"><img src="${src(g)}" alt=""></button>`).join('')}${Array.from({ length: Math.max(0, 4 - gal.length) }, () => '<span></span>').join('')}</div>
           </div>
           <div class="dinfo">
-            ${stag(x.status)}
             <h1>${esc(x.title)}</h1>
             <div class="by">by <a href="#/ideas?creator=${x.creator}">${esc(cr.name)}</a> · <a href="#/open-ip/${ip.id}">${esc(ip.name)}</a></div>
             <div class="price">${money(x.price)}</div>
             <h5>Description</h5><p class="desc">${esc(x.desc)}</p>
-            ${x.variants ? `<h5 style="margin-top:36px">Choose color</h5><div class="lbl">${x.variants[st.v].c}</div><div class="sws" role="radiogroup" aria-label="Color">${x.variants.map((v, i) => `<button class="th ${st.v === i ? 'on' : ''}" role="radio" aria-checked="${st.v === i}" data-act="color" data-id="${id}" data-i="${i}" aria-label="${v.c}" title="${v.c}"><img src="${v.img}" alt=""></button>`).join('')}</div>` : ''}
-            ${isApparel(x.cat) ? `<h5 style="margin-top:36px">Size</h5><div class="sizes" role="radiogroup" aria-label="Size">${['S', 'M', 'L', 'XL'].map((s) => `<label><input type="radio" name="size" value="${s}" ${st.size === s ? 'checked' : ''} data-act="size" data-id="${id}">${s}</label>`).join('')}<button class="sg" data-act="size-guide">Size Guide</button></div>` : ''}
+            ${x.variants ? `<h5 class="c">Choose color</h5><div class="lbl">${x.variants[st.v].c}</div><div class="sws" role="radiogroup" aria-label="Color">${x.variants.map((v, i) => `<button class="th ${st.v === i ? 'on' : ''}" role="radio" aria-checked="${st.v === i}" data-act="color" data-id="${id}" data-i="${i}" aria-label="${v.c}" title="${v.c}"><img src="${v.img}" alt=""></button>`).join('')}</div>` : ''}
+            ${isApparel(x.cat) ? `<h5 class="${x.variants ? 's' : 'c'}">Size<button class="sg" data-act="size-guide">Size Guide</button></h5><div class="sizes" role="radiogroup" aria-label="Size">${['S', 'M', 'L', 'XL'].map((s) => `<label><input type="radio" name="size" value="${s}" ${st.size === s ? 'checked' : ''} data-act="size" data-id="${id}">${s}</label>`).join('')}</div>` : ''}
             <div class="dcta"><button class="pbtn ${picked ? 'done' : 'pbtn-p'}" data-act="vote" data-id="${id}" aria-pressed="${picked}">${picked ? 'Picked ✓' : 'Pick this idea'}</button>${cta2}</div>
-            ${vb}
             <div class="trio">
               <button data-act="ip-info" data-ip="${ip.id}">${I('heart')}<b>IP clearance available</b><small>${ip.open === 'Closed' ? 'Program closed' : 'Ready to license'}</small></button>
               <div>${I('shield')}<b>Community favorite</b><small>Top ${rank}% of ideas</small></div>
               <button data-act="remix" data-id="${id}">${I('swap')}<b>Open for Creator remix</b><small>Build on this idea</small></button>
             </div>
+            ${vb}
           </div>
         </div>
         <div class="dbot">
-          <div class="panel"><h3>Product detail</h3>${Object.entries(det).map(([k, v], i) => `<div class="acc ${i === 0 ? 'open' : ''}"><button data-act="acc" aria-expanded="${i === 0}"><span class="ico">${I(dicons[k] || 'info')}</span><span><b>${k}</b><p>${esc(v)}</p></span><span class="chev">${I('down')}</span></button></div>`).join('')}</div>
+          <div class="panel"><h3>Product detail</h3>${Object.entries(det).map(([k, v], i) => `<div class="acc"><button data-act="acc" aria-expanded="false"><span class="ico">${I(dicons[k] || 'info')}</span><span><b>${k}</b><p>${esc(v)}</p></span><span class="chev">${I('down')}</span></button></div>`).join('')}</div>
           <div class="panel"><h3>About Creator</h3>
             <div class="cre"><img src="${cr.avatar}" alt=""><div><b>${esc(cr.name)}</b><p>${esc(cr.bio)}</p><a class="vbtn" href="#/ideas?creator=${x.creator}">View profile</a></div></div>
             <div class="imp-h">Creator Impact</div>
@@ -437,7 +436,7 @@
     if (step === 1) {
       const order = ['hollow-knight', 'arcane', 'omori', 'squid-game', 'genshin', 'spy-family', 'animal-crossing', 'stranger-things'];
       body = `<h2>Choose the IP you want to create for</h2><p class="lead2">Select an IP from our library to build your proposal. Each IP has its own community, guidelines, and opportunities.</p>
-        <h4 style="margin-top:56px">Select an IP</h4>
+        <h4 style="margin-top:32px">Select an IP</h4>
         <div class="ipg" role="radiogroup" aria-label="IP">${order.map((k) => { const x = ipById(k), closed = x.open === 'Closed'; return `<button class="ipt ${d.ip === k ? 'on' : ''} ${closed ? 'dis' : ''}" role="radio" aria-checked="${d.ip === k}" ${closed ? 'aria-disabled="true"' : ''} data-act="pick-ip" data-v="${k}" aria-label="${x.name}${closed ? ' (program closed)' : ''}"><img src="${x.logo}" alt=""><span class="ck2">${I('check')}</span>${closed ? '<span class="closed">Program closed</span>' : ''}</button>`; }).join('')}</div>
         <div class="tipsrow"><div class="ibx">${I('info')}<span>${ip ? `<b>${ip.name}</b> · ${ip.type} · open until ${ip.open}. Creator royalty ${ip.royalty}% · validation goal from ${ip.minGoal} pre-order intents · ${ip.proposals} proposals so far.` : 'Select an IP from our library to build your proposal. Each IP has its own community, guidelines, and opportunities.'}</span></div>
           <div class="tips"><h4>Submission Tips</h4><ul>${['Choose the IP that best fits your concept and target fans.', 'Review the IP’s Creator Guidelines before you continue.', 'Clear IP alignment helps reviewers understand your proposal more easily.'].map((t) => `<li>${I('star')}<span>${t}</span></li>`).join('')}</ul><a href="#/guidelines?s=submission" target="_blank">View IP &amp; Submission Guidelines ${I('next')}</a></div></div>`;

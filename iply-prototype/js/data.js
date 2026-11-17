@@ -26,7 +26,7 @@ window.IPLY_DATA = (function () {
     { id: 'bottle', title: 'Vessel Steel Bottle', short: 'Bottle', ip: 'hollow-knight', cat: 'Bottle', creator: 'nova-land', price: [18], img: 'img/p-bottle.webp', comments: 18, votes: 143, pre: 77, goal: 300, status: 'validating', daysLeft: 21, desc: 'Matte black double-wall bottle, 500 ml, minimal mask print.' },
     { id: 'extra-thick-hoodie', title: 'Extra-Thick Hoodie', short: 'Hoodie', ip: 'hollow-knight', cat: 'Hoodie', creator: 'nova-land', price: [48, 58], img: 'img/hoodie-black.webp', thumb: 'img/p-hoodie.webp',
       variants: [{ c: 'Black', hex: '#141414', img: 'img/hoodie-black.webp' }, { c: 'Ash Grey', hex: '#8E8E8E', img: 'img/hoodie-grey.webp' }, { c: 'Navy', hex: '#1F2A44', img: 'img/hoodie-navy.webp' }, { c: 'Maroon', hex: '#6B1F2A', img: 'img/hoodie-maroon.webp' }, { c: 'Cream', hex: '#EDE6D6', img: 'img/hoodie-cream.webp' }],
-      gallery: ['img/hoodie-black.webp', 'img/hoodie-grey.webp', 'img/hoodie-black-back.webp', 'img/hoodie-model-black.webp', 'img/hoodie-model-cream.webp'],
+      gallery: ['img/hoodie-black.webp', 'img/hoodie-grey.webp', 'img/hoodie-black-back.webp', 'img/hoodie-model-black.webp'],
       comments: 96, votes: 312, pre: 212, goal: 300, status: 'validating', daysLeft: 9,
       desc: 'A cozy fandom-inspired hoodie concept featuring a moonlit mountain trail design. Perfect for cool adventures, studio sessions, and everyday comfort.',
       detail: {
