@@ -1079,3 +1079,5 @@ h1,h2,h3,h4,.pc .t,.prow h3,.qrow h4{overflow-wrap:anywhere}
   .strip{flex-wrap:wrap;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* ?shot=1 — static full-page captures (Figma import): no motion, no floating guide button, no scrollbar */
+html.shot{scrollbar-width:none}html.shot::-webkit-scrollbar{display:none}html.shot *{animation:none!important;transition:none!important}html.shot .rv{opacity:1!important;transform:none!important}html.shot .gfab{display:none!important}html.shot #app,html.shot .page{min-height:0!important}

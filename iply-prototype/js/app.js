@@ -9,6 +9,7 @@
   const qs = new URLSearchParams(location.search);
   const EMBED = qs.get('frame') === '1' || qs.get('embed') === '1';
   if (EMBED) document.body.classList.add('embed');
+  if (qs.get('shot') === '1') document.documentElement.classList.add('shot');
 
   /* ------------------------------------------------------------------ zoom: Figma px → screen */
   function setZoom() {
