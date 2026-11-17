@@ -681,7 +681,7 @@ h1,h2,h3,h4,.pc .t,.prow h3,.qrow h4{overflow-wrap:anywhere}
 .plist{background:#fff;border:1px solid var(--line);border-radius:32px;padding:32px 32px 64px;margin:36px 0 72px}
 .prow{display:grid;grid-template-columns:239px minmax(0,1fr) 1px 275px;gap:0 32px;padding:0 0 48px;margin-bottom:48px;border-bottom:1px solid var(--line);align-items:start}
 .prow:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
-.prow .im{display:block;width:239px;height:239px;border-radius:24px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,.15);transition:transform .35s var(--ease)}
+.prow .im{display:block;width:239px;height:239px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#fff;transition:transform .35s var(--ease)}
 .prow .im:hover{transform:scale(1.02)}
 .prow .im img{width:100%;height:100%;object-fit:cover}
 .prow h3{display:flex;align-items:center;gap:18px;font:700 32px/1.3 var(--sf);color:#000;padding-top:8px}
