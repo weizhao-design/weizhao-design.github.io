@@ -135,7 +135,7 @@
     return `<footer class="ftr"><div class="wrap">
       <div><a class="logo" href="#/" aria-label="IPLY home"><img src="img/logo-white.svg" alt="IPLY"></a><p class="d">A creator-first platform for turning fan merch concepts into licensing-ready proposals.</p>
         <div class="social">${[['fb', 'Facebook'], ['tw', 'Twitter'], ['yt', 'YouTube'], ['ig', 'Instagram'], ['pin', 'Pinterest'], ['wa', 'WhatsApp']].map(([k, n]) => `<a href="#/contact" aria-label="${n}">${I(k)}</a>`).join('')}</div></div>
-      ${col('Platform', [['Open IPs', '#/open-ip'], ['Idea Pool', '#/ideas'], ['How It Works', '#/?s=how'], ['Marketplace', '#/ideas?status=launched&f=1'], ['Start Proposal', '#/create/1']])}
+      ${col('Platform', [['About iPly', '#/'], ['Open IPs', '#/open-ip'], ['Idea Pool', '#/ideas'], ['How It Works', '#/?s=how'], ['Marketplace', '#/ideas?status=launched&f=1'], ['Start Proposal', '#/create/1']])}
       ${col('For Creators', [['Submission Guidelines', '#/guidelines?s=submission'], ['Proposal Tips', '#/guidelines?s=tips'], ['Copyright Risk Guide', '#/guidelines?s=copyright'], ['Product Categories', '#/guidelines?s=categories'], ['Creator Dashboard', '#/proposals']])}
       ${col('For IP Owners', [['Register Your IP', '#/owners'], ['Review Proposals', '#/authorize?tab=queue'], ['Brand Guidelines', '#/guidelines?s=brand'], ['Licensing Settings', '#/authorize'], ['Contact Partnership Team', '#/contact']])}
       ${col('Legal', [['Terms of Service', '#/guidelines?s=legal'], ['Privacy Policy', '#/guidelines?s=legal'], ['IP Policy', '#/guidelines?s=legal'], ['Licensing FAQ', '#/guidelines?s=faq'], ['Report Infringement', '#/contact']])}
@@ -709,7 +709,7 @@
     } else if (kind === 'me') {
       const it = (href, l, act) => act ? `<button class="mi" data-act="${act}">${l}${I('next')}</button>` : `<a class="mi" href="${href}">${l}${I('next')}</a>`;
       el.innerHTML = `<div class="menu-h"><img src="img/av-user.webp" alt=""><div><b>${esc(firstName())}</b><small>${S.role === 'owner' ? 'IP owner view' : 'Creator'}</small></div></div><hr>
-        ${it('#/ideas', 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
+        ${it('#/ideas', 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}${it('#/', 'About iPly')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
     }
     $('.hdr .wrap').appendChild(el);
   }
