@@ -278,6 +278,7 @@ html.frame #toast{bottom:6.4rem}
 .ob .card{margin-top:.7rem}
 .ob .li{padding:.62rem 0}
 .obhd .large{margin-top:0}
+.obhd .large .one{display:block;font-size:28px;white-space:nowrap}   /* one line at every text size */
 .obf{flex:none;padding:.3rem 1.15rem 1.6rem}
 .obdots{display:flex;gap:.35rem;justify-content:center;margin-bottom:1rem}
 .obdots i{width:.42rem;height:.42rem;border-radius:.3rem;background:var(--off)}
@@ -856,7 +857,7 @@ function vOnboard(){
     var opt = function(v, code, name){ var on = S.lang === v; return '<div class="card' + (on ? " sel" : "") + '"><button class="li optc" data-act="oblang" data-v="' + v + '"><div class="ico">' + code + '</div><div class="grow"><div class="h">' + name + '</div><div class="s">' + T("界面与新分析结果","App and new results") + '</div></div><span class="rad">' + (on ? I("check") : "") + "</span></button></div>"; };
     // v3: text size is chosen here too (3 of 4 round-1 testers went looking for it in Settings)
     var sz = [T("标准","Standard"), T("大","Large"), T("特大","Extra large")];
-    h = head(T("语言和文字大小","Language and text size"), T("之后可以随时在设置中更改。","You can change these anytime in Settings.")) +
+    h = head('<span class="one">' + T("语言和文字大小","Language &amp; text size") + "</span>", T("之后可以随时在设置中更改。","You can change these anytime in Settings.")) +
         opt("en", "EN", "English") + opt("zh", "中", "简体中文") +
         '<div class="card"><p class="h">' + T("文字大小","Text size") + '</p><div class="seg">' + sz.map(function(l, i){ return '<button data-act="obsize" data-v="' + i + '" class="' + (S.size === i ? "on" : "") + '">' + l + "</button>"; }).join("") + '</div><p class="b" style="font-weight:800;margin-top:.8rem">' + T("先停下，不要转账或给验证码。","Stop. Don't send money or codes.") + "</p></div>";
     btn = '<button class="btn pri" data-act="obnext">' + T("继续","Continue") + "</button>";
