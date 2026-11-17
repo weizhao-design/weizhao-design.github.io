@@ -564,3 +564,5 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
 .cb-compare .cb-mrow b { color: var(--dim); font-weight: 500; font-size: 12.5px; }
 @media (max-width: 809px) { .cb-compare .cb-mrow > div { grid-template-columns: minmax(0, 1fr); } }
 .cb-compare .who { display: block; font-style: normal; font-size: 11.5px; color: var(--dim); margin-bottom: 2px; }
+/* small note under a figure (e.g. the Whisper hero while the original-character art is in progress) */
+.fig > .fig-note { display: block; padding-top: 10px; font-size: 12.5px; line-height: 1.6; color: var(--dim); text-transform: none; letter-spacing: 0; }
