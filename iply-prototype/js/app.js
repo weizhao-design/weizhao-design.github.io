@@ -452,7 +452,7 @@
         <h4>Choose Creation Format</h4><p class="hs">Select the format that best matches your idea.</p>
         <div class="tchips" role="radiogroup" aria-label="Creation format">${D.FORMATS.map((f) => `<button class="tchip ${d.format === f ? 'on' : ''}" role="radio" aria-checked="${d.format === f}" data-act="pick-format" data-v="${f}">${f}</button>`).join('')}</div>
         <div class="divl"></div>
-        <h4>Select Design Direction <span style="font-weight:400;color:var(--g5)">· ${d.dirs.length}/3 selected</span></h4><p class="hs">Choose up to three styles or vibes that best represent your concept.</p>
+        <h4>Select Design Direction <span style="font-weight:400;color:var(--t5)">· ${d.dirs.length}/3 selected</span></h4><p class="hs">Choose up to three styles or vibes that best represent your concept.</p>
         <div class="tchips" role="group" aria-label="Design direction">${D.DIRECTIONS.map((f) => `<button class="tchip ${d.dirs.includes(f) ? 'on' : ''}" aria-pressed="${d.dirs.includes(f)}" data-act="pick-dir" data-v="${f}">${f}</button>`).join('')}</div>`;
     } else if (step === 3) {
       const slots = ['Main image', 'Detail Image', 'Mockup image', 'Lifestyle image', 'Add more'];
@@ -528,7 +528,7 @@
   }
 
   /* ------------------------------------------------------------------ MY PROPOSALS (Figma: My Proposal Page) */
-  const PSTAT = [['all', 'All', 'grid', '#F5F5F5', '#484848'], ['draft', 'Drafts', 'edit', '#F5F5F5', '#484848'], ['precheck', 'Pre Check', 'file', '#FFF8D6', '#E0A800'], ['validating', 'Validating', 'users', '#FFF8D6', '#E0A800'], ['review', 'Under Review', 'clock', '#FFF2EC', '#E95B3A'], ['rejected', 'Rejected', 'broken', '#FFF2EC', '#E95B3A'], ['authorized', 'Authorized', 'shield', '#EAF5E9', '#35943C'], ['launched', 'Launched', 'box', '#EAF5E9', '#35943C']];
+  const PSTAT = [['all', 'All', 'grid', '#F5F5F5', '#484848'], ['draft', 'Drafts', 'edit', '#F5F5F5', '#484848'], ['precheck', 'Pre Check', 'file', '#FFF8D6', '#E0A800'], ['validating', 'Validating', 'users', '#FFF8D6', '#E0A800'], ['review', 'Under Review', 'clock', '#FFF2EC', '#E95B3A'], ['rejected', 'Rejected', 'broken', '#FFF2EC', '#E95B3A'], ['authorized', 'Authorized', 'shield', '#EAF5E9', '#2E7D32'], ['launched', 'Launched', 'box', '#EAF5E9', '#2E7D32']];
   const sq = (p) => `<div class="sq sq-${{ validating: 'y', precheck: 'b', review: 'o', authorized: 'g', launched: 'g', rejected: 'r', draft: 'k' }[p.status]}" role="img" aria-label="Stage ${p.stage + 1} of 8">${Array.from({ length: 8 }, (_, i) => `<i class="${i <= p.stage ? 'f' : ''}"></i>`).join('')}</div>`;
   const actionFor = (p) => ({ validating: ['Share', 'share'], precheck: ['View Pre-check', 'open'], review: ['View Feedback', 'feedback'], rejected: ['View Feedback', 'feedback'], authorized: ['View License', 'license'], launched: ['View Product', 'product'], draft: ['Continue Editing', 'continue'] })[p.status];
   function pProposals(q) {
@@ -600,7 +600,7 @@
   }
 
   /* ------------------------------------------------------------------ ACTIVITY */
-  const NICON = { review: ['clock', '#FFF2EC', '#E95B3A'], milestone: ['trend', '#FFF8D6', '#C99A00'], comment: ['comment', '#EEF1FF', '#4D5BD6'], precheck: ['file', '#EEF1FF', '#4D5BD6'], license: ['shield', '#EAF5E9', '#35943C'], rejected: ['broken', '#FDECEC', '#D93A3F'], sale: ['box', '#EAF5E9', '#35943C'], published: ['sparkle', '#FFF2EC', '#E95B3A'] };
+  const NICON = { review: ['clock', '#FFF2EC', '#E95B3A'], milestone: ['trend', '#FFF8D6', '#C99A00'], comment: ['comment', '#EEF1FF', '#4D5BD6'], precheck: ['file', '#EEF1FF', '#4D5BD6'], license: ['shield', '#EAF5E9', '#2E7D32'], rejected: ['broken', '#FDECEC', '#B42318'], sale: ['box', '#EAF5E9', '#2E7D32'], published: ['sparkle', '#FFF2EC', '#E95B3A'] };
   const fItem = (n) => { const [ic, bg, fg] = NICON[n.type] || NICON.comment; return `<a class="fi" href="${n.link}" data-act="read" data-id="${n.id}"><span class="ib" style="background:${bg};color:${fg}">${I(ic)}</span><span class="tx">${esc(n.t)}<small>${n.d}</small></span>${n.unread && !S.read[n.id] ? '<span class="ud" aria-label="unread"></span>' : ''}</a>`; };
   function pActivity(q) {
     const t = q.get('tab') || 'all';
@@ -830,7 +830,7 @@
       S.extraIdeas.unshift({ id, title: d.title, short: d.title, ip: d.ip, cat: d.type, creator: 'luna-nash', price: [d.price], img, gallery: d.images.slice(0, 5), comments: 0, votes: 0, pre: 0, goal: d.goal, status: 'validating', daysLeft: d.days, desc: d.desc || `${d.format}${d.dirs.length ? ' · ' + d.dirs.join(', ') : ''}.` });
       notify('published', `“${d.title}” is live for validation · goal ${d.goal} intents`, '#/proposal/' + id);
       S.draft = null; save(); go('/proposal/' + id);
-      setTimeout(() => modal(`<div style="text-align:center"><div style="width:64px;height:64px;border-radius:50%;background:#EAF5E9;color:#35943C;display:grid;place-items:center;margin:0 auto 14px">${I('check', 'style="width:30px;height:30px"')}</div><h3 style="padding:0">Your proposal is live!</h3><p>Fans can now pick, comment and pre-order. Reach ${d.goal} intents in ${d.days} days to unlock ${esc(ip.owner)}’s review.</p><div class="acts" style="justify-content:center"><button class="mb s" data-act="p-share" data-id="${id}">Copy share link</button><a class="mb p" href="#/idea/${id}" data-act="close-nav">View public page</a></div></div>`), 90);
+      setTimeout(() => modal(`<div style="text-align:center"><div style="width:64px;height:64px;border-radius:50%;background:#EAF5E9;color:#2E7D32;display:grid;place-items:center;margin:0 auto 14px">${I('check', 'style="width:30px;height:30px"')}</div><h3 style="padding:0">Your proposal is live!</h3><p>Fans can now pick, comment and pre-order. Reach ${d.goal} intents in ${d.days} days to unlock ${esc(ip.owner)}’s review.</p><div class="acts" style="justify-content:center"><button class="mb s" data-act="p-share" data-id="${id}">Copy share link</button><a class="mb p" href="#/idea/${id}" data-act="close-nav">View public page</a></div></div>`), 90);
     },
     'new-proposal': () => { if (!requireLogin('/create/1')) return; S.draft = blankDraft(); save(); go('/create/1'); },
     'start-ip': (el) => { if (!requireLogin()) return; S.draft = Object.assign(blankDraft(), { ip: el.dataset.ip }); save(); go('/create/2'); },
