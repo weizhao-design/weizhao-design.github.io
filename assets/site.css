@@ -557,3 +557,10 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
 /* Readable case-study copy: section text and the side summary in sentence case at 15px.
    Titles, labels and the rest of the site keep the 12px uppercase monospaced style. */
 .p-main .sec-text, .p-side p { font-size: 15px; line-height: 1.7; letter-spacing: 0; text-transform: none; }
+
+/* Whisper §06: "same message, two men" comparison reads across: you · Li Zeyan · Wen Xu */
+.cb-compare .cb-mrow > div { display: grid; grid-template-columns: minmax(96px, .7fr) 1fr 1fr; gap: 6px 22px; align-items: baseline; width: 100%; }
+.cb-compare .cb-mrow span { color: var(--text); font-size: 13.5px; line-height: 1.6; }
+.cb-compare .cb-mrow b { color: var(--dim); font-weight: 500; font-size: 12.5px; }
+@media (max-width: 809px) { .cb-compare .cb-mrow > div { grid-template-columns: minmax(0, 1fr); } }
+.cb-compare .who { display: block; font-style: normal; font-size: 11.5px; color: var(--dim); margin-bottom: 2px; }
