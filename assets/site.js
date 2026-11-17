@@ -91,6 +91,10 @@
     root.classList.toggle('lang-en', en);
     root.lang = en ? 'en' : 'zh-Hans-CN';
     store('wz-lang', en ? 'en' : 'zh');
+    // the tab title follows the page language too (English title is in <meta name="wz-title-en">)
+    var titleEn = document.querySelector('meta[name="wz-title-en"]');
+    var titleZh = root.getAttribute('data-title-zh');
+    if (titleEn && titleZh) document.title = en ? titleEn.content : titleZh;
     tellEmbeds();
   });
 

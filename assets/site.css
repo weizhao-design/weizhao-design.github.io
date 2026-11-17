@@ -553,3 +553,7 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
 .toc a.is-on .n::after { content: " ●"; font-size: 8px; vertical-align: 2px; }
 .p-main .sec-head[id] { scroll-margin-top: 60px; }
 @media (max-width: 809.98px) { .toc { display: none; } }
+
+/* Readable case-study copy: section text and the side summary in sentence case at 15px.
+   Titles, labels and the rest of the site keep the 12px uppercase monospaced style. */
+.p-main .sec-text, .p-side p { font-size: 15px; line-height: 1.7; letter-spacing: 0; text-transform: none; }
