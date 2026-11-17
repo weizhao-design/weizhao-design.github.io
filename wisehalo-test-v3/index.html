@@ -104,14 +104,12 @@ details summary svg.chev{transition:transform .2s} details[open] summary svg.che
 .row .btn{margin:0;min-height:3.1rem;font-size:1rem;flex:1}
 .mt{margin-top:1rem}
 /* v3: paste is the first, largest action on the Check screen */
-.btn.xl{min-height:4.6rem;font-size:1.22rem;border-radius:18px;margin-top:.2rem}
-.btn.xl svg.i{width:1.6rem;height:1.6rem}
+.btn.xl{margin-top:.2rem}   /* same height as every other button; it stays first and dark */
 .lbl{font-size:.95rem;font-weight:700;color:var(--ink-2);margin:1.2rem 0 .45rem}
 /* v3: things to think about during the pause */
 .prompt{background:var(--accent-soft);color:var(--ink);border-radius:18px;padding:1rem 1.1rem;margin-top:1rem;font-size:1.12rem;font-weight:700;line-height:1.45;text-align:center;min-height:4.6rem;display:grid;place-items:center}
 .lockhint{text-align:center;color:var(--ink-2);font-size:.95rem;margin-top:1.1rem;min-height:2.8rem;display:grid;place-items:center}
-.step .mini.go{display:inline-flex;align-items:center;gap:.4rem;background:var(--primary);color:#fff;border-color:transparent}
-.step .mini.go svg{width:1.15rem;height:1.15rem}
+.step .mini.go{display:flex;width:100%;align-items:center;justify-content:center;gap:.5rem;min-height:3.4rem;border-radius:16px;font-size:1.05rem;background:var(--primary);color:#fff;border-color:transparent;margin-top:.7rem}   /* full-size button, same height as the rest */
 
 /* halo guard */
 .guard{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:.6rem}
@@ -139,6 +137,15 @@ html.t-dark .guard.on .dotc{box-shadow:0 0 14px 4px rgba(18,220,246,.75),0 0 40p
 .sample+.sample{margin-top:.5rem}
 .sample .grow{flex:1}
 .hide{display:none!important}
+/* History: swipe a record left to reveal Delete (same gesture as the iOS app) */
+.card.hist{overflow:hidden}
+.swipe{position:relative;margin:0 -1rem;touch-action:pan-y}
+.swipe+.swipe{border-top:1px solid var(--line)}
+.swipe .del{position:absolute;top:0;right:0;bottom:0;width:5.5rem;background:var(--high);color:#fff;font-weight:700;font-size:1rem;text-align:center;visibility:hidden}
+.swipe.open .del,.swipe.drag .del{visibility:visible}
+.swipe .swc{position:relative;padding:0 1rem;background:var(--surface);transition:transform .22s ease}
+.swipe.drag .swc{transition:none}
+.swipe.open .swc{transform:translateX(-5.5rem)}
 .note{display:flex;gap:.55rem;align-items:flex-start;font-size:.9rem;line-height:1.5;color:var(--ink-2);margin-top:.9rem}
 .note svg{width:1.15rem;height:1.15rem;margin-top:.15rem}
 .spin{width:1.2rem;height:1.2rem;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:sp 0.8s linear infinite}
@@ -822,12 +829,14 @@ function vRecord(top){
 function vHistory(){
   var h = '<div class="large">' + T("记录","History") + "</div>";
   if(!S.records.length) h += '<p class="sub">' + T("还没有检查记录。","No checks yet.") + "</p>";
-  else h += '<div class="card tight">' + S.records.map(function(r0){
+  else h += '<div class="card tight hist">' + S.records.map(function(r0){
     var r = full(r0);
     var d = new Date(r.time), tm = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
     return row(RISK[r.risk].icon, r.risk === "high" ? "high" : r.risk === "medium" ? "mid" : "", T(RISK[r.risk].zh, RISK[r.risk].en) + (r.quick ? T(" · 快速自查"," · self-check") : ""), tm + " · " + esc(r.input.slice(0, 24)) + "…", I("chev", "chev"), "openrec", ' data-v="' + r.id + '"');
+  }).map(function(rowHtml, i){
+    return '<div class="swipe" data-id="' + S.records[i].id + '"><button class="del" data-act="delrec" data-v="' + S.records[i].id + '">' + T("删除","Delete") + '</button><div class="swc">' + rowHtml + '</div></div>';
   }).join("") + "</div>";
-  h += '<p class="foot">' + T("测试版的记录只保存在这台手机的浏览器里。","In this test version, history stays in this phone's browser only.") + "</p>";
+  h += '<p class="foot">' + (S.records.length ? T("向左滑动一条记录可以删除。","Swipe a record left to delete it.") + " " : "") + T("测试版的记录只保存在这台手机的浏览器里。","In this test version, history stays in this phone's browser only.") + "</p>";
   return { bar:bar(), body:h };
 }
 
@@ -984,6 +993,11 @@ var A = {
   qback: function(){ S.quick.pop(); render(); },
   qagain: function(){ S.quick = []; S.stack.pop(); S.stack.push({ name:"quick" }); render(); },
   openrec: function(d){ go("rec", d.v); },
+  delrec: function(d){
+    S.records = S.records.filter(function(r){ return r.id !== d.v; }); LS.set("records", S.records);
+    if(S.latestId === d.v) S.latestId = null;
+    log(T("左滑删除记录","Swiped to delete a record")); toast(T("已删除","Deleted")); render();
+  },
   paste: function(){ setInput(TASK_SMS[S.lang], "paste"); log(T("粘贴（预置短信）","Paste (preset SMS)")); toast(T("已粘贴","Pasted")); render(); },
   sample: function(d){ var s = SAMPLES.filter(function(x){ return x.id === d.v; })[0]; setInput(T(s.zh[1], s.en[1]), "sample"); log(T("选择示例","Example") + " " + d.v); render(); },
   clear: function(){ setInput("", ""); render(); },
@@ -1054,7 +1068,30 @@ var A = {
 };
 function selectLog(){ var el = document.getElementById("logtxt"); var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); toast(T("已选中，请长按复制","Selected – long-press to copy")); }
 
+var sw = null, swBlock = false;
+document.addEventListener("pointerdown", function(e){
+  var row = e.target.closest(".swipe"); if(!row || e.target.closest(".del")) return;
+  document.querySelectorAll(".swipe.open").forEach(function(o){ if(o !== row) o.classList.remove("open"); });
+  sw = { row: row, x: e.clientX, y: e.clientY, dx: 0, open: row.classList.contains("open"), moved: false };
+});
+document.addEventListener("pointermove", function(e){
+  if(!sw) return; var dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+  if(!sw.moved && Math.abs(dx) < 8) return;
+  if(!sw.moved && Math.abs(dy) > Math.abs(dx)){ sw = null; return; }   // vertical: let the page scroll
+  sw.moved = true; sw.dx = dx; sw.row.classList.add("drag");
+  var w = sw.row.querySelector(".del").offsetWidth, x = Math.max(-w * 1.2, Math.min(0, (sw.open ? -w : 0) + dx));
+  sw.row.querySelector(".swc").style.transform = "translateX(" + x + "px)";
+});
+document.addEventListener("pointerup", function(){
+  if(!sw) return; var r = sw.row; r.classList.remove("drag"); r.querySelector(".swc").style.transform = "";
+  if(sw.moved){ var open = sw.open ? sw.dx < 30 : sw.dx < -40; r.classList.toggle("open", open); swBlock = true; setTimeout(function(){ swBlock = false; }, 50); if(open) log(T("左滑露出删除","Swiped to reveal delete")); }
+  sw = null;
+});
+document.addEventListener("pointercancel", function(){ if(sw){ sw.row.classList.remove("drag"); sw.row.querySelector(".swc").style.transform = ""; sw = null; } });
 document.addEventListener("click", function(e){
+  if(swBlock){ e.preventDefault(); return; }
+  var openRow = document.querySelector(".swipe.open");
+  if(openRow && !e.target.closest(".del")){ openRow.classList.remove("open"); if(openRow.contains(e.target)) return; }
   var el = e.target.closest("[data-act]"); if(!el) return;
   var fn = A[el.getAttribute("data-act")]; if(!fn) return;
   if(el.disabled) return;
