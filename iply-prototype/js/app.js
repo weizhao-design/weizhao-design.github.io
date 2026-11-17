@@ -11,6 +11,20 @@
   if (EMBED) document.body.classList.add('embed');
   if (qs.get('shot') === '1') document.documentElement.classList.add('shot');
 
+  /* ------------------------------------------------------------------ ?test=P1 — usability-test session log
+     Records route changes, clicks, toasts and errors with timestamps in this browser only;
+     the moderator downloads it as JSON from the Prototype guide after the session. */
+  const TEST = (qs.get('test') || '').replace(/[^\w-]/g, '').slice(0, 20);
+  const TLOG = 'iply-test-log';
+  const tlogRead = () => { try { return JSON.parse(localStorage.getItem(TLOG) || '[]'); } catch (e) { return []; } };
+  const tlog = (type, d) => { if (!TEST) return; try { const L = tlogRead(); L.push(Object.assign({ p: TEST, t: Date.now(), type, route: location.hash || '#/' }, d)); localStorage.setItem(TLOG, JSON.stringify(L)); } catch (e) {} };
+  if (TEST) {
+    tlog('start', { w: innerWidth, h: innerHeight });
+    addEventListener('hashchange', () => tlog('route', {}));
+    document.addEventListener('click', (e) => { const el = e.target.closest('a,button,[data-act],input,label,select'); if (!el) return; tlog('click', { act: el.dataset.act || '', el: el.tagName.toLowerCase(), text: (el.getAttribute('aria-label') || el.textContent || el.name || '').trim().replace(/\s+/g, ' ').slice(0, 60) }); }, true);
+    addEventListener('error', (e) => tlog('error', { msg: String(e.message).slice(0, 120) }));
+  }
+
   /* ------------------------------------------------------------------ zoom: Figma px → screen */
   function setZoom() {
     const W = document.documentElement.clientWidth || innerWidth;
@@ -692,6 +706,7 @@
   let lastFocus = null;
   function closeModal() { const m = $('#scrim'); if (m) m.remove(); const d = $('#drawer'); if (d) d.remove(); if (lastFocus && lastFocus.isConnected) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} } lastFocus = null; }
   function toast(msg) {
+    tlog('toast', { msg: String(msg).slice(0, 120) });
     let w = $('#toasts'); if (!w) { w = document.createElement('div'); w.id = 'toasts'; w.className = 'toasts'; w.setAttribute('role', 'status'); w.setAttribute('aria-live', 'polite'); document.body.appendChild(w); }
     const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = I('check') + '<span>' + esc(msg) + '</span>'; w.appendChild(t);
     setTimeout(() => t.remove(), 2800);
@@ -735,7 +750,7 @@
     const el = document.createElement('div'); el.className = 'guide'; el.id = 'guide'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Prototype guide');
     const flows = [['#/signup', 'Sign up as a creator (3 steps)'], ['#/ideas', 'Browse Ideas, search & filter'], ['#/idea/extra-thick-hoodie', 'Back an idea: colour, pre-order, comment'], ['#/create/1', 'Create a proposal (5 steps + pre-check)'], ['#/proposals', 'Track proposals & feedback'], ['#/authorize?tab=queue', 'IP owner: approve a proposal'], ['#/owners', 'IP owner landing page']];
     el.innerHTML = `<h4>IPLY · clickable prototype</h4><p>Built from the Figma hi-fi (Wei_IXDS708). Everything is clickable; data stays in this browser.</p>${flows.map(([h, t], i) => `<a href="${h}" data-act="guide-go"><span>${i + 1}</span>${t}</a>`).join('')}
-      <div class="ft"><button data-act="whatsnew">What’s added vs. Figma</button><button data-act="reset">Reset demo</button></div>`;
+      <div class="ft"><button data-act="whatsnew">What’s added vs. Figma</button><button data-act="reset">Reset demo</button></div>${TEST ? `<div class="ft"><button data-act="test-dl">Download test log (${tlogRead().length})</button><button data-act="test-clear">Clear log</button></div>` : ''}`;
     document.body.appendChild(el);
   }
 
@@ -759,6 +774,8 @@
     'guide-go': () => { const g = $('#guide'); if (g) g.remove(); },
     rail: (el) => { const r = $('#' + el.dataset.id); if (!r) return; const c = r.firstElementChild; const step = c ? c.getBoundingClientRect().width + 41 : 400; r.scrollBy({ left: +el.dataset.d * step * 1.0 / (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--z')) || 1), behavior: 'smooth' }); },
     lightbox: (el) => modal(`<img src="${esc(el.dataset.src)}" alt=""><button class="lx" data-act="close" aria-label="Close">${I('x')}</button>`, 'lightbox'),
+    'test-dl': () => { const L = tlogRead(); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(L, null, 1)], { type: 'application/json' })); a.download = `iply-test-${TEST || 'log'}-${new Date().toISOString().slice(0, 10)}.json`; document.body.appendChild(a); a.click(); a.remove(); },
+    'test-clear': () => { if (!confirm('Clear the test log in this browser?')) return; try { localStorage.removeItem(TLOG); } catch (e) {} const g = $('#guide'); if (g) g.remove(); toast('Test log cleared'); },
     reset: () => { if (!confirm('Reset all demo data (picks, comments, proposals)?')) return; try { localStorage.removeItem(KEY); } catch (e) {} S = fresh(); ds = {}; const g = $('#guide'); if (g) g.remove(); go('/'); toast('Demo reset'); },
     whatsnew: () => { const g = $('#guide'); if (g) g.remove(); modal(`<h3>Added beyond the Figma file</h3><p class="mut">Gaps found while building, filled so every click leads somewhere.</p><ul>
       <li><b>Create Proposal steps 4–5</b> (Audience, Publish) — only steps 1–3 existed.</li>
