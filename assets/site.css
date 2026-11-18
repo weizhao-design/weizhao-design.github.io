@@ -406,6 +406,9 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
   --cp-body: color-mix(in srgb, var(--text) 84%, var(--bg));
 }
 :root[data-theme="light"] .p-companion { --cp-accent: #C2416A; }
+/* English mode: Latin letters and punctuation (’ “ ”) from Noto Sans, not Noto Sans SC, whose punctuation
+   is full-width and made English read as “I’ m”. Chinese mode keeps Noto Sans SC. */
+:root:lang(en) .p-companion { --cp-sans: "Noto Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans SC", sans-serif; }
 .p-companion .p-main { font-family: var(--cp-sans); font-size: 14px; line-height: 1.7; letter-spacing: 0; text-transform: none; }
 
 /* section heads: number → title → subtitle → body, clearly stepped */
