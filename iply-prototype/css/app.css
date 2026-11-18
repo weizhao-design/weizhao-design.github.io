@@ -1081,3 +1081,22 @@ h1,h2,h3,h4,.pc .t,.prow h3,.qrow h4{overflow-wrap:anywhere}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 /* ?shot=1 — static full-page captures (Figma import): no motion, no floating guide button, no scrollbar */
 html.shot{scrollbar-width:none}html.shot::-webkit-scrollbar{display:none}html.shot *{animation:none!important;transition:none!important}html.shot .rv{opacity:1!important;transform:none!important}html.shot .gfab{display:none!important}html.shot #app,html.shot .page{min-height:0!important}
+
+/* Demand insights (IP owner subscription preview) */
+.ins-kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-bottom:32px}
+.ins-kpi div{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px 30px}
+.ins-kpi b{display:block;font:700 40px/1.1 var(--pop);color:var(--ink)}
+.ins-kpi small{display:block;font:400 17px/1.4 var(--sf);color:var(--t5);margin-top:8px}
+.ins-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.ins-card{background:#fff;border:1px solid var(--line);border-radius:32px;padding:32px 36px}
+.ins-card h3{font:700 24px var(--pop);color:var(--ink)}
+.ins-card .s{font:400 16px/1.5 var(--sf);color:var(--t5);margin:6px 0 22px}
+.ins-bar{display:grid;grid-template-columns:150px minmax(0,1fr) 70px;align-items:center;gap:6px 16px;margin-bottom:16px}
+.ins-bar .l{font:500 17px var(--sf);color:var(--ink)}
+.ins-bar .t{height:14px;border-radius:10px;background:#F1ECE6;overflow:hidden}
+.ins-bar .t i{display:block;height:100%;border-radius:10px;background:var(--o)}
+.ins-bar b{font:700 18px var(--sf);text-align:right}
+.ins-bar small{grid-column:2/4;font:400 14px var(--sf);color:var(--t5)}
+.ins-p{display:grid;gap:6px;width:220px;margin-left:auto}
+.ins-p small{font:400 15px var(--sf);color:var(--t5);text-align:right}
+@media (max-width:699px){.ins-kpi{grid-template-columns:repeat(2,minmax(0,1fr))}.ins-grid{grid-template-columns:1fr}}
