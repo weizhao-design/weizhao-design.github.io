@@ -503,10 +503,10 @@ function scanContacts(text){
    A description in the user's own words can leave out the dangerous part, so it never gets "low risk":
    it gets "not enough to judge yet" plus one question about what the caller wanted. */
 var OWN_Q = [
-  { v:"money", icon:"question", zh:"把钱转到别的账户", en:"Move money to another account", lv:"high", r:["要您转钱，是诈骗最典型的信号","moving money is the clearest scam sign"] },
+  { v:"money", icon:"question", zh:"把钱转到别的账户", en:"Move money", lv:"high", r:["要您转钱，是诈骗最典型的信号","moving money is the clearest scam sign"] },
   { v:"code", icon:"question", zh:"告诉他验证码或密码", en:"Give a code or password", lv:"high", r:["银行和公安从来不会要您的验证码或密码","no bank or agency ever asks for your codes"] },
-  { v:"app", icon:"question", zh:"下载 App，或者共享屏幕", en:"Install an app or share my screen", lv:"high", r:["屏幕共享能让对方看到您的验证码、操作您的钱","screen sharing lets them see your codes and control your money"] },
-  { v:"auth", icon:"question", zh:"说自己是公安或银行", en:"Said they were police or the bank", lv:"medium", r:["自称公安或银行的，要自己打官方电话核实","anyone who says they are police or a bank must be checked on the official number"] },
+  { v:"app", icon:"question", zh:"下载 App，或者共享屏幕", en:"Install app / share screen", lv:"high", r:["屏幕共享能让对方看到您的验证码、操作您的钱","screen sharing lets them see your codes and control your money"] },
+  { v:"auth", icon:"question", zh:"说自己是公安或银行", en:"Said police or bank", lv:"medium", r:["自称公安或银行的，要自己打官方电话核实","anyone who says they are police or a bank must be checked on the official number"] },
   { v:"none", icon:"check", zh:"都没有", en:"None of these", lv:"uncertain" }
 ];
 function ownWords(text, src){ return src === "typed" || src === "mic" || (src !== "sample" && text.replace(/\s/g, "").length < 40); }
@@ -674,8 +674,8 @@ function vCheck(){
   var h = '<div class="large">' + T("检查内容","Check content") + '</div><p class="sub">' + T("看一看，查一查，不着急。","Read it. Check it. Take your time.") + "</p>" +
     // v3: Paste comes first and largest (0/4 used the small Paste button in round 1);
     // "say what the caller told you" targets phone scams; the Photo button is gone until it works.
-    '<button class="btn pri xl" data-act="paste">' + I("paste") + T("粘贴收到的消息","Paste the message you received") + "</button>" +
-    '<button class="btn out" data-act="mic">' + I("mic") + T("说出电话里对方说了什么","Say what the caller told you") + "</button>" +
+    '<button class="btn pri xl" data-act="paste">' + I("paste") + T("粘贴消息","Paste the message") + "</button>" +
+    '<button class="btn out" data-act="mic">' + I("mic") + T("说出你听到的","Say what you heard") + "</button>" +
     '<p class="lbl">' + T("或者自己输入","Or type it yourself") + "</p>" +
     '<textarea id="ta" class="ta" placeholder="' + T("把可疑信息粘贴到这里，或者写下电话里对方说了什么……","Paste the message here, or type what the caller said…") + '" aria-label="' + T("待检查内容","Content to check") + '"' + (S.checking ? " disabled" : "") + ">" + esc(S.input) + "</textarea>" +
     '<div class="meta"><span id="cnt">' + S.input.length + ' / 6000</span><button data-act="clear" id="clr" class="' + (S.input ? "" : "hide") + '">' + T("清空内容","Clear text") + "</button></div>" +
@@ -702,7 +702,7 @@ function resultCard(rec, current){
     OWN_Q.map(function(q){ return row(q.icon, q.v === "none" ? "grey" : "", T(q.zh, q.en), "", I("chev", "chev"), "uans", ' data-v="' + rec.id + "|" + q.v + '"'); }).join("") + "</div>";
   h += '<button class="btn out mt" data-act="speak" data-v="' + rec.id + '">' + (speakingId === rec.id ? I("stop") + T("停止朗读","Stop reading") : I("speaker") + T("读给我听","Read it to me")) + "</button>";
   if(hi) h += '<button class="btn danger mt" data-act="push" data-v="pause">' + I("pause") + T("先暂停 1 分钟","Take a 1-minute pause") + "</button>";
-  if(rec.risk === "medium") h += '<button class="btn mid mt" data-act="push" data-v="verify">' + I("shield") + T("通过官方渠道核实","Verify through official channels") + "</button>";
+  if(rec.risk === "medium") h += '<button class="btn mid mt" data-act="push" data-v="verify">' + I("shield") + T("通过官方渠道核实","Verify it officially") + "</button>";
   if(rec.evidence.length){
     h += '<div class="card"><p class="t2">' + (rec.risk === "low" ? T("还要留意","Worth keeping in mind") : T("为什么可疑","Why it's suspicious")) + "</p>" +
       rec.evidence.map(function(e){ return '<div class="q ' + rec.risk + '"><div class="quote">“' + esc(e.quote) + '”</div><div class="exp">' + esc(e.reason) + "</div></div>"; }).join("") + "</div>";
@@ -715,8 +715,8 @@ function resultCard(rec, current){
   h += '<div class="card"><p class="t2">' + T("接下来可以怎么做","What you can do next") + "</p>" + rec.actions.map(function(a, i){ return '<div class="num"><b>' + (i + 1) + "</b><span>" + esc(a) + "</span></div>"; }).join("") + "</div>";
   h += '<div class="card tight">' +
     row("users", "", T("问问信任的人","Ask someone you trust"), T("把结果发给家人看看","Send this result to family"), I("chev", "chev"), "share", ' data-v="' + rec.id + '"') +
-    row("msg", "", T("发短信给家人","Text a family member"), S.trusted ? T("已写好，发给 ","Written for ") + esc(S.trusted) : T("内容已写好，选好人点发送","Written for you – pick who and send"), I("chev", "chev"), "sms", ' data-v="' + rec.id + '"') +
-    row("shield", "", T("通过官方渠道核实","Verify through official channels"), T("拨打银行卡背面的电话","Use the number on your card"), I("chev", "chev"), "push", ' data-v="verify"') +
+    row("msg", "", T("发短信给家人","Text a family member"), S.trusted ? T("已写好，发给 ","Written for ") + esc(S.trusted) : T("内容已写好，选好人点发送","Pre-written – pick who"), I("chev", "chev"), "sms", ' data-v="' + rec.id + '"') +
+    row("shield", "", T("通过官方渠道核实","Verify it officially"), T("拨打银行卡背面的电话","Use the number on your card"), I("chev", "chev"), "push", ' data-v="verify"') +
     (S.lang === "zh" ? row("phone", "", "拨打 96110 反诈专线", "全国反诈预警劝阻专线", I("chev", "chev"), "call") : "") +
     "</div>";
   h += '<div class="card"><details><summary>' + (rec.quick ? T("您的回答","Your answers") : T("您提交的内容","What you submitted")) + I("chev", "chev") + "</summary><p>" + esc(rec.input) + "</p></details></div>";
@@ -763,7 +763,7 @@ function vPause(){
   }
   if(p.state === "done"){
     h += '<div class="card"><p class="t2">' + (p.early ? T("好的，暂停已结束。","OK – the pause is over.") : T("做得好，您停下来了。","Well done – you paused.")) + '</p><p class="b">' + T("关掉提醒器之前，先确认一件事：您核实过了吗？","Before the reminder goes off, one thing: have you verified?") + "</p></div>" +
-      gateButton(T("我已核实，关闭提醒器","I've verified – turn off the reminder")) +
+      gateButton(T("我已核实，关闭提醒器","Verified – stop reminder")) +
       '<button class="btn ' + (S.guard && S.lit ? "out" : "pri mt") + '" data-act="pauseverify">' + I("shield") + T("还没有，去官方核实","Not yet – verify now") + "</button>" +
       '<button class="btn out" data-act="share" data-v="' + (S.latestId || "") + '">' + I("users") + T("问问信任的人","Ask someone you trust") + "</button>";
   }
@@ -795,9 +795,9 @@ function startPause(){
 function verifyDone(){ return S.verify[0] && (S.verify[1] || S.verify[2]); }
 function vVerify(){
   var steps = [
-    [T("先挂断电话，或者先不回复","Hang up, or don't reply yet"), T("对方再催也不要紧，真的事情不会急在这一分钟。","A real matter can wait a minute."), "stop", T("我已挂断 / 先不回复","I've hung up / not replying")],
-    [T("拨打银行卡背面的电话","Call the number on your bank card"), T("把对方说的话原样告诉客服，问清楚是不是真的。不要回拨消息里的号码。","Tell them exactly what you were told. Never call back the number in the message."), "phone", T("拨打银行卡背面的电话","Call the number on my card")],
-    [T("或者：打开银行的官方 App","Or: open your bank's official app"), T("看看 App 里有没有这件事的通知。不要点消息里的链接。","See if the app shows anything about it. Don't use the message's link."), "iphone", T("打开官方 App","Open the official app")]
+    [T("先挂断电话，或者先不回复","Hang up, or don't reply yet"), T("对方再催也不要紧，真的事情不会急在这一分钟。","A real matter can wait a minute."), "stop", T("我已挂断 / 先不回复","I've hung up")],
+    [T("拨打银行卡背面的电话","Call the number on your card"), T("把对方说的话原样告诉客服，问清楚是不是真的。不要回拨消息里的号码。","Tell them exactly what you were told. Never call back the number in the message."), "phone", T("拨打银行卡背面的电话","Call my card's number")],
+    [T("或者：打开银行的官方 App","Or: open your bank's app"), T("看看 App 里有没有这件事的通知。不要点消息里的链接。","See if the app shows anything about it. Don't use the message's link."), "iphone", T("打开官方 App","Open the official app")]
   ];
   var all = verifyDone();
   var h = '<div class="large">' + T("官方核实","Verify it yourself") + '</div><p class="sub">' + T("先挂断，再自己联系官方。点一下就去做。","Hang up, then contact them yourself. One tap each.") + '</p><div class="card">' +
@@ -848,7 +848,7 @@ function vSettings(){
     '<div class="card"><div class="sw"><div class="grow"><div class="h">' + T("手机提醒","Phone alert") + '</div></div><button class="toggle ' + (S.phoneAlert ? "on" : "") + '" data-act="phonealert" role="switch" aria-checked="' + S.phoneAlert + '" aria-label="' + T("手机提醒","Phone alert") + '"></button></div><p class="s">' + T("手机负责提醒您一次：查出风险时振动。一直提醒、直到您停下来的，是桌上的提醒器。","Your phone vibrates once. The reminder keeps alerting until you stop.") + "</p></div>" +
     '<div class="card"><p class="h">' + T("信任的人","Someone you trust") + '</p><input id="trusted" class="field" type="tel" inputmode="tel" placeholder="' + T("家人的手机号（可不填）","Their mobile number (optional)") + '" value="' + esc(S.trusted) + '"><p class="s" style="margin-top:.4rem">' + T("填了以后，“发短信给家人”会自动填好这个号码。测试时可以随便填一个。","Used for “Text a family member”.") + "</p></div>" +
     (DEMO
-      ? '<div class="card tight">' + row("redo", "grey", T("重新看引导页","See onboarding again"), T("欢迎、语言、隐私、连接提醒器","Welcome, language, privacy, reminder"), I("chev", "chev"), "obagain") + row("redo", "grey", T("重新开始演示","Restart the demo"), T("清除这次演示的记录","Clears this demo's history"), I("chev", "chev"), "reset") + "</div>" +
+      ? '<div class="card tight">' + row("redo", "grey", T("重新看引导页","See onboarding again"), T("欢迎、语言、隐私、连接提醒器","See the setup again"), I("chev", "chev"), "obagain") + row("redo", "grey", T("重新开始演示","Restart the demo"), T("清除这次演示的记录","Clears this demo's history"), I("chev", "chev"), "reset") + "</div>" +
         '<p class="foot">' + T("安心护 WiseHalo · 作品集演示版。分析用固定规则判断、不调用 AI，提醒器为模拟状态；内容不会上传。","Portfolio demo · fixed rules, not AI · reminder simulated · nothing uploaded.") + "</p>"
       : '<div class="card tight">' + row("list", "", T("测试记录","Test log"), T("给研究者看的操作记录","Steps recorded for the researcher"), I("chev", "chev"), "push", ' data-v="log"') + row("redo", "grey", T("重新开始测试","Restart the test"), T("清除这台手机上的测试数据","Clears test data on this phone"), I("chev", "chev"), "reset") + "</div>" +
         '<p class="foot">' + T("安心护 WiseHalo · 测试原型。所有内容都是虚构的，不会上传。","WiseHalo · test prototype. Everything is fictional and nothing is uploaded.") + " · " + BUILD + (S.pid ? " · " + esc(S.pid) : "") + "</p>");
