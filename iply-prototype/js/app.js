@@ -779,7 +779,7 @@
     'test-clear': () => { if (!confirm('Clear the test log in this browser?')) return; try { localStorage.removeItem(TLOG); } catch (e) {} const g = $('#guide'); if (g) g.remove(); toast('Test log cleared'); },
     reset: () => { if (!confirm('Reset all demo data (picks, comments, proposals)?')) return; try { localStorage.removeItem(KEY); } catch (e) {} S = fresh(); ds = {}; const g = $('#guide'); if (g) g.remove(); go('/'); toast('Demo reset'); },
     whatsnew: () => { const g = $('#guide'); if (g) g.remove(); modal(`<h3>Added beyond the Figma file</h3><p class="mut">Gaps found while building, filled so every click leads somewhere.</p><ul>
-      <li><b>Create Proposal steps 4–5</b> (Audience, Publish) — only steps 1–3 existed.</li>
+      <li><b>Create Proposal steps 4–5</b> (Audience &amp; Price, Publish) — only steps 1–3 existed.</li>
       <li><b>Risk &amp; Quality Pre-Check</b> UI — a core feature with no screen.</li>
       <li><b>Validation progress</b> on cards and the detail page (intents / goal / days left, “no charge until approved”).</li>
       <li><b>IP owner review queue</b> — approve / request revision / decline flows back to the creator.</li>
@@ -787,7 +787,7 @@
       <li><b>Proposal detail</b> with an 8-step timeline, feedback, license terms; rejected state with “Revise &amp; resubmit”.</li>
       <li><b>Data fixes</b>: overview counts match the list (Figma: 17 vs 7 rows); hoodie labelled Stranger Things; identical 96/312/312 stats; socks priced like a hoodie; duplicate “Genshin Impact”; menu name “Evelyn” vs “Luna Nash” (now also fixed in the Figma file).</li>
       <li><b>Contrast</b>: primary orange darkened from #E95B3A to #C8411F and grey body text to #6F6F6F so all text meets WCAG AA (4.5:1); the brand orange stays in the logo and illustrations.</li>
-      <li><b>Copy fixes</b>: Lorem ipsum and “164+ Members” ×3 on the creator landing page; certification logos replaced with neutral trust badges.</li>
+      <li><b>Copy fixes</b>: Lorem ipsum and “164+ Members” ×3 on the creator landing page; certification logos replaced with neutral trust badges.</li><li><b>After the portfolio review</b> (also changed in the Figma file): “Join pre-order” is the primary button on idea pages, because only pre-orders count toward the goal; the “2K+ creators” claim became “Join the first 50 creators” and the example campaign is labelled as sample data; step 4 renamed Audience &amp; Price; the product name is written IPLY throughout.</li>
       <li>Types not open for the chosen IP are disabled; closed programs can’t be picked; under-18 path in onboarding.</li></ul>`, 'wide'); },
     logout: () => { S.logged = false; S.role = 'creator'; save(); go('/'); toast('Logged out'); },
     switch: () => { closePop(); modal(`<h3>Switch account</h3><p>Preview the platform from another side.</p><div class="acts" style="justify-content:flex-start"><button class="mb ${S.role === 'creator' ? 'p' : 's'}" data-act="role" data-v="creator">Creator · ${esc(S.user.name)}</button><button class="mb ${S.role === 'owner' ? 'p' : 's'}" data-act="role" data-v="owner">IP owner · Pixel Grove</button></div>`); },
