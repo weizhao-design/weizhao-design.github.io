@@ -70,7 +70,7 @@ window.IPLY_DATA = (function () {
       feedback: [{ from: 'IP review team', date: 'Apr 2, 2026', text: 'Too close to an existing official bottle (same mask placement and colourway). You’re welcome to resubmit with an original composition — for example, a scene rather than a single mask.' }] },
     { id: 'forest-mug', title: 'Forest Spirit Ceramic Mug', ip: 'animal-crossing', cat: 'Ceramic Mug', img: 'img/pr-forest-mug.webp', status: 'authorized', stage: 5, c: 4, v: 29, p: 9, goal: 500, updated: 'Feb 28, 2026', license: { term: '24 months', royalty: '6% of net sales', territory: 'North America', run: 'Pilot run of 300 units' } },
     { id: 'arcane-figure', title: 'Arcane Chibi Figure', ip: 'arcane', cat: 'Collectible Figure', img: 'img/pr-arcane-figure.webp', status: 'launched', stage: 7, c: 14, v: 64, p: 523, goal: 500, updated: 'Feb 11, 2026', license: { term: '18 months', royalty: '7% of net sales', territory: 'Global', run: '1,200 units sold in week 1' } },
-    { id: 'rlgl-hoodie', title: 'Red Light Green Light Hoodie', ip: 'squid-game', cat: 'Hoodie', img: 'img/pr-rlgl-hoodie.webp', status: 'draft', stage: 0, c: 0, v: 0, p: 0, goal: 500, updated: 'Jan 17, 2026',
+    { id: 'moss-plush', title: 'Whisperwood Moss Plush', ip: 'whisperwood', cat: 'Plush Toy', img: 'img/pt-plush.webp', status: 'missed', stage: 2, c: 6, v: 88, p: 97, goal: 150, updated: 'Apr 20, 2026', ended: 'Apr 20, 2026' }, { id: 'rlgl-hoodie', title: 'Red Light Green Light Hoodie', ip: 'squid-game', cat: 'Hoodie', img: 'img/pr-rlgl-hoodie.webp', status: 'draft', stage: 0, c: 0, v: 0, p: 0, goal: 500, updated: 'Jan 17, 2026',
       draft: { ip: 'squid-game', type: 'Hoodie', format: 'Product Concept', dirs: ['Streetwear', 'Iconic Moment'], images: ['img/pr-rlgl-hoodie.webp'], step: 3 } }
   ];
 
@@ -84,7 +84,7 @@ window.IPLY_DATA = (function () {
   };
 
   const NOTIFS = [
-    { id: 'n1', type: 'review', t: 'Hallownest Moon Hoodie moved to IP owner review', d: '2h ago', link: '#/proposal/moon-hoodie', unread: true },
+    { id: 'n0', type: 'milestone', t: 'Whisperwood Moss Plush ended at 97 / 150 — your pre-order intent was released. No charge.', d: 'Apr 20', link: '#/proposal/moss-plush' }, { id: 'n1', type: 'review', t: 'Hallownest Moon Hoodie moved to IP owner review', d: '2h ago', link: '#/proposal/moon-hoodie', unread: true },
     { id: 'n2', type: 'milestone', t: 'Hollow Knight Wanderer Pin passed 50 pre-order intents', d: '5h ago', link: '#/proposal/wanderer-pin', unread: true },
     { id: 'n3', type: 'comment', t: '@greenpath.gal commented on Paimon Picnic Tote: “Would love a bigger size!”', d: 'Yesterday', link: '#/idea/paimon-tote', unread: true },
     { id: 'n4', type: 'precheck', t: 'Pre-check running for Whisperwood Trail Socks — 3 of 4 checks passed', d: 'May 12', link: '#/proposal/trail-socks' },
