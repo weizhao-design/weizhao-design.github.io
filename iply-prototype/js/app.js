@@ -341,6 +341,7 @@
     const setQ = (k, v) => { const n = new URLSearchParams(q); v ? n.set(k, v) : n.delete(k); return '#/ideas?' + n.toString(); };
     const filtered = term || ipf || cat || st || cr;
     return `<div class="wrap" style="padding-bottom:120px">
+      <h1 class="sr">Ideas</h1>
       ${searchRow(q.get('q'), open, setQ('f', open ? '' : '1'))}
       ${open ? `<div class="filters">
         <label for="fi-ip">IP</label><select id="fi-ip" data-q="ip"><option value="">All IPs</option>${D.IPS.map((ip) => `<option value="${ip.id}" ${ipf === ip.id ? 'selected' : ''}>${ip.name}</option>`).join('')}</select>
