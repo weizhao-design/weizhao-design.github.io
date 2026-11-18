@@ -152,7 +152,7 @@
     return `<footer class="ftr"><div class="wrap">
       <div><a class="logo" href="${homeHref()}" aria-label="IPLY home"><img src="img/logo-white.svg" alt="IPLY"></a><p class="d">A creator-first platform for turning fan merch concepts into licensing-ready proposals.</p>
         <div class="social">${[['fb', 'Facebook'], ['tw', 'Twitter'], ['yt', 'YouTube'], ['ig', 'Instagram'], ['pin', 'Pinterest'], ['wa', 'WhatsApp']].map(([k, n]) => `<a href="#/contact" aria-label="${n}">${I(k)}</a>`).join('')}</div></div>
-      ${col('Platform', [['About iPly', '#/'], ['Open IPs', '#/open-ip'], ['Idea Pool', '#/ideas'], ['How It Works', '#/?s=how'], ['Marketplace', '#/ideas?status=launched&f=1'], ['Start Proposal', '#/create/1']])}
+      ${col('Platform', [['About IPLY', '#/'], ['Open IPs', '#/open-ip'], ['Idea Pool', '#/ideas'], ['How It Works', '#/?s=how'], ['Marketplace', '#/ideas?status=launched&f=1'], ['Start Proposal', '#/create/1']])}
       ${col('For Creators', [['Submission Guidelines', '#/guidelines?s=submission'], ['Proposal Tips', '#/guidelines?s=tips'], ['Copyright Risk Guide', '#/guidelines?s=copyright'], ['Product Categories', '#/guidelines?s=categories'], ['Creator Dashboard', '#/proposals']])}
       ${col('For IP Owners', [['Register Your IP', '#/owners'], ['Review Proposals', '#/authorize?tab=queue'], ['Brand Guidelines', '#/guidelines?s=brand'], ['Licensing Settings', '#/authorize'], ['Contact Partnership Team', '#/contact']])}
       ${col('Legal', [['Terms of Service', '#/guidelines?s=legal'], ['Privacy Policy', '#/guidelines?s=legal'], ['IP Policy', '#/guidelines?s=legal'], ['Licensing FAQ', '#/guidelines?s=faq'], ['Report Infringement', '#/contact']])}
@@ -185,7 +185,7 @@
     return `
     <section class="lc-hero bg-peach" style="margin-top:-136px;padding-top:185px"><div class="wrap hero-g">
       <div>
-        <span class="pill">Welcome To iPly</span>
+        <span class="pill">Welcome To IPLY</span>
         <h1 class="h-xl">Turn<br>fan ideas into<br><span class="o">official<br>merch.</span></h1>
         <p class="lead">Submit product concepts for the IPs you love, gather support from fans, and get a chance to be reviewed for official licensing.</p>
         <div class="cta-row"><a class="btn btn-o" href="${start}">Start Your Proposal</a><a class="btn btn-k" href="#/open-ip">Explore Open IPs</a></div>
@@ -198,7 +198,7 @@
       ${[['Turn Ideas into Proposals', 'Transform your fan merch idea into a clear product concept that IP owners can actually review.'], ['Test Fan Demand', 'Use votes, saves, comments, and purchase interest to see whether fans really want your product.'], ['Reach IP Owners', 'Bring promising concepts into a structured review path instead of trying to contact rights holders on your own.'], ['Get Permission', 'Move beyond unofficial fan art by working toward approved, legal fan merchandise.']].map(([h, p], i) => `<div class="ibox rv"><div class="n">0${i + 1}</div><h3>${h}</h3><p>${p}</p></div>`).join('')}
     </div></section>
     <section class="sec-o prob"><div class="wrap">
-      <span class="pill w">Join the IPly Creation Journey</span>
+      <span class="pill w">Join the IPLY Creation Journey</span>
       <h2 class="h-l">Great fan ideas<br>often stop too early.</h2>
       <div class="cards3">
         ${[['You know what fans actually want.', '85% want to see favourite fan designs become official merch', 'You understand the jokes, aesthetics, characters, and emotional details that generic merch often misses.', 'lc-problem-1'], ['But ideas stay unofficial.', '832K Etsy listings removed over IP issues in 2024', 'Many fan concepts remain as sketches, posts, or fan art because licensing is hard to access.', 'lc-problem-2'], ['Production feels out of reach.', '72% of fans we surveyed have made or shared fan designs', 'Creators usually do not have the supply chain, budget, or brand connection to turn ideas into real products.', 'lc-problem-3']].map(([h, st, p, img]) => `<article class="pcard rv"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h3>${h}</h3><div class="mem">${I('trend')}<span>${st}</span></div><p>${p}</p></div></article>`).join('')}
@@ -225,7 +225,7 @@
         <div class="cst"><div><b>${I('users')}12,842</b><small>Total saves</small></div><div><b>${I('heart')}3,421</b><small>Pre-order interests</small></div><div><b>${I('shield')}Under Review</b><small>IP owner review</small></div></div></div></a>
     </div></section>
     <section class="sec-o cta-sec"><div class="wrap">
-      <span class="pill w">Join the IPly Creation Journey</span>
+      <span class="pill w">Join the IPLY Creation Journey</span>
       <h2 class="h-l">Ready to turn your idea into something fans can support?</h2>
       <p>Share fan-made product ideas, validate demand through the community, and connect with IP holders through a creator-driven licensing platform.</p>
       <form class="mail" data-form="mail" novalidate><label class="sr" for="cta-mail">E-mail</label><input id="cta-mail" type="email" name="email" placeholder="Enter your E-mail" autocomplete="email"><button class="btn btn-white">Sign Up</button></form>
@@ -239,7 +239,7 @@
     return `
     <section class="bg-peach lo-hero" style="margin-top:-136px;padding-top:185px"><div class="wrap">
       <div class="lo-top"><div>
-        <span class="pill">Welcome To iPly</span>
+        <span class="pill">Welcome To IPLY</span>
         <h1 class="h-xl">Discover<br>what your<br>fans <span class="o">really<br>want</span></h1>
         <p class="lead">Discover fan-backed ideas before production. Use real demand signals to choose what to license.</p>
       </div><img src="img/lo-hero.webp" alt="IP owner reviewing a fan-demand dashboard"></div>
@@ -497,7 +497,7 @@
           <div class="ff"><span class="lb">Age rating</span><div class="seg" role="radiogroup">${['All ages', '13+', '18+'].map((v) => `<button role="radio" aria-checked="${d.age === v}" class="${d.age === v ? 'on' : ''}" data-act="set" data-k="age" data-v="${v}">${v}</button>`).join('')}</div></div>
           <div class="ff"><span class="lb">Target fans</span><div class="tchips" style="margin-top:0;gap:16px">${['Collectors', 'Casual fans', 'Lore fans', 'Cosplayers', 'Gift buyers', 'Convention-goers'].map((v) => `<button class="tchip ${d.fans.includes(v) ? 'on' : ''}" aria-pressed="${d.fans.includes(v)}" data-act="toggle" data-k="fans" data-v="${v}">${v}</button>`).join('')}</div></div>
           <div class="ff"><span class="lb">Regions</span><div class="tchips" style="margin-top:0;gap:16px">${['North America', 'Europe', 'East Asia', 'Global'].map((v) => `<button class="tchip ${d.regions.includes(v) ? 'on' : ''}" aria-pressed="${d.regions.includes(v)}" data-act="toggle" data-k="regions" data-v="${v}">${v}</button>`).join('')}</div></div>
-          <div class="ff"><label for="a-price">Suggested retail price · <span class="o" id="price-v">$${d.price}</span></label><input type="range" class="range" id="a-price" min="4" max="120" step="1" value="${d.price}" data-bind="price"><div class="ex" style="margin-left:0">Similar ${esc(d.type || 'products')} on iPly sell for $${Math.max(4, d.price - 8)}–$${d.price + 10}.</div></div>
+          <div class="ff"><label for="a-price">Suggested retail price · <span class="o" id="price-v">$${d.price}</span></label><input type="range" class="range" id="a-price" min="4" max="120" step="1" value="${d.price}" data-bind="price"><div class="ex" style="margin-left:0">Similar ${esc(d.type || 'products')} on IPLY sell for $${Math.max(4, d.price - 8)}–$${d.price + 10}.</div></div>
           <div class="ff"><span class="lb">Validation goal (pre-order intents)</span><div class="seg" role="radiogroup">${[ip ? ip.minGoal : 150, 300, 500, 1000].filter((v, i, a) => a.indexOf(v) === i).map((v) => `<button role="radio" aria-checked="${d.goal === v}" class="${d.goal === v ? 'on' : ''}" data-act="set" data-k="goal" data-v="${v}" data-num="1">${v}</button>`).join('')}</div>${ip ? `<div class="ex" style="margin-left:0">${ip.name} requires at least ${ip.minGoal}.</div>` : ''}</div>
           <div class="ff"><span class="lb">Campaign length</span><div class="seg" role="radiogroup">${[14, 30, 45].map((v) => `<button role="radio" aria-checked="${d.days === v}" class="${d.days === v ? 'on' : ''}" data-act="set" data-k="days" data-v="${v}" data-num="1">${v} days</button>`).join('')}</div></div>
           <div class="est"><div class="k">${roy}%</div><p>If you reach <b>${d.goal}</b> pre-order intents in ${d.days} days, your proposal goes to ${ip ? esc(ip.owner) : 'the IP owner'} for review. If licensed, you earn ${roy}% of net sales.<small>First pilot run ≈ $${est.toLocaleString()} in sales → your royalty ≈ $${Math.round(est * roy / 100).toLocaleString()} (demo estimate).</small></p></div>
@@ -519,7 +519,7 @@
         <h4>Risk &amp; Quality Pre-Check</h4>
         <div class="pcl" aria-live="polite">${r ? Object.entries(r).map(([k, c]) => row(k, c)).join('') : row('Starting pre-check…', { r: 'run', n: '' })}</div>
         ${r && Object.values(r).some((c) => c.r === 'fail') ? `<div class="ibx" style="margin-bottom:24px">${I('alert')}<span>Fix the failed check before publishing — <a href="#/create/2">change the product type</a>.</span></div>` : ''}
-        <div class="agree"><label class="ck"><input type="checkbox" data-bind="agree1" ${d.agree1 ? 'checked' : ''}> <span>I agree to the iPly Creator Terms and the ${esc(ip ? ip.name : '')} creator guidelines.</span></label>
+        <div class="agree"><label class="ck"><input type="checkbox" data-bind="agree1" ${d.agree1 ? 'checked' : ''}> <span>I agree to the IPLY Creator Terms and the ${esc(ip ? ip.name : '')} creator guidelines.</span></label>
         <label class="ck"><input type="checkbox" data-bind="agree2" ${d.agree2 ? 'checked' : ''}> <span>I understand the IP owner may request changes, and if licensed I earn ${ip ? ip.royalty : 8}% of net sales.</span></label></div>
         </div></div>`;
       if (!r) setTimeout(runPrecheck, 80);
@@ -728,7 +728,7 @@
     } else if (kind === 'me') {
       const it = (href, l, act) => act ? `<button class="mi" data-act="${act}">${l}${I('next')}</button>` : `<a class="mi" href="${href}">${l}${I('next')}</a>`;
       el.innerHTML = `<div class="menu-h"><img src="img/av-user.webp" alt=""><div><b>${esc(firstName())}</b><small>${S.role === 'owner' ? 'IP owner view' : 'Creator'}</small></div></div><hr>
-        ${it(homeHref(), 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}${it('#/', 'About iPly')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
+        ${it(homeHref(), 'Home')}${it('#/proposals', 'My Proposal')}${it('#/rewards', 'My Rewards')}${it('#/settings', 'Settings')}${it('#/guidelines?s=faq', 'Help')}${it('#/', 'About IPLY')}<hr>${it('', 'Switch Account', 'switch')}${it('', 'Log out', 'logout')}`;
     }
     $('.hdr .wrap').appendChild(el);
   }
@@ -758,7 +758,7 @@
   /* ------------------------------------------------------------------ actions */
   function requireLogin(next) {
     if (S.logged) return true;
-    modal(`<h3>Join iPly to continue</h3><p>Create a free account to pick ideas, comment, pre-order and submit proposals.</p><div class="acts"><button class="mb s" data-act="demo-login" data-next="${esc(next || '')}">Use demo account</button><a class="mb p" href="#/signup" data-act="close-nav">Sign up</a></div>`);
+    modal(`<h3>Join IPLY to continue</h3><p>Create a free account to pick ideas, comment, pre-order and submit proposals.</p><div class="acts"><button class="mb s" data-act="demo-login" data-next="${esc(next || '')}">Use demo account</button><a class="mb p" href="#/signup" data-act="close-nav">Sign up</a></div>`);
     return false;
   }
   const optOf = (x, st) => [x.variants ? x.variants[(st || {}).v || 0].c : '', isApparel(x.cat) ? 'Size ' + ((st || {}).size || 'S') : ''].filter(Boolean).join(' · ');
@@ -802,7 +802,7 @@
     'auth-back': () => { const r = parse(); const n = +r.parts[1] || 1; if (r.parts[0] === 'signup' && n > 1) go('/signup/' + (n - 1)); else history.length > 1 ? history.back() : go('/'); },
     age: (el) => { S.user.age = el.dataset.v; save(); render(); },
     fandom: (el) => { const v = el.dataset.v, f = S.user.fandoms, i = f.indexOf(v); i >= 0 ? f.splice(i, 1) : f.push(v); save(); render(); },
-    'signup-done': () => { if (!S.user.fandoms.length) return toast('Pick at least one fandom'); S.logged = true; save(); let next = ''; try { next = sessionStorage.getItem('iply-next') || ''; sessionStorage.removeItem('iply-next'); } catch (e) {} go(next === 'create' ? '/create/1' : '/ideas'); toast(`Welcome to iPly, ${firstName()}!`); },
+    'signup-done': () => { if (!S.user.fandoms.length) return toast('Pick at least one fandom'); S.logged = true; save(); let next = ''; try { next = sessionStorage.getItem('iply-next') || ''; sessionStorage.removeItem('iply-next'); } catch (e) {} go(next === 'create' ? '/create/1' : '/ideas'); toast(`Welcome to IPLY, ${firstName()}!`); },
     vote: (el) => { if (!requireLogin()) return; const id = el.dataset.id; S.votes[id] ? delete S.votes[id] : (S.votes[id] = 1); save(); render(); toast(S.votes[id] ? 'Picked! The creator sees your support.' : 'Pick removed'); },
     preorder: (el) => {
       if (!requireLogin()) return; const id = el.dataset.id, x = idea(id);
@@ -820,7 +820,7 @@
     gal: (el) => { ds[el.dataset.id].img = +el.dataset.i; render(); },
     size: (el) => { ds[el.dataset.id].size = el.value; },
     'size-guide': () => modal(`<h3>Size Guide</h3><table class="mtable">${[['', 'S', 'M', 'L', 'XL'], ['Chest (cm)', '104', '112', '120', '128'], ['Length (cm)', '68', '71', '74', '77'], ['Sleeve (cm)', '60', '62', '64', '66']].map((r, i) => `<tr>${r.map((c) => (i ? `<td>${c}</td>` : `<th>${c}</th>`)).join('')}</tr>`).join('')}</table><p class="mut" style="margin-top:12px">Relaxed unisex fit. Final specs are confirmed by the licensed manufacturer.</p>`),
-    'ip-info': (el) => { const ip = ipById(el.dataset.ip); modal(`<h3>${esc(ip.name)} · IP clearance</h3><p>${esc(ip.owner)} runs an open program on iPly. Proposals that reach ${ip.minGoal}+ pre-order intents go to their review team.</p><div class="mstats"><div><b>${ip.royalty}%</b><small>Creator royalty</small></div><div><b>${ip.minGoal}</b><small>Min. goal</small></div><div><b>${ip.open === 'Closed' ? '—' : ip.open.replace(', 2026', '')}</b><small>Open until</small></div></div><div class="acts"><a class="mb p" href="#/open-ip/${ip.id}" data-act="close-nav">View program</a></div>`); },
+    'ip-info': (el) => { const ip = ipById(el.dataset.ip); modal(`<h3>${esc(ip.name)} · IP clearance</h3><p>${esc(ip.owner)} runs an open program on IPLY. Proposals that reach ${ip.minGoal}+ pre-order intents go to their review team.</p><div class="mstats"><div><b>${ip.royalty}%</b><small>Creator royalty</small></div><div><b>${ip.minGoal}</b><small>Min. goal</small></div><div><b>${ip.open === 'Closed' ? '—' : ip.open.replace(', 2026', '')}</b><small>Open until</small></div></div><div class="acts"><a class="mb p" href="#/open-ip/${ip.id}" data-act="close-nav">View program</a></div>`); },
     remix: (el) => { if (!requireLogin()) return; const x = idea(el.dataset.id), ipx = ipById(x.ip); const t = D.PRODUCT_TYPES.find((p) => p.n === x.cat); S.draft = Object.assign(blankDraft(), { ip: x.ip, type: t && ipx.cats.includes(t.n) ? t.n : '', srcLink: location.href.split('#')[0] + '#/idea/' + x.id, desc: 'Remix of “' + x.title + '” by ' + creator(x.creator).name + '.' }); save(); go('/create/' + (S.draft.type ? 3 : 2)); toast('Remix started — the original creator is credited automatically.'); },
     acc: (el) => { const a = el.parentElement; a.classList.toggle('open'); el.setAttribute('aria-expanded', a.classList.contains('open')); },
     'all-comments': () => { const id = parse().parts[1]; ds[id].allC = !ds[id].allC; render(); setTimeout(() => $('#comments') && $('#comments').scrollIntoView({ block: 'start' }), 20); },
@@ -856,7 +856,7 @@
     'start-ip': (el) => { if (!requireLogin()) return; S.draft = Object.assign(blankDraft(), { ip: el.dataset.ip }); save(); go('/create/2'); },
     'p-share': (el) => { const url = location.href.split('#')[0] + '#/idea/' + el.dataset.id; const done = () => toast('Link copied — share it with your fandom'); try { navigator.clipboard.writeText(url).then(done, done); } catch (e) { done(); } },
     'p-open': (el) => go('/proposal/' + el.dataset.id),
-    'p-feedback': (el) => { const p = prop(el.dataset.id); modal(`<h3>Feedback · ${esc(p.title)}</h3>${(p.feedback || [{ from: 'iPly', date: '', text: 'No feedback yet.' }]).map((f) => `<div class="mfb"><small>${esc(f.from)}${f.date ? ' · ' + f.date : ''}</small>${esc(f.text)}</div>`).join('')}<div class="acts">${p.status === 'rejected' ? `<button class="mb p" data-act="resubmit" data-id="${p.id}">Revise &amp; resubmit</button>` : '<button class="mb s" data-act="thread" data-id="review">Reply to reviewer</button>'}<a class="mb g" href="#/proposal/${p.id}" data-act="close-nav">Open proposal</a></div>`); },
+    'p-feedback': (el) => { const p = prop(el.dataset.id); modal(`<h3>Feedback · ${esc(p.title)}</h3>${(p.feedback || [{ from: 'IPLY', date: '', text: 'No feedback yet.' }]).map((f) => `<div class="mfb"><small>${esc(f.from)}${f.date ? ' · ' + f.date : ''}</small>${esc(f.text)}</div>`).join('')}<div class="acts">${p.status === 'rejected' ? `<button class="mb p" data-act="resubmit" data-id="${p.id}">Revise &amp; resubmit</button>` : '<button class="mb s" data-act="thread" data-id="review">Reply to reviewer</button>'}<a class="mb g" href="#/proposal/${p.id}" data-act="close-nav">Open proposal</a></div>`); },
     'p-license': (el) => { const p = prop(el.dataset.id); modal(`<h3>License · ${esc(p.title)}</h3><div class="mstats" style="grid-template-columns:1fr 1fr">${Object.entries(p.license).map(([k, v]) => `<div><small style="text-transform:capitalize">${k}</small><b style="font-size:15px">${esc(v)}</b></div>`).join('')}</div><p class="mut" style="margin-top:12px">Licensed by ${esc(ipById(p.ip).owner)}. Demo terms.</p>`); },
     'p-product': (el) => go('/idea/' + el.dataset.id),
     'p-continue': (el) => { const p = prop(el.dataset.id); S.draft = Object.assign(blankDraft(), p.draft || {}, { id: p.id, title: p.title === 'Untitled proposal' ? '' : p.title }); save(); go('/create/' + (S.draft.step || 1)); },
