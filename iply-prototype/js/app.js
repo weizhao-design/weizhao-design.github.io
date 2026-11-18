@@ -431,7 +431,7 @@
   }
 
   /* ------------------------------------------------------------------ CREATE PROPOSAL (Figma: Proposal submission Page 1-3; steps 4-5 added) */
-  const STEPS = ['Choose IP', 'Product Type', 'Upload', 'Audience', 'Publish'];
+  const STEPS = ['Choose IP', 'Product Type', 'Upload', 'Audience & Price', 'Publish'];
   const blankDraft = () => ({ id: 'd' + Date.now(), ip: '', type: '', format: 'Product Concept', dirs: [], images: [], caption: '', desc: '', url: '', imgType: '', srcLink: '', original: false, title: '', fans: ['Collectors'], age: 'All ages', price: 28, goal: 0, days: 30, regions: ['North America'], step: 1, agree1: false, agree2: false, pre: null });
   const Dr = () => S.draft || (S.draft = blankDraft());
   function stepOk(n, d) {
@@ -490,7 +490,7 @@
     } else if (step === 4) {
       if (!d.goal) d.goal = ip ? ip.minGoal : 300;
       const roy = ip ? ip.royalty : 8, est = Math.round(d.goal * d.price * 0.62);
-      body = `<h2>Who is it for?</h2><p class="lead2">Tell fans and the IP owner who this product is for, and set the demand goal that unlocks IP owner review.</p>
+      body = `<h2>Who is it for, and at what price?</h2><p class="lead2">Tell fans and the IP owner who this product is for, suggest a retail price, and set the demand goal that unlocks IP owner review.</p>
         <div class="aud">
           <div class="ff"><label for="a-title">Proposal title*</label><input class="in" id="a-title" data-bind="title" value="${esc(d.title)}" placeholder="e.g. Hallownest Moon Hoodie" maxlength="60"><div class="ex">Short and specific: IP + motif + product.</div></div>
           <div class="ff"><span class="lb">Age rating</span><div class="seg" role="radiogroup">${['All ages', '13+', '18+'].map((v) => `<button role="radio" aria-checked="${d.age === v}" class="${d.age === v ? 'on' : ''}" data-act="set" data-k="age" data-v="${v}">${v}</button>`).join('')}</div></div>
