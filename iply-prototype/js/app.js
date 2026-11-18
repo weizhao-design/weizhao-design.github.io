@@ -156,7 +156,7 @@
       ${col('For Creators', [['Submission Guidelines', '#/guidelines?s=submission'], ['Proposal Tips', '#/guidelines?s=tips'], ['Copyright Risk Guide', '#/guidelines?s=copyright'], ['Product Categories', '#/guidelines?s=categories'], ['Creator Dashboard', '#/proposals']])}
       ${col('For IP Owners', [['Register Your IP', '#/owners'], ['Review Proposals', '#/authorize?tab=queue'], ['Brand Guidelines', '#/guidelines?s=brand'], ['Licensing Settings', '#/authorize'], ['Contact Partnership Team', '#/contact']])}
       ${col('Legal', [['Terms of Service', '#/guidelines?s=legal'], ['Privacy Policy', '#/guidelines?s=legal'], ['IP Policy', '#/guidelines?s=legal'], ['Licensing FAQ', '#/guidelines?s=faq'], ['Report Infringement', '#/contact']])}
-      <div class="proto-note"><span>Concept prototype · IXDS 708 Product Strategy &amp; Storytelling · SCAD. IP names and logos are illustrative only; no affiliation with the rights holders.</span><span>Wei Zhao · Dingrui Yu · Xiaohe Yu</span></div>
+      <div class="proto-note"><span>Concept prototype · IXDS 708 Product Strategy &amp; Storytelling · SCAD. IP names and logos are illustrative only; no affiliation with the rights holders.</span><span>Wei Zhao</span></div>
     </div></footer>`;
   }
 
