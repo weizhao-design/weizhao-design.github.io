@@ -189,7 +189,7 @@
         <h1 class="h-xl">Turn<br>fan ideas into<br><span class="o">official<br>merch.</span></h1>
         <p class="lead">Submit product concepts for the IPs you love, gather support from fans, and get a chance to be reviewed for official licensing.</p>
         <div class="cta-row"><a class="btn btn-o" href="${start}">Start Your Proposal</a><a class="btn btn-k" href="#/open-ip">Explore Open IPs</a></div>
-        <div class="proof"><div class="stack"><img src="img/av-c0.webp" alt=""><img src="img/av-c2.webp" alt=""><img src="img/av-c3.webp" alt=""><img src="img/av-c1.webp" alt=""></div><span><b>2K+</b> Creators use iPly</span></div>
+        <div class="proof"><div class="stack"><img src="img/av-c0.webp" alt=""><img src="img/av-c2.webp" alt=""><img src="img/av-c3.webp" alt=""><img src="img/av-c1.webp" alt=""></div><span>Join the first <b>50</b> creators</span></div>
         <p class="quote">“No production experience required. Start with an idea, sketch, or mockup.”</p>
       </div>
       <img class="art" src="img/lc-hero.webp" alt="Hollow Knight collector box concept with figure and art card">
@@ -201,7 +201,7 @@
       <span class="pill w">Join the IPly Creation Journey</span>
       <h2 class="h-l">Great fan ideas<br>often stop too early.</h2>
       <div class="cards3">
-        ${[['You know what fans actually want.', '72% of fans we surveyed have made or shared fan designs', 'You understand the jokes, aesthetics, characters, and emotional details that generic merch often misses.', 'lc-problem-1'], ['But ideas stay unofficial.', '832K Etsy listings removed over IP issues in 2024', 'Many fan concepts remain as sketches, posts, or fan art because licensing is hard to access.', 'lc-problem-2'], ['Production feels out of reach.', '85% want to see favourite fan designs become official merch', 'Creators usually do not have the supply chain, budget, or brand connection to turn ideas into real products.', 'lc-problem-3']].map(([h, st, p, img]) => `<article class="pcard rv"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h3>${h}</h3><div class="mem">${I('trend')}<span>${st}</span></div><p>${p}</p></div></article>`).join('')}
+        ${[['You know what fans actually want.', '85% want to see favourite fan designs become official merch', 'You understand the jokes, aesthetics, characters, and emotional details that generic merch often misses.', 'lc-problem-1'], ['But ideas stay unofficial.', '832K Etsy listings removed over IP issues in 2024', 'Many fan concepts remain as sketches, posts, or fan art because licensing is hard to access.', 'lc-problem-2'], ['Production feels out of reach.', '72% of fans we surveyed have made or shared fan designs', 'Creators usually do not have the supply chain, budget, or brand connection to turn ideas into real products.', 'lc-problem-3']].map(([h, st, p, img]) => `<article class="pcard rv"><img src="img/${img}.webp" alt="" loading="lazy"><div class="b"><h3>${h}</h3><div class="mem">${I('trend')}<span>${st}</span></div><p>${p}</p></div></article>`).join('')}
       </div>
       <p class="src-note">Survey figures are preliminary signals from a team-run fan survey (sample size not recorded). Etsy figure: Etsy 2024 Transparency Report.</p>
     </div></section>
@@ -219,7 +219,7 @@
     </div>
     <div class="wrap strip" aria-label="Open IP programs">${['hollow-knight', 'arcane', 'omori', 'genshin', 'spy-family', 'stranger-things'].map((k) => `<a href="#/open-ip/${k}"><img src="img/ip-${k}.webp" alt="${ipById(k).name}" loading="lazy"></a>`).join('')}</div></section>
     <section class="sec-k"><div class="wrap camp">
-      <div><span class="pill">Example Campaign</span><h2 class="h-l up" style="margin-top:18px">Real ideas,<br>real impact.</h2><p>See how creators are already turning concepts into licensed merch. Flora Z.’s collector drop went from a sketch to IP owner review in 26 days — 3,421 fans said they would buy it before a single unit was made.</p><a class="btn btn-w" href="#/ideas?ip=hollow-knight&f=1">View more campaigns</a></div>
+      <div><span class="pill">Example Campaign</span><h2 class="h-l up" style="margin-top:18px">Real ideas,<br>real impact.</h2><p>An illustrative campaign with sample numbers: Flora Z.’s collector drop goes from a sketch to IP owner review in 26 days, with 3,421 fans saying they would buy it before a single unit is made.</p><a class="btn btn-w" href="#/ideas?ip=hollow-knight&f=1">View more campaigns</a></div>
       <a class="camp-card rv" href="#/ideas?ip=hollow-knight&f=1"><img src="img/lc-campaign.webp" alt="Hollow Knight collector drop" loading="lazy">
         <div class="ov"><div><h3>HOLLOW<br>KNIGHT</h3><div class="k">COLLECTOR DROP</div><div class="cr">Creator: Flora Z.</div></div>
         <div class="cst"><div><b>${I('users')}12,842</b><small>Total saves</small></div><div><b>${I('heart')}3,421</b><small>Pre-order interests</small></div><div><b>${I('shield')}Under Review</b><small>IP owner review</small></div></div></div></a>
