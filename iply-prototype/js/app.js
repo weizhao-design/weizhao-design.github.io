@@ -418,7 +418,7 @@
             <div class="cre"><img src="${cr.avatar}" alt=""><div><b>${esc(cr.name)}</b><p>${esc(cr.bio)}</p><a class="vbtn" href="#/ideas?creator=${x.creator}">View profile</a></div></div>
             <div class="imp-h">Creator Impact</div>
             <div class="imp"><div>${I('box')}<b>${cr.inProduction}</b><small>In Production</small></div><div>${I('users')}<b>${cr.validating}</b><small>In Validation</small></div><div>${I('grid')}<b>${cr.published}</b><small>Published Ideas</small></div><div><div class="lg"><img src="img/ip-hollow-knight.webp" alt="Hollow Knight"><img src="img/ip-stranger-things.webp" alt="Stranger Things"><img src="img/ip-squid-game.webp" alt="Squid Game"></div><small>Partnered IPs</small></div></div>
-            <div class="qbox">“${esc(cr.bio)}”</div>
+            <div class="qbox">“${esc(cr.quote || cr.bio)}”</div>
           </div>
         </div>
       </section>

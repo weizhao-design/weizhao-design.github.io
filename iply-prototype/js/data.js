@@ -13,10 +13,10 @@ window.IPLY_DATA = (function () {
   ];
 
   const CREATORS = {
-    'nova-land': { name: 'Nova Land', avatar: 'img/av-nova.webp', bio: 'Digital artist and storyteller. I love creating calm, nature-inspired worlds that feel like home.', inProduction: 8, validating: 24, published: 126 },
-    'luna-nash': { name: 'Luna Nash', avatar: 'img/av-user.webp', bio: 'Freelance illustrator. Fan of quiet games and loud colours.', inProduction: 1, validating: 3, published: 9 },
-    'pixel-grove': { name: 'Pixel Grove', avatar: 'img/av-c1.webp', bio: 'Pixel artist building the Whisperwood world.', inProduction: 3, validating: 11, published: 48 },
-    'mosscloak': { name: 'Mosscloak', avatar: 'img/av-c0.webp', bio: 'Hallownest wanderer. Enamel pins and tiny things.', inProduction: 2, validating: 6, published: 31 }
+    'nova-land': { name: 'Nova Land', avatar: 'img/av-nova.webp', bio: 'Digital artist and storyteller. I love creating calm, nature-inspired worlds that feel like home.', inProduction: 8, validating: 24, published: 126, quote: 'I want fan merch to feel like a personal everyday object, not a loud souvenir.' },
+    'luna-nash': { name: 'Luna Nash', avatar: 'img/av-user.webp', bio: 'Freelance illustrator. Fan of quiet games and loud colours.', inProduction: 1, validating: 3, published: 9, quote: 'The small details only fans would notice are my favourite part.' },
+    'pixel-grove': { name: 'Pixel Grove', avatar: 'img/av-c1.webp', bio: 'Pixel artist building the Whisperwood world.', inProduction: 3, validating: 11, published: 48, quote: 'Every piece should feel like a souvenir from inside the game.' },
+    'mosscloak': { name: 'Mosscloak', avatar: 'img/av-c0.webp', bio: 'Hallownest wanderer. Enamel pins and tiny things.', inProduction: 2, validating: 6, published: 31, quote: 'Tiny things, made carefully, are what fans keep the longest.' }
   };
 
   // status: validating | review | launched
