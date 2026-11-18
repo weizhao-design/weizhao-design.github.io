@@ -376,9 +376,9 @@
     const main = src(gal[st.img] || gal[0]);
     const p = pres(x), goal = x.goal, picked = !!S.votes[id], held = !!S.pre[id];
     const rank = Math.max(1, Math.round(100 - (allIdeas().filter((o) => votes(o) < votes(x)).length / allIdeas().length) * 100));
-    const cta2 = x.status === 'launched' ? `<button class="pbtn pbtn-g" data-act="add-cart" data-id="${id}">Add to cart</button>`
-      : (x.status === 'review' || x.status === 'authorized') ? `<button class="pbtn ${held ? 'done' : 'pbtn-g'}" data-act="notify-me" data-id="${id}" aria-pressed="${held}">${held ? 'We’ll notify you ✓' : 'Notify me at launch'}</button>`
-      : `<button class="pbtn ${held ? 'done' : 'pbtn-g'}" data-act="preorder" data-id="${id}" aria-pressed="${held}">${held ? 'Pre-order joined ✓' : 'Join pre-order'}</button>`;
+    const cta2 = x.status === 'launched' ? `<button class="pbtn pbtn-p" data-act="add-cart" data-id="${id}">Add to cart</button>`
+      : (x.status === 'review' || x.status === 'authorized') ? `<button class="pbtn ${held ? 'done' : 'pbtn-p'}" data-act="notify-me" data-id="${id}" aria-pressed="${held}">${held ? 'We’ll notify you ✓' : 'Notify me at launch'}</button>`
+      : `<button class="pbtn ${held ? 'done' : 'pbtn-p'}" data-act="preorder" data-id="${id}" aria-pressed="${held}">${held ? 'Pre-order joined ✓' : 'Join pre-order'}</button>`;
     const vb = x.status === 'launched'
       ? `<div class="vbox"><div class="top">Officially licensed · in stock<span>${p} fans backed it before launch</span></div><div class="bar"><i class="g" style="width:100%"></i></div><p class="h">Licensed by ${esc(ip.owner)}. The creator earns ${ip.royalty}% of every sale.</p></div>`
       : x.status === 'authorized' ? `<div class="vbox"><div class="top">Approved by the IP owner<span>${p} / ${goal}</span></div><div class="bar"><i class="g" style="width:100%"></i></div><p class="h">Licensed and heading into a pilot production run. Pre-order holders are charged when it ships.</p></div>`
@@ -404,7 +404,7 @@
             <h5>Description</h5><p class="desc">${esc(x.desc)}</p>
             ${x.variants ? `<h5 class="c">Choose color</h5><div class="lbl">${x.variants[st.v].c}</div><div class="sws" role="radiogroup" aria-label="Color">${x.variants.map((v, i) => `<button class="th ${st.v === i ? 'on' : ''}" role="radio" aria-checked="${st.v === i}" data-act="color" data-id="${id}" data-i="${i}" aria-label="${v.c}" title="${v.c}"><img src="${v.img}" alt=""></button>`).join('')}</div>` : ''}
             ${isApparel(x.cat) ? `<h5 class="${x.variants ? 's' : 'c'}">Size<button class="sg" data-act="size-guide">Size Guide</button></h5><div class="sizes" role="radiogroup" aria-label="Size">${['S', 'M', 'L', 'XL'].map((s) => `<label><input type="radio" name="size" value="${s}" ${st.size === s ? 'checked' : ''} data-act="size" data-id="${id}">${s}</label>`).join('')}</div>` : ''}
-            <div class="dcta"><button class="pbtn ${picked ? 'done' : 'pbtn-p'}" data-act="vote" data-id="${id}" aria-pressed="${picked}">${picked ? 'Picked ✓' : 'Pick this idea'}</button>${cta2}</div>
+            <div class="dcta">${cta2}<button class="pbtn ${picked ? 'done' : 'pbtn-s'}" data-act="vote" data-id="${id}" aria-pressed="${picked}">${picked ? 'Picked ✓' : 'Pick this idea'}</button></div>
             <div class="trio">
               <button data-act="ip-info" data-ip="${ip.id}">${I('heart')}<b>IP clearance available</b><small>${ip.open === 'Closed' ? 'Program closed' : 'Ready to license'}</small></button>
               <div>${I('shield')}<b>Community favorite</b><small>Top ${rank}% of ideas</small></div>
