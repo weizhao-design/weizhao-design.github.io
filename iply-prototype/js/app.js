@@ -115,7 +115,7 @@
     const pageCls = { ideas: 'bg-peach', idea: 'bg-peach', saved: 'bg-peach', undefined: '', owners: '' }[a] || '';
     const pull = hdr === 'clear' ? ' style="margin-top:-136px;padding-top:136px"' : '';
     $('#app').innerHTML = (chrome === 'none' ? '' : header(chrome, a, hdr)) + `<main class="page ${pageCls}" id="main"${chrome === 'none' ? '' : pull}>${html}</main>` + (chrome === 'none' ? '' : footer()) + `<button class="gfab" data-act="guide" aria-haspopup="dialog"><i></i>Prototype guide</button>`;
-    document.title = (TITLES[a || ''] || 'IPLY') + ' · IPLY';
+    document.title = (TITLES[a || ''] || 'Page not found') + ' · IPLY';
     const sec = r.q.get('s');
     if (sec && $('#' + sec)) setTimeout(() => $('#' + sec).scrollIntoView({ behavior: 'smooth', block: 'start' }), 40);
     else if (r.path !== lastPath) window.scrollTo(0, 0);
@@ -442,6 +442,8 @@
     if (n === 4) return d.title.trim().length >= 3;
     return !!(d.pre && !Object.values(d.pre).some((c) => c.r === 'run' || c.r === 'fail') && d.agree1 && d.agree2);
   }
+  const PRICE_RANGE = { 'T-Shirt': [24, 32], Hoodie: [45, 60], 'Tote Bag': [18, 26], 'Plush Toy': [25, 40], Mug: [14, 20], 'Phone Case': [18, 28], Bottle: [16, 24], 'Fridge Magnet': [6, 10], 'Blind Box': [12, 18], Poster: [15, 30] }; // demo ranges
+  const priceRange = (t) => PRICE_RANGE[t] || [10, 40];
   const NEED = ['', 'Choose an IP to continue.', 'Choose a product type to continue.', 'Add at least one image and confirm originality.', 'Add a proposal title (3+ characters).', 'Wait for the pre-check and accept both agreements.'];
   function pCreate(step, q) {
     const d = Dr();
@@ -497,7 +499,7 @@
           <div class="ff"><span class="lb">Age rating</span><div class="seg" role="radiogroup">${['All ages', '13+', '18+'].map((v) => `<button role="radio" aria-checked="${d.age === v}" class="${d.age === v ? 'on' : ''}" data-act="set" data-k="age" data-v="${v}">${v}</button>`).join('')}</div></div>
           <div class="ff"><span class="lb">Target fans</span><div class="tchips" style="margin-top:0;gap:16px">${['Collectors', 'Casual fans', 'Lore fans', 'Cosplayers', 'Gift buyers', 'Convention-goers'].map((v) => `<button class="tchip ${d.fans.includes(v) ? 'on' : ''}" aria-pressed="${d.fans.includes(v)}" data-act="toggle" data-k="fans" data-v="${v}">${v}</button>`).join('')}</div></div>
           <div class="ff"><span class="lb">Regions</span><div class="tchips" style="margin-top:0;gap:16px">${['North America', 'Europe', 'East Asia', 'Global'].map((v) => `<button class="tchip ${d.regions.includes(v) ? 'on' : ''}" aria-pressed="${d.regions.includes(v)}" data-act="toggle" data-k="regions" data-v="${v}">${v}</button>`).join('')}</div></div>
-          <div class="ff"><label for="a-price">Suggested retail price · <span class="o" id="price-v">$${d.price}</span></label><input type="range" class="range" id="a-price" min="4" max="120" step="1" value="${d.price}" data-bind="price"><div class="ex" style="margin-left:0">Similar ${esc(d.type || 'products')} on IPLY sell for $${Math.max(4, d.price - 8)}–$${d.price + 10}.</div></div>
+          <div class="ff"><label for="a-price">Suggested retail price · <span class="o" id="price-v">$${d.price}</span></label><input type="range" class="range" id="a-price" min="4" max="120" step="1" value="${d.price}" data-bind="price"><div class="ex" style="margin-left:0">Typical price for ${esc(d.type || 'this category')}: $${priceRange(d.type)[0]}–$${priceRange(d.type)[1]} (demo range).</div></div>
           <div class="ff"><span class="lb">Validation goal (pre-order intents)</span><div class="seg" role="radiogroup">${[ip ? ip.minGoal : 150, 300, 500, 1000].filter((v, i, a) => a.indexOf(v) === i).map((v) => `<button role="radio" aria-checked="${d.goal === v}" class="${d.goal === v ? 'on' : ''}" data-act="set" data-k="goal" data-v="${v}" data-num="1">${v}</button>`).join('')}</div>${ip ? `<div class="ex" style="margin-left:0">${ip.name} requires at least ${ip.minGoal}.</div>` : ''}</div>
           <div class="ff"><span class="lb">Campaign length</span><div class="seg" role="radiogroup">${[14, 30, 45].map((v) => `<button role="radio" aria-checked="${d.days === v}" class="${d.days === v ? 'on' : ''}" data-act="set" data-k="days" data-v="${v}" data-num="1">${v} days</button>`).join('')}</div></div>
           <div class="est"><div class="k">${roy}%</div><p>If you reach <b>${d.goal}</b> pre-order intents in ${d.days} days, your proposal goes to ${ip ? esc(ip.owner) : 'the IP owner'} for review. If licensed, you earn ${roy}% of net sales.<small>First pilot run ≈ $${est.toLocaleString()} in sales → your royalty ≈ $${Math.round(est * roy / 100).toLocaleString()} (demo estimate).</small></p></div>
@@ -534,7 +536,7 @@
     const final = {
       'Copyright risk': d.dirs.includes('Meme-inspired') ? { r: 'warn', n: 'Meme formats often reuse third-party images — double-check your sources.' } : { r: 'pass', n: 'No official logos or third-party artwork detected.' },
       'Image quality': d.images.length >= 2 ? { r: 'pass', n: `${d.images.length} images; cover is sharp enough for print preview.` } : { r: 'warn', n: 'Only 1 image — adding a mockup or lifestyle shot roughly doubles picks.' },
-      'Production feasibility': { r: 'pass', n: `${d.type} at $${d.price} sits in the typical cost range.` },
+      'Production feasibility': (() => { const [lo, hi] = priceRange(d.type); return d.price < lo ? { r: 'warn', n: `$${d.price} is below the typical $${lo}–$${hi} for a ${d.type} — it may not cover production and royalty.` } : d.price > Math.round(hi * 1.3) ? { r: 'warn', n: `$${d.price} is well above the typical $${lo}–$${hi} for a ${d.type} — fans may hesitate.` } : { r: 'pass', n: `${d.type} at $${d.price} sits in the typical $${lo}–$${hi} range.` }; })(),
       'IP guideline match': ip.cats.includes(d.type) ? { r: 'pass', n: `“${d.type}” is open for ${ip.name}.` } : { r: 'fail', n: `“${d.type}” isn’t open for ${ip.name}.` }
     };
     d.pre = {}; Object.keys(final).forEach((k) => { d.pre[k] = { r: 'run', n: 'Checking…' }; });
@@ -756,8 +758,10 @@
   }
 
   /* ------------------------------------------------------------------ actions */
+  let lastAct = null, pendingAct = null; // F1: resume the action that asked for login
   function requireLogin(next) {
     if (S.logged) return true;
+    pendingAct = lastAct && ['vote', 'preorder', 'notify-me', 'add-cart'].includes(lastAct.act) ? lastAct : null;
     modal(`<h3>Join IPLY to continue</h3><p>Create a free account to pick ideas, comment, pre-order and submit proposals.</p><div class="acts"><button class="mb s" data-act="demo-login" data-next="${esc(next || '')}">Use demo account</button><a class="mb p" href="#/signup" data-act="close-nav">Sign up</a></div>`);
     return false;
   }
@@ -787,12 +791,12 @@
       <li><b>Proposal detail</b> with an 8-step timeline, feedback, license terms; rejected state with “Revise &amp; resubmit”.</li>
       <li><b>Data fixes</b>: overview counts match the list (Figma: 17 vs 7 rows); hoodie labelled Stranger Things; identical 96/312/312 stats; socks priced like a hoodie; duplicate “Genshin Impact”; menu name “Evelyn” vs “Luna Nash” (now also fixed in the Figma file).</li>
       <li><b>Contrast</b>: primary orange darkened from #E95B3A to #C8411F and grey body text to #6F6F6F so all text meets WCAG AA (4.5:1); the brand orange stays in the logo and illustrations.</li>
-      <li><b>Copy fixes</b>: Lorem ipsum and “164+ Members” ×3 on the creator landing page; certification logos replaced with neutral trust badges.</li><li><b>After the portfolio review</b> (also changed in the Figma file): “Join pre-order” is the primary button on idea pages, because only pre-orders count toward the goal; the “2K+ creators” claim became “Join the first 50 creators” and the example campaign is labelled as sample data; step 4 renamed Audience &amp; Price; the product name is written IPLY throughout.</li>
+      <li><b>Copy fixes</b>: Lorem ipsum and “164+ Members” ×3 on the creator landing page; certification logos replaced with neutral trust badges.</li><li><b>After the portfolio review</b> (also changed in the Figma file): “Join pre-order” is the primary button on idea pages, because only pre-orders count toward the goal; the “2K+ creators” claim became “Join the first 50 creators” and the example campaign is labelled as sample data; step 4 renamed Audience &amp; Price; the product name is written IPLY throughout.</li><li><b>Heuristic review</b> (expert walkthrough, not a user test): after logging in from a prompt, the action you started carries on; cancelling a pre-order intent asks first; step 4 suggests a typical price range per category, and the pre-check warns when the price is far outside it.</li>
       <li>Types not open for the chosen IP are disabled; closed programs can’t be picked; under-18 path in onboarding.</li></ul>`, 'wide'); },
     logout: () => { S.logged = false; S.role = 'creator'; save(); go('/'); toast('Logged out'); },
     switch: () => { closePop(); modal(`<h3>Switch account</h3><p>Preview the platform from another side.</p><div class="acts" style="justify-content:flex-start"><button class="mb ${S.role === 'creator' ? 'p' : 's'}" data-act="role" data-v="creator">Creator · ${esc(S.user.name)}</button><button class="mb ${S.role === 'owner' ? 'p' : 's'}" data-act="role" data-v="owner">IP owner · Pixel Grove</button></div>`); },
     role: (el) => { S.role = el.dataset.v; save(); closeModal(); go(S.role === 'owner' ? '/authorize?tab=queue' : '/ideas'); toast(S.role === 'owner' ? 'Viewing as IP owner (Pixel Grove)' : 'Viewing as creator'); },
-    'demo-login': (el) => { S.logged = true; save(); closeModal(); toast('Logged in as Luna Nash (demo)'); el.dataset.next ? go(el.dataset.next) : render(); },
+    'demo-login': (el) => { S.logged = true; save(); closeModal(); toast('Logged in as Luna Nash (demo)'); if (el.dataset.next) { pendingAct = null; return go(el.dataset.next); } render(); const p = pendingAct; pendingAct = null; if (p && A[p.act]) setTimeout(() => A[p.act]({ dataset: p.data, getAttribute: () => null }), 60); },
     'owner-join': () => modal(`<h3>Join as an IP Owner</h3><p class="mut">Step 1 of 3 · we verify ownership within 5 business days.</p><form data-form="owner" novalidate><div class="mf"><label for="o-co">Company / studio*</label><input id="o-co" name="co" placeholder="e.g. Pixel Grove Studio" autocomplete="organization"></div><div class="mf"><label for="o-ip">IP name*</label><input id="o-ip" name="ip" placeholder="e.g. Whisperwood"></div><div class="mf"><label for="o-em">Work email*</label><input id="o-em" name="em" type="email" autocomplete="email"></div><div class="mf"><label class="ck"><input type="checkbox" name="proof"> I can provide trademark or license documents</label></div><div class="acts"><button type="button" class="mb g" data-act="close">Cancel</button><button class="mb p">Submit for verification</button></div></form>`),
     'owner-req': () => modal(`<h3>Requirements for IP owners</h3><ul><li>Proof of ownership or exclusive licensing rights (trademark registration or license agreement).</li><li>A brand guideline document, or a short do / don’t list.</li><li>Which product categories to open, and a royalty rate (typically 6–12%).</li><li>A named reviewer who can decide on proposals within 10 business days.</li></ul><div class="acts"><button class="mb p" data-act="owner-join">Join as an IP Owner</button></div>`),
     trust: (el) => modal(`<h3>${esc(el.dataset.h)}</h3><p>Every proposal passes an automatic pre-check (copyright risk, image quality, production feasibility, IP guideline match). Only proposals that reach their demand goal enter your queue, and nothing is produced without your written approval and signed license terms.</p>`),
@@ -806,10 +810,11 @@
     vote: (el) => { if (!requireLogin()) return; const id = el.dataset.id; S.votes[id] ? delete S.votes[id] : (S.votes[id] = 1); save(); render(); toast(S.votes[id] ? 'Picked! The creator sees your support.' : 'Pick removed'); },
     preorder: (el) => {
       if (!requireLogin()) return; const id = el.dataset.id, x = idea(id);
-      if (S.pre[id]) { delete S.pre[id]; save(); render(); return toast('Pre-order intent cancelled'); }
+      if (S.pre[id]) return modal(`<h3>Cancel your pre-order intent?</h3><p class="mut">${esc(x.title)}</p><p>You haven’t been charged. Cancelling removes your place from the ${x.goal}-intent goal.</p><div class="acts"><button class="mb g" data-act="close">Keep it</button><button class="mb p" data-act="pre-cancel" data-id="${id}">Cancel intent</button></div>`);
       const opt = optOf(x, ds[id]);
       modal(`<h3>Join the pre-order</h3><p class="mut">${esc(x.title)}${opt ? ' · ' + esc(opt) : ''}</p><div class="mv"><div class="top">${pres(x) + 1} / ${x.goal} after you<span>${x.daysLeft} days left</span></div><div class="bar"><i style="width:${pct(pres(x) + 1, x.goal)}%"></i></div></div><ul><li><b>No charge now.</b> You pay ${money([x.price[0]])} only if the IP owner approves and production starts.</li><li>Cancel any time before production.</li><li>We’ll email you at each step: goal reached → approved → shipping.</li></ul><div class="acts"><button class="mb g" data-act="close">Not now</button><button class="mb p" data-act="pre-confirm" data-id="${id}" data-opt="${esc(opt)}">Confirm pre-order intent</button></div>`);
     },
+    'pre-cancel': (el) => { delete S.pre[el.dataset.id]; save(); closeModal(); render(); toast('Pre-order intent cancelled'); },
     'pre-confirm': (el) => { const id = el.dataset.id, x = idea(id); S.pre[id] = { opt: el.dataset.opt }; if (pres(x) === x.goal) notify('milestone', `${x.title} reached its goal of ${x.goal}!`, '#/idea/' + id); save(); closeModal(); render(); toast('You’re in! No charge until it’s approved.'); },
     'un-pre': (el) => { delete S.pre[el.dataset.id]; save(); render(); cartDrawer(); },
     'notify-me': (el) => { if (!requireLogin()) return; const id = el.dataset.id; if (S.pre[id]) { delete S.pre[id]; save(); render(); return toast('Launch reminder removed'); } S.pre[id] = { opt: 'Launch reminder' }; save(); render(); toast('We’ll let you know when it launches.'); },
@@ -831,7 +836,7 @@
     thread: (el) => { closePop(); const who = el.dataset.id === 'review' ? ['IP review team', 'img/av-c2.webp', 'Hi Luna — demand on Hallownest Moon Hoodie looks great. Could the kingdom silhouette sit about 2 cm lower so it clears the hood seam?'] : ['Nova Land', 'img/av-nova.webp', 'Love your Wanderer pin! Want to co-create a Hollow Knight set together?']; modal(`<h3>${who[0]}</h3><div class="thread" id="thr"><div class="bub"><img src="${who[1]}" alt=""><p>${who[2]}</p></div></div><form class="reply" data-form="reply"><label class="sr" for="rp">Reply</label><input id="rp" name="t" placeholder="Write a reply…" autocomplete="off"><button class="mb p">Send</button></form>`); },
     // create proposal
     'pick-ip': (el) => { if (el.getAttribute('aria-disabled')) return toast(`${ipById(el.dataset.v).name} isn’t accepting proposals right now.`); const d = Dr(); if (d.ip !== el.dataset.v) { d.ip = el.dataset.v; if (d.type && !ipById(d.ip).cats.includes(d.type)) d.type = ''; d.goal = 0; d.pre = null; } save(); render(); },
-    'pick-type': (el) => { if (el.getAttribute('aria-disabled')) return toast(`${el.dataset.v} isn’t open for ${ipById(Dr().ip).name} yet.`); Dr().type = el.dataset.v; Dr().pre = null; save(); render(); },
+    'pick-type': (el) => { if (el.getAttribute('aria-disabled')) return toast(`${el.dataset.v} isn’t open for ${ipById(Dr().ip).name} yet.`); const d = Dr(); d.type = el.dataset.v; d.pre = null; if (!d.priceTouched) { const [lo, hi] = priceRange(d.type); d.price = Math.round((lo + hi) / 2); } save(); render(); },
     'pick-format': (el) => { Dr().format = el.dataset.v; save(); render(); },
     'pick-dir': (el) => { const d = Dr(), v = el.dataset.v, i = d.dirs.indexOf(v); if (i >= 0) d.dirs.splice(i, 1); else if (d.dirs.length >= 3) return toast('Pick up to three directions'); else d.dirs.push(v); d.pre = null; save(); render(); },
     'sample-imgs': () => { const d = Dr(); const map = { Hoodie: ['img/hoodie-cream.webp', 'img/hoodie-model-cream.webp'], 'T-Shirt': ['img/p-tee.webp', 'img/cat-apparel.webp'], 'Tote Bag': ['img/pr-paimon-tote.webp'], 'Plush Toy': ['img/p-plush.webp', 'img/cat-plush.webp'], Mug: ['img/p-mug.webp', 'img/pr-forest-mug.webp'], Bottle: ['img/p-bottle.webp'], Poster: ['img/p-art-print.webp', 'img/cat-prints.webp'], 'Blind Box': ['img/p-collector-box.webp', 'img/p-figurine.webp'], 'Phone Case': ['img/cat-acrylic.webp'], 'Fridge Magnet': ['img/cat-stickers.webp'] }; (map[d.type] || ['img/p-stickers.webp', 'img/cat-stickers.webp']).forEach((s) => { if (!d.images.includes(s) && d.images.length < 10) d.images.push(s); }); if (!d.imgType) d.imgType = 'Mockup'; d.pre = null; save(); render(); },
@@ -933,6 +938,7 @@
     if (el.tagName === 'INPUT') { if (A[act]) A[act](el, ev); return; }
     ev.preventDefault();
     if (el.getAttribute('aria-disabled') === 'true' && !['pick-ip', 'pick-type', 'step-next', 'publish', 'signup-done'].includes(act)) return;
+    lastAct = { act, data: Object.assign({}, el.dataset) };
     if (A[act]) A[act](el, ev);
   });
   document.addEventListener('submit', (ev) => { const f = ev.target.closest('[data-form]'); if (!f) return; ev.preventDefault(); if (F[f.dataset.form]) F[f.dataset.form](f); });
@@ -947,7 +953,7 @@
     const t = ev.target;
     if (t.dataset.count) { const c = $('#ccount'); if (c) c.textContent = t.value.length + '/400'; }
     if (t.dataset.bind && t.type !== 'checkbox') {
-      const d = Dr(); d[t.dataset.bind] = t.type === 'range' ? +t.value : t.value; save();
+      const d = Dr(); d[t.dataset.bind] = t.type === 'range' ? +t.value : t.value; if (t.dataset.bind === 'price') d.priceTouched = true; save();
       if (t.dataset.bind === 'title') { const b = $('[data-act="step-next"]'), ok = stepOk(4, d); if (b) { b.classList.toggle('is-off', !ok); ok ? b.removeAttribute('aria-disabled') : b.setAttribute('aria-disabled', 'true'); } const w = $('.cpf .why'); if (w) w.style.visibility = ok ? 'hidden' : 'visible'; }
       if (t.type === 'range') { const v = $('#price-v'); if (v) v.textContent = '$' + t.value; }
     }
