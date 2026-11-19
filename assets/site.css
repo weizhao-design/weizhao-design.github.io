@@ -291,29 +291,44 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .sec-head .sec-sub { grid-column: 1; grid-row: 2; padding-left: 30px; color: var(--dim); }
 
 /* ---------- section boards ----------
-   A section intro drawn as one more white board, in the same visual language as
-   the figure boards (white canvas, ~3.8% margins, blue bold title, grey meta),
-   so the case study reads as one continuous run of canvases instead of
-   board / web text / board. Sizes scale with the board width, like an image. */
+   A section intro drawn as one more board, in the same visual language as the
+   project's own figure boards (canvas colour, ~3.8% margins, bold title, grey
+   meta), so a case study reads as one continuous run of canvases instead of
+   board / web text / board. Sizes scale with the board width, like an image.
+   Each project sets its palette with data-board on .p-main. */
+.p-main { --bd-bg: #fff; --bd-ink: #1d2230; --bd-body: #4a4f5d; --bd-meta: #6b6f77;
+  --bd-accent: #1f6aa8; --bd-label: #1f6aa8; --bd-card: #eef3f9; }
+.p-main[data-board="2-puzzle"]  { --bd-ink: #111; --bd-body: #454545; --bd-meta: #6b6b6b; --bd-accent: #111; --bd-label: #2f62c9; --bd-card: #f2f2f2; }
+.p-main[data-board="bloom"]     { --bd-ink: #14231d; --bd-body: #46524d; --bd-meta: #66706b; --bd-accent: #016e53; --bd-label: #016e53; --bd-card: #e9f2ee; }
+.p-main[data-board="closetify"] { --bd-bg: #fefdcf; --bd-body: #474b55; --bd-meta: #62666d; --bd-accent: #1576a8; --bd-label: #1576a8; --bd-card: #fff; }
+.p-main[data-board="iply"]      { --bd-bg: #ffd701; --bd-ink: #111; --bd-body: #2f2b1c; --bd-meta: #4a4426; --bd-accent: #111; --bd-label: #c2410c; --bd-card: #fff; }
+.p-main[data-board="mood"]      { --bd-ink: #111; --bd-body: #474747; --bd-meta: #6b6b6b; --bd-accent: #111; --bd-label: #c53a26; --bd-card: #f4f4f4; }
+.p-main[data-board="pet"]       { --bd-bg: #e4ece7; --bd-ink: #111; --bd-body: #3f4743; --bd-meta: #59615d; --bd-accent: #111; --bd-label: #0f7a56; --bd-card: #fff; }
+.p-main[data-board="soilux"]    { --bd-bg: #efefef; --bd-ink: #111; --bd-body: #444; --bd-meta: #626262; --bd-accent: #111; --bd-label: #b8321f; --bd-card: #fff; }
+
 .sec-head.board { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px;
-  margin-top: 30px; padding: 3.6% 3.8% 3.8%; background: #fff; color: #1d2230;
+  margin-top: 30px; padding: 3.6% 3.8% 3.8%; background: var(--bd-bg); color: var(--bd-ink);
   container-type: inline-size; font-family: "PingFang SC", "Noto Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
   text-transform: none; letter-spacing: 0; }
 .sec-head.board > :first-child { grid-column: 2; grid-row: 1; align-self: start; padding: 0;
-  font-size: max(12px, 1.1cqw); font-weight: 600; color: #72767e; }
+  font-size: max(12px, 1.1cqw); font-weight: 600; color: var(--bd-meta); }
 .sec-head.board > :nth-child(2) { grid-column: 1; grid-row: 1; padding: 0;
-  font-size: max(22px, 2.6cqw); line-height: 1.25; font-weight: 800; color: #1f6aa8; }
-.sec-head.board .sec-text { grid-column: 1 / 3; grid-row: 2; margin-top: max(10px, 1.1cqw);
-  max-width: 58em; font-size: max(15px, 1.45cqw); line-height: 1.7; color: #4a4f5d; }
-.sec-head.board .sec-text b { color: #1d2230; font-weight: 700; }
+  font-size: max(22px, 2.6cqw); line-height: 1.25; font-weight: 800; color: var(--bd-accent); }
+.sec-head.board .sec-sub { grid-column: 1 / 3; grid-row: 2; padding: 0; margin-top: 4px;
+  font-size: max(14px, 1.3cqw); font-weight: 600; color: var(--bd-meta); }
+.sec-head.board .sec-text { grid-column: 1 / 3; grid-row: 3; margin-top: max(10px, 1.1cqw);
+  max-width: 58em; font-size: max(15px, 1.45cqw); line-height: 1.7; color: var(--bd-body); }
+.sec-head.board .sec-text b { color: var(--bd-ink); font-weight: 700; }
 .sec-head.board.tldr .sec-text { max-width: none; }
-.sec-head.board a.u { color: #1f6aa8; }
-/* overview board: four cards + one line of facts */
+/* English: Latin fonts first, so ’ “ ” are not set full-width by the CJK font */
+html.lang-en .sec-head.board { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Noto Sans SC", sans-serif; }
+.sec-head.board a.u { color: var(--bd-ink); }
+/* overview board: one card per point + one line of facts */
 .sec-head.board .b-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: max(10px, 1.1cqw); margin-top: max(6px, .6cqw); }
-.sec-head.board .b-card { background: #eef3f9; border-radius: 10px; padding: max(14px, 1.6cqw) max(16px, 1.8cqw); line-height: 1.6; }
-.sec-head.board .b-card > b { display: block; margin-bottom: 4px; font-size: max(13px, 1.15cqw); color: #1f6aa8; }
-.sec-head.board .b-facts { margin-top: max(12px, 1.4cqw); font-size: max(13px, 1.2cqw); color: #72767e; }
-.sec-head.board .b-facts b { color: #1d2230; }
+.sec-head.board .b-card { background: var(--bd-card); border-radius: 10px; padding: max(14px, 1.6cqw) max(16px, 1.8cqw); line-height: 1.6; }
+.sec-head.board .b-card > b { display: block; margin-bottom: 4px; font-size: max(13px, 1.15cqw); color: var(--bd-label); }
+.sec-head.board .b-facts { margin-top: max(12px, 1.4cqw); font-size: max(13px, 1.2cqw); color: var(--bd-meta); }
+.sec-head.board .b-facts b { color: var(--bd-ink); }
 
 .p-foot { padding: 10px var(--m) 40px; }
 .pager > :last-child { display: flex; gap: 40px; margin-top: 39px; }
