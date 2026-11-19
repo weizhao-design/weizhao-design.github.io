@@ -9,23 +9,23 @@
 :root, :root[data-theme="dark"] {
   --bg: #141414;
   --text: #c2c2c2;
-  --dim: #6e6e6e;
+  --dim: #8c8c8c;     /* was #6e6e6e: 3.61:1 on bg, 2.97:1 on panel; now ≥4.5:1 on both */
   --panel: #262626;
   --ph: #1c1c1c;
   --foot-bg: #c2c2c2;
   --foot-text: #141414;
-  --foot-dim: #6e6e6e;
+  --foot-dim: #505050; /* was #6e6e6e: 2.86:1 on #c2c2c2; now 4.53:1 */
   --row-hover: #333333;
 }
 :root[data-theme="light"] {
   --bg: #fafafa;
-  --text: #eb1313;
-  --dim: #ffa09e;
+  --text: #dc1111;     /* was #eb1313: 4.34:1 on bg; now 4.87:1 (4.5:1 on panel) */
+  --dim: #a95452;      /* was #ffa09e: 1.87:1 on bg; now 4.93:1 (4.56:1 on panel) */
   --panel: #ffeded;
   --ph: #f3eeee;
-  --foot-bg: #eb1313;
+  --foot-bg: #dc1111;  /* follows --text; #fafafa on it is 4.87:1 */
   --foot-text: #fafafa;
-  --foot-dim: #ffa09e;
+  --foot-dim: #ffe4e3; /* was #ffa09e: 2.32:1; now 4.23:1 (closest a tint gets on this red) */
   --row-hover: #ffe3e3;
 }
 :root {
@@ -120,6 +120,10 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .card:hover .card-media::after { opacity: 1; }
 .card-meta { display: flex; flex-direction: column; gap: 1px; padding-top: 6px; }
 .card-meta .idx { margin-bottom: 6px; }
+/* hierarchy in grid view: project name bold, tags + date in the secondary tone */
+.grid:not([data-view="list"]) .card-meta > :nth-child(2) { font-weight: 700; }
+.grid:not([data-view="list"]) .card-meta > .tags,
+.grid:not([data-view="list"]) .card-meta > :last-child { color: var(--dim); }
 .tags { display: flex; flex-wrap: wrap; column-gap: 6px; }
 
 /* list view (Framer): 35px rows, hairline above each row, hover fill, floating 229px preview on the right */
@@ -571,3 +575,8 @@ html.lang-en .p-companion .sec-head .sec-text { max-width: 62ch; line-height: 1.
 .cb-compare .who { display: block; font-style: normal; font-size: 11.5px; color: var(--dim); margin-bottom: 2px; }
 /* small note under a figure (e.g. the Whisper hero while the original-character art is in progress) */
 .fig > .fig-note { display: block; padding-top: 10px; font-size: 12.5px; line-height: 1.6; color: var(--dim); text-transform: none; letter-spacing: 0; }
+
+/* small phones: one card per row so the work is shown large */
+@media (max-width: 599.98px) {
+  .grid:not([data-view="list"]) { grid-template-columns: minmax(0, 1fr); gap: 28px var(--cg); }
+}
