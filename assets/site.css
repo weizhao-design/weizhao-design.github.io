@@ -290,6 +290,31 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
 .sec-head .sec-text { grid-column: 2 / 4; grid-row: 1; }
 .sec-head .sec-sub { grid-column: 1; grid-row: 2; padding-left: 30px; color: var(--dim); }
 
+/* ---------- section boards ----------
+   A section intro drawn as one more white board, in the same visual language as
+   the figure boards (white canvas, ~3.8% margins, blue bold title, grey meta),
+   so the case study reads as one continuous run of canvases instead of
+   board / web text / board. Sizes scale with the board width, like an image. */
+.sec-head.board { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px;
+  margin-top: 30px; padding: 3.6% 3.8% 3.8%; background: #fff; color: #1d2230;
+  container-type: inline-size; font-family: "PingFang SC", "Noto Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+  text-transform: none; letter-spacing: 0; }
+.sec-head.board > :first-child { grid-column: 2; grid-row: 1; align-self: start; padding: 0;
+  font-size: max(12px, 1.1cqw); font-weight: 600; color: #72767e; }
+.sec-head.board > :nth-child(2) { grid-column: 1; grid-row: 1; padding: 0;
+  font-size: max(22px, 2.6cqw); line-height: 1.25; font-weight: 800; color: #1f6aa8; }
+.sec-head.board .sec-text { grid-column: 1 / 3; grid-row: 2; margin-top: max(10px, 1.1cqw);
+  max-width: 58em; font-size: max(15px, 1.45cqw); line-height: 1.7; color: #4a4f5d; }
+.sec-head.board .sec-text b { color: #1d2230; font-weight: 700; }
+.sec-head.board.tldr .sec-text { max-width: none; }
+.sec-head.board a.u { color: #1f6aa8; }
+/* overview board: four cards + one line of facts */
+.sec-head.board .b-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: max(10px, 1.1cqw); margin-top: max(6px, .6cqw); }
+.sec-head.board .b-card { background: #eef3f9; border-radius: 10px; padding: max(14px, 1.6cqw) max(16px, 1.8cqw); line-height: 1.6; }
+.sec-head.board .b-card > b { display: block; margin-bottom: 4px; font-size: max(13px, 1.15cqw); color: #1f6aa8; }
+.sec-head.board .b-facts { margin-top: max(12px, 1.4cqw); font-size: max(13px, 1.2cqw); color: #72767e; }
+.sec-head.board .b-facts b { color: #1d2230; }
+
 .p-foot { padding: 10px var(--m) 40px; }
 .pager > :last-child { display: flex; gap: 40px; margin-top: 39px; }
 
@@ -347,6 +372,9 @@ html:not(.lang-en) .lang-toggle [data-v="zh"], html.lang-en .lang-toggle [data-v
   .p-side .sticky { position: static; }
   .sec-head { grid-template-columns: 1fr; row-gap: 6px; }
   .sec-head .sec-text { grid-column: 1; grid-row: 2; }
+  .sec-head.board { grid-template-columns: minmax(0, 1fr) auto; padding: 22px 20px 24px; }
+  .sec-head.board .sec-text { grid-column: 1 / 3; }
+  .sec-head.board .b-cards { grid-template-columns: 1fr; }
   .figs-tall { grid-template-columns: 1fr; }
   .figs-3 { grid-template-columns: 1fr; }
   .p-foot { padding-top: 20px; }
